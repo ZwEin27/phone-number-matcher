@@ -1,4 +1,9 @@
 
+import string
+
+from pnmatcher.vendor.crf.crf_tokenizer import CrfTokenizer
+
+
 SOURCE_TYPE_TEXT = 'text'
 SOURCE_TYPE_URL = 'url'
 
@@ -19,18 +24,31 @@ class Tokenizer():
 
         self.source_type = source_type
 
+    def remove_punctuation(self, raw):
+        return raw.translate(string.maketrans("",""), string.punctuation)
+
     def tokenize(self, raw):
         if self.source_type == SOURCE_TYPE_TEXT:
-            self.tokenize_text(raw)
+            return self.tokenize_text(raw)
         elif self.source_type == SOURCE_TYPE_URL:
-            self.tokenize_url(raw)
-
+            return self.tokenize_url(raw)
 
     def tokenize_text(self, raw):
-        pass
+        t = CrfTokenizer()
+        t.setRecognizeHtmlEntities(True)
+        t.setRecognizeHtmlTags(True)
+        t.setSkipHtmlTags(True)
+        t.setRecognizePunctuation(True)
+        tokens = t.tokenize(raw)
+        tokens = ' '.join(tokens)
+        tokens = self.remove_punctuation(tokens)
+        return tokens
 
     def tokenize_url(self, raw):
         pass
-        
+   
+
+
+
 
     
