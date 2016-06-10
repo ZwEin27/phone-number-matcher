@@ -24,6 +24,10 @@ class Extractor():
         if re.search(r'\d', token):
             return True
 
+        token = token.lower()
+        if re.search(r'(zero|one|two|three|four|five|six|seven|eight|nine)', token):
+            return True
+
         suggest_token = en.spelling.correct(token)
         if en.is_number(suggest_token):
             return True

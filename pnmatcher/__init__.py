@@ -6,6 +6,14 @@
 
 """
 
+""" TODO
+
+1. preprocessing, 24/7, date
+2. $200
+
+
+"""
+
 import sys
 import os
 

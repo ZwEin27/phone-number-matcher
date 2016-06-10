@@ -20,7 +20,7 @@ class TestExtractorMethods(unittest.TestCase):
         pass
 
     def test_extract(self):
-        self.extractor.extract("I  m 5  6  140 lbs  with a nice plump booty   Available 24  7    214 784 2976      INCALL SPECIALS   NO PIMPS   NO TEXTIN")
+        print self.extractor.extract("TwO  6  zERo  FouR  0  NiNe  4  eIgHt  1  One")
 
     
 

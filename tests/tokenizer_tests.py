@@ -24,7 +24,7 @@ class TestTokenizerMethods(unittest.TestCase):
 
     def test_tokenize_text(self):
         self.tokenizer.set_source_type('text')
-        print self.tokenizer.tokenize("I'm 5'6\" 140 lbs. with a nice plump booty =) Available 24/7 *** 214 784 2976 *** **INCALL SPECIALS ** NO PIMPS ** NO TEXTIN")
+        print self.tokenizer.tokenize("TwO/6/zERo-FouR/0/NiNe-4/eIgHt/1/One")
 
     
 
