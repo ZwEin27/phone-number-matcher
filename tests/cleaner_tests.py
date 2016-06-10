@@ -9,18 +9,18 @@ TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 # text_ = os.path.expanduser(os.path.join(TEST_DATA_DIR, 'text'))
 
 
-from pnmatcher.core.extractor import Extractor
+from pnmatcher.core.cleaner import Cleaner
 
-class TestExtractorMethods(unittest.TestCase):
+class TestCleanerMethods(unittest.TestCase):
     def setUp(self):
-        self.extractor = Extractor()
-        
+        self.cleaner = Cleaner()
 
     def tearDown(self):
         pass
 
-    def test_extract(self):
-        self.extractor.extract("I  m 5  6  140 lbs  with a nice plump booty   Available 24  7    214 784 2976      INCALL SPECIALS   NO PIMPS   NO TEXTIN")
+    def test_clean(self):
+        raw = None
+        self.cleaner.clean(raw)
 
     
 
@@ -29,7 +29,7 @@ if __name__ == '__main__':
 
     def run_main_test():
         suite = unittest.TestSuite()
-        suite.addTest(TestExtractorMethods("test_extract"))
+        suite.addTest(TestCleanerMethods("test_clean"))
         runner = unittest.TextTestRunner()
         runner.run(suite)
 

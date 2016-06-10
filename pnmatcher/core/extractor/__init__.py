@@ -23,8 +23,15 @@ class Extractor():
         
         if re.search(r'\d', token):
             return True
+
         suggest_token = en.spelling.correct(token)
         if en.is_number(suggest_token):
+            return True
+        return False
+
+    def is_units(self, token):
+        units = ['lbs', 'kg']   # need to add more here
+        if re.search('('+"|".join(units)+')', token):
             return True
         return False
 
@@ -41,11 +48,13 @@ class Extractor():
                     pn_list = [token]
             else:
                 if pn_list:
-                    phone_number_list.append(pn_list)
+                    # if token is units
+                    if not self.is_units(token):
+                        phone_number_list.append(pn_list)
                     pn_list = None
         if pn_list:
             phone_number_list.append(pn_list)
-        print phone_number_list
+        return phone_number_list
 
 
 

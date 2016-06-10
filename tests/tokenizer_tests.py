@@ -14,7 +14,6 @@ class TestTokenizerMethods(unittest.TestCase):
     def setUp(self):
         self.tokenizer = Tokenizer(source_type='text')
 
-
     def tearDown(self):
         pass
 
