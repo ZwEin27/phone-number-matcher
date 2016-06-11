@@ -1,0 +1,16 @@
+{
+  "dictionary": {
+    "id_attribute": "id",
+    "value_attribute": [
+      "number"
+    ]
+  },
+  "document": {
+    "id_attribute": "id",
+    "value_attribute": [
+      "number"
+    ]
+  },
+  "token_size": 2,
+  "threshold": 0.8
+}
