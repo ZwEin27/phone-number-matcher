@@ -1,47 +1,47 @@
 
 
+{'entities': {u'1': {'value': u'one', 'candwins': [{'start': 1, 'score': 1.0, 'end': 2}]}, u'9': {'value': u'nine', 'candwins': [{'start': 15, 'score': 1.0, 'end': 17}]}, u'2': {'value': u'two', 'candwins': [{'start': 10, 'score': 1.0, 'end': 11}]}, u'4': {'value': u'four', 'candwins': [{'start': 20, 'score': 1.0, 'end': 22}]}, u'6': {'value': u'six', 'candwins': [{'start': 6, 'score': 1.0, 'end': 7}]}}, 'document': {'id': 'hello', 'value': '2ONE6-SIX2TWO-5NINE5FOUR\n'}}
+{'entities': {u'1': {'value': u'one', 'candwins': [{'start': 33, 'score': 1.0, 'end': 34}]}, u'0': {'value': u'zero', 'candwins': [{'start': 6, 'score': 1.0, 'end': 8}]}, u'2': {'value': u'two', 'candwins': [{'start': 0, 'score': 1.0, 'end': 1}]}, u'4': {'value': u'four', 'candwins': [{'start': 11, 'score': 1.0, 'end': 13}]}, u'9': {'value': u'nine', 'candwins': [{'start': 18, 'score': 1.0, 'end': 20}]}, u'8': {'value': u'eight', 'candwins': [{'start': 25, 'score': 1.0, 'end': 28}]}}, 'document': {'id': 'hello', 'value': 'TwO/6/zERo-FouR/0/NiNe-4/eIgHt/1/One\n'}}
 
 
 
+{'entities': {u'8': {'value': u'eight', 'candwins': [{'start': 4, 'score': 1.0, 'end': 7}]}, u'3': {'value': u'three', 'candwins': [{'start': 21, 'score': 1.0, 'end': 24}]}}, 'document': {'id': 'hello', 'value': '317- eight.3.three.62.three.3\n'}}
+
+{'entities': {u'1': {'value': u'one', 'candwins': [{'start': 2, 'score': 1.0, 'end': 3}]}, u'8': {'value': u'eight', 'candwins': [{'start': 24, 'score': 1.0, 'end': 27}]}, u'3': {'value': u'three', 'candwins': [{'start': 11, 'score': 1.0, 'end': 14}]}}, 'document': {'id': 'hello', 'value': '{2one9}..{4three3}..{732eight}\n'}}
 
 
 
+{'entities': {u'0': {'value': u'zero', 'candwins': [{'start': 17, 'score': 1.0, 'end': 19}]}, u'3': {'value': u'three', 'candwins': [{'start': 7, 'score': 1.0, 'end': 10}]}, u'2': {'value': u'two', 'candwins': [{'start': 13, 'score': 1.0, 'end': 14}]}, u'7': {'value': u'seven', 'candwins': [{'start': 1, 'score': 1.0, 'end': 4}]}, u'6': {'value': u'six', 'candwins': [{'start': 22, 'score': 1.0, 'end': 23}]}}, 'document': {'id': 'hello', 'value': '5Seven4Three2Two7Zero7Six\n'}}
+{'entities': {u'3': {'value': u'three', 'candwins': [{'start': 0, 'score': 1.0, 'end': 3}]}, u'5': {'value': u'five', 'candwins': [{'start': 10, 'score': 1.0, 'end': 12}]}, u'6': {'value': u'six', 'candwins': [{'start': 18, 'score': 1.0, 'end': 19}]}}, 'document': {'id': 'hello', 'value': 'THREE.1.7.FIVE.99.SIX5.3.4\n'}}
+
+
+{'entities': {u'1': {'value': u'one', 'candwins': [{'start': 8, 'score': 1.0, 'end': 9}]}, u'8': {'value': u'eight', 'candwins': [{'start': 17, 'score': 1.0, 'end': 20}]}, u'6': {'value': u'six', 'candwins': [{'start': 1, 'score': 1.0, 'end': 2}]}}, 'document': {'id': 'hello', 'value': '2SIX0--3ONE0--000EIGHT.\n'}}
 
 
 
+{'entities': {u'8': {'value': u'eight', 'candwins': [{'start': 5, 'score': 1.0, 'end': 8}]}, u'5': {'value': u'five', 'candwins': [{'start': 13, 'score': 1.0, 'end': 15}]}, u'4': {'value': u'four', 'candwins': [{'start': 18, 'score': 1.0, 'end': 20}]}, u'6': {'value': u'six', 'candwins': [{'start': 1, 'score': 1.0, 'end': 2}]}}, 'document': {'id': 'hello', 'value': '2 six 9 eight 3 o 5 five 6 four\n'}}
+{'entities': {u'8': {'value': u'eight', 'candwins': [{'start': 11, 'score': 1.0, 'end': 14}]}, u'4': {'value': u'four', 'candwins': [{'start': 7, 'score': 1.0, 'end': 9}]}}, 'document': {'id': 'hello', 'value': '310 fourfoureight 2th0usand\n'}}
+{'entities': {}, 'document': {'id': 'hello', 'value': 'I\'m 5\'6\\" 140 lbs. with a nice plump booty =) Available 24/7 *** 214 784 2976 *** **INCALL SPECIALS ** NO PIMPS ** NO TEXTIN\n'}}
+
+{'entities': {}, 'document': {'id': 'hello', 'value': 'Drop Dead Gorgeous with outgoing personality.Sure to leave you at ease\n'}}
+{'entities': {}, 'document': {'id': 'hello', 'value': '  specializing in Swedish Deep Tissue Massages.Long legs, thick thighs\n'}}
+{'entities': {}, 'document': {'id': 'hello', 'value': '  SEXY ALL OVER and very flexible. Want to take an exotic adventure\n'}}
+{'entities': {}, 'document': {'id': 'hello', 'value': '  I can be reached at 404-492-2346.\n'}}
+{'entities': {}, 'document': {'id': 'hello', 'value': '  Incalls and outcalls to all Atlanta areas.\n'}}
+{'entities': {}, 'document': {'id': 'hello', 'value': '  Outcalls are extra for travel.\n'}}
+{'entities': {}, 'document': {'id': 'hello', 'value': '  NO DIRTY TALK!!\n'}}
+{'entities': {}, 'document': {'id': 'hello', 'value': '  100% REAL PICS\n'}}
+{'entities': {}, 'document': {'id': 'hello', 'value': '  ALL NATURAL!!!!!!!\n'}}
+
+{'entities': {}, 'document': {'id': 'hello', 'value': '2135551212 plus 3104567890\n'}}
+{'entities': {}, 'document': {'id': 'hello', 'value': '$200tel3365551212\n'}}
+
+
+{'entities': {u'3': {'value': u'three', 'candwins': [{'start': 18, 'score': 1.0, 'end': 21}]}, u'20': {'value': u'twenty', 'candwins': [{'start': 5, 'score': 1.0, 'end': 9}]}, u'6': {'value': u'six', 'candwins': [{'start': 11, 'score': 1.0, 'end': 12}]}}, 'document': {'id': 'hello', 'value': 'im at 6twentysix-4ohthree-o6oo call me\n'}}
+
+{'entities': {}, 'document': {'id': 'hello', 'value': 'call me at *8284323547295836\n'}}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+{'entities': {u'10': {'value': u'ten', 'candwins': [{'start': 143, 'score': 1.0, 'end': 144}]}}, 'document': {'id': 'hello', 'value': "Hello I'M BAMBI In im ready to give u THE satisfaction U NEED AND WANT.WHen u leave me u will have NO WORRIES What so ever.IM EvERY Mans DREAM,Very compassionate in love to listen and take my TIME so u can ENJOY My Ride,U will want TO Come back for more TRUST ME.....No Black men Accepted,NO BLOCKED CALLS ACCEPTED 4 MORE Details in PICS Call BAMBI @310-617-3206 DONT Hesitate to call i'll B Waitin 4 YOU....;-);-);-);-)\n"}}
 
