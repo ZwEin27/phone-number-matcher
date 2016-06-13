@@ -107,7 +107,7 @@ class Preprocessor():
         raw = re.sub(r"ninety", "90", raw, flags=re.I)
 
         raw = re.sub(r'[ _-]+(oh|o)[ _-]+', ' 0 ', raw, flags=re.I)
-        raw = re.sub(r'[ _-]+(i|l)[ _-]+', ' 0 ', raw, flags=re.I)
+        # raw = re.sub(r'[ _-]+(i|l)[ _-]+', ' 1 ', raw, flags=re.I)
         
         return raw
         
@@ -115,8 +115,12 @@ class Preprocessor():
 
     def preprocess(self, raw):
         raw = raw.lower()
-        # raw = self.replace_notable_numbers(raw)
+        raw = re.sub(r'(\$\d+|24/7|\d+\'\d+)', '', raw)
+        
         raw = self.prep_misspelled_numeral_words(raw)
         raw = self.prep_replace_numeral_words(raw)
+
+        # raw = self.replace_notable_numbers(raw)
+
         return raw
 

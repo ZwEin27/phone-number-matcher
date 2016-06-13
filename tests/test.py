@@ -1,17 +1,29 @@
 
+
+# import phonenumbers
+# z = phonenumbers.parse("626 987 6543", 'US')
+# print phonenumbers.is_possible_number(z)
+# print phonenumbers.is_valid_number(z)
+
+# """ test re
 import re
 
 # raw = '2th0usand'
 # print re.findall(r'([a-zA-Z]+)', raw, re.I)
 
-text = 'eight hello o 1'
+text = "5'10\" 323 555 1212,"
+text = re.sub(r'(\$\d+|24/7|\d+\'\d+)', '', text)
+
+# text = re.sub(r'\$\d+', '', text)
 # text = re.sub(r"(.*)(\w)(.*)","\g<1>\g<2>\g<3>", text).split()
-text = re.sub(r'[ _-]+(oh|o)[ _-]+', ' 0 ', text)
+# text = re.sub(r'[ _-]+(oh|o)[ _-]+', ' 0 ', text)
 # text = re.sub(r"(oh|o)", "0", text, flags=re.I)
 # text = re.sub(r"(.*)(twenty[\\W_]{0,3})(\d)(.*)","\g<1>2\g<3>\g<4>", text).split()
 # text = re.sub(r"twenty[\\W_]{0,3}\d", "2\d", text, flags=re.I)
 # text = re.sub(r"twenty", "20", text, flags=re.I)
 print text
+
+# """
 
 """
 {"number": "zero", "id": "0"}

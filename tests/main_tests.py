@@ -35,7 +35,7 @@ class TestMainMethods(unittest.TestCase):
                 content = self.tokenizer.tokenize(content)
                 content = self.extractor.extract(content)
                 content = self.cleaner.clean(content)
-                # content = self.validator.validate(content)
+                content = self.validator.validate(content)
                 if content:
                     output_fh.write(str(content))
                 output_fh.write('\n')

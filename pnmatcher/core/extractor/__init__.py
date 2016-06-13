@@ -40,6 +40,9 @@ class Extractor():
         return False
 
     def extract(self, raw):
+        def add_pn_list(phone_number_list_, pn_list_):
+            phone_number_list.append(''.join(pn_list))
+            
         phone_number_list = []
         tokens = raw.split()
 
@@ -54,10 +57,11 @@ class Extractor():
                 if pn_list:
                     # if token is units
                     if not self.is_units(token):
-                        phone_number_list.append(' '.join(pn_list))
+                        add_pn_list(phone_number_list, pn_list)
+                        
                     pn_list = None
         if pn_list:
-            phone_number_list.append(' '.join(pn_list))
+            add_pn_list(phone_number_list, pn_list)
         return '\t'.join(phone_number_list)
 
 

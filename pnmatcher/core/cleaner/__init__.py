@@ -15,16 +15,21 @@ class Cleaner():
         raw = re.sub(r"(i|l)", "1", raw, flags=re.I)
         return raw
 
+    # def clean_non_phone_number(self, raw):
+    #     for nums in raw.split('\t'):
+    #         if len(nums) <
+
     def clean(self, raw):
 
         raw = self.clean_digits(raw)
 
         # remove alphbets
-        raw = re.sub(r'[a-zA-Z]', '', raw)
+        raw = re.sub(r'[a-zA-Z]', ' ', raw)
 
         # if raw:
         #     print re.findall(r'\b[a-z]+\b', raw, re.I)
-        return raw
+        # self.clean_non_phone_number(raw)
+        return raw.strip()
 
     # def clean_numbers_list(self, nums_list):
     #     for nums in nums_list:
