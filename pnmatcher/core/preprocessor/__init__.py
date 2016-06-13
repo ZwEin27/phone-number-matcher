@@ -32,8 +32,8 @@ class Preprocessor():
         # jsonline = json.dumps(raw)
         jsonline = faerie.processDoc(jsonline, faerie_dictionary, faerie_config)
 
-        for entity in jsonline.entities:
-            pass
+        # for entity in jsonline.entities:
+        #     pass
         return jsonline
 
     def prep_misspelled_numeral_words(self, raw):

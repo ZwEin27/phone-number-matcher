@@ -1,5 +1,19 @@
+# import datetime
+# def validate(date_text):
+#     try:
+#         datetime.datetime.strptime(date_text, '%Y%m%d')
+#     except ValueError:
+#         raise ValueError("Incorrect data format, should be YYYY-MM-DD")
+# validate('20031233')
+from dateutil.parser import parse
+try:
+    if parse("20040925101010"):
+        return True
+except ValueError:
+    return False
 
 
+""" phonenumbers
 import phonenumbers
 from phonenumbers.phonenumberutil import NumberParseException
 # z = phonenumbers.parse("213234345632344567896269876543", 'US')
@@ -31,6 +45,8 @@ except NumberParseException, e:
 else:
     print phonenumbers.is_possible_number(z)
     print phonenumbers.is_valid_number(z)
+
+"""
 
 """ test re
 import re

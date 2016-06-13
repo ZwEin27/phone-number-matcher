@@ -2,8 +2,8 @@ import re
 import sys
 import os
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'vendor'))
-import en
+# sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'vendor'))
+# import en
 import re
 class Cleaner():
 
