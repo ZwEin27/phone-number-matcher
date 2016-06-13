@@ -1,11 +1,38 @@
 
 
-# import phonenumbers
-# z = phonenumbers.parse("626 987 6543", 'US')
-# print phonenumbers.is_possible_number(z)
-# print phonenumbers.is_valid_number(z)
+import phonenumbers
+from phonenumbers.phonenumberutil import NumberParseException
+# z = phonenumbers.parse("213234345632344567896269876543", 'US')
+try:
+    z = phonenumbers.parse("213234345632344567896269876543", 'US')
+except NumberParseException, e:
+    if e.error_type == NumberParseException.INVALID_COUNTRY_CODE:
+        # Invalid country code specified
+        pass
+    elif e.error_type == NumberParseException.NOT_A_NUMBER:
+        # The string passed in had fewer than 3 digits in it.
+        # The number failed to match the regular expression
+        pass
+    elif e.error_type == NumberParseException.TOO_SHORT_AFTER_IDD:
+        # The string started with an international dialing prefix
+        # but after this was removed, it had fewer digits than any
+        # valid phone number (including country code) could have.
+        pass
+    elif e.error_type == NumberParseException.TOO_SHORT_NSN:
+        # After any country code has been stripped, the string
+        # had fewer digits than any valid phone number could have.
+        pass
 
-# """ test re
+    elif e.error_type == NumberParseException.TOO_LONG:
+        # String had more digits than any valid phone number could have
+        pass
+
+    print e.error_type, e._msg
+else:
+    print phonenumbers.is_possible_number(z)
+    print phonenumbers.is_valid_number(z)
+
+""" test re
 import re
 
 # raw = '2th0usand'
@@ -23,7 +50,7 @@ text = re.sub(r'(\$\d+|24/7|\d+\'\d+)', '', text)
 # text = re.sub(r"twenty", "20", text, flags=re.I)
 print text
 
-# """
+"""
 
 """
 {"number": "zero", "id": "0"}
