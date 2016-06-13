@@ -5,20 +5,20 @@
 #     except ValueError:
 #         raise ValueError("Incorrect data format, should be YYYY-MM-DD")
 # validate('20031233')
-from dateutil.parser import parse
-try:
-    if parse("20040925101010"):
-        return True
-except ValueError:
-    return False
+# from dateutil.parser import parse
+# try:
+#     if parse("20040925101010"):
+#         return True
+# except ValueError:
+#     return False
 
 
-""" phonenumbers
+# """ phonenumbers
 import phonenumbers
 from phonenumbers.phonenumberutil import NumberParseException
 # z = phonenumbers.parse("213234345632344567896269876543", 'US')
 try:
-    z = phonenumbers.parse("213234345632344567896269876543", 'US')
+    z = phonenumbers.parse("9867372152", 'US')
 except NumberParseException, e:
     if e.error_type == NumberParseException.INVALID_COUNTRY_CODE:
         # Invalid country code specified
@@ -46,7 +46,7 @@ else:
     print phonenumbers.is_possible_number(z)
     print phonenumbers.is_valid_number(z)
 
-"""
+# """
 
 """ test re
 import re
