@@ -1,14 +1,19 @@
 
 import re
-units = ['lbs', 'kg']
 
-token ='hellokg'
-if re.search('('+"|".join(units)+')', token):
-    print 'here'
+# raw = '2th0usand'
+# print re.findall(r'([a-zA-Z]+)', raw, re.I)
 
+text = 'rache1567 868 3300'
+# text = re.sub(r"(.*)(\w)(.*)","\g<1>\g<2>\g<3>", text).split()
+text = re.sub(r'[a-zA-Z]', '', text)
+# text = re.sub(r"(oh|o)", "0", text, flags=re.I)
+# text = re.sub(r"(.*)(twenty[\\W_]{0,3})(\d)(.*)","\g<1>2\g<3>\g<4>", text).split()
+# text = re.sub(r"twenty[\\W_]{0,3}\d", "2\d", text, flags=re.I)
+# text = re.sub(r"twenty", "20", text, flags=re.I)
+print text
 
-
-
+"""
 {"number": "zero", "id": "0"}
 {"number": "one", "id": "1"}
 {"number": "two", "id": "2"}
@@ -78,3 +83,4 @@ if re.search('('+"|".join(units)+')', token):
 {"number": "ten", "id": "10"}
 {"number": "ten", "id": "10"}
 {"number": "ten", "id": "10"}
+"""

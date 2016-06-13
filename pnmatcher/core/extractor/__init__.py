@@ -45,7 +45,7 @@ class Extractor():
 
         pn_list = None
         for token in tokens:
-            if self.is_number(token):
+            if self.is_number(token):   # and or n or &
                 if pn_list:
                     pn_list.append(token)
                 else:
@@ -54,11 +54,11 @@ class Extractor():
                 if pn_list:
                     # if token is units
                     if not self.is_units(token):
-                        phone_number_list.append(pn_list)
+                        phone_number_list.append(' '.join(pn_list))
                     pn_list = None
         if pn_list:
-            phone_number_list.append(pn_list)
-        return phone_number_list
+            phone_number_list.append(' '.join(pn_list))
+        return ' '.join(phone_number_list)
 
 
 
