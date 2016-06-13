@@ -20,7 +20,7 @@ class TestMainMethods(unittest.TestCase):
     def setUp(self):
         self.url_helper = URLHelper()
         self.preprocessor = Preprocessor()
-        self.tokenizer = Tokenizer(source_type='text')
+        self.tokenizer = Tokenizer(source_type='url')
         self.extractor = Extractor()
         self.cleaner = Cleaner()
         self.validator = Validator()
@@ -34,7 +34,7 @@ class TestMainMethods(unittest.TestCase):
         with open(url_, 'rb') as f:
             for content in f:
                 # content = re.sub(r" ", "", content)
-                content = self.url_helper.clean_url(content)
+                # content = self.url_helper.clean_url(content)
                 content = self.preprocessor.preprocess(content)
                 content = self.tokenizer.tokenize(content)
                 content = self.extractor.extract(content)

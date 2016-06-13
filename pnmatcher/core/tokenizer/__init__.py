@@ -1,8 +1,9 @@
 
 import string
+import re
 
 from pnmatcher.vendor.crf.crf_tokenizer import CrfTokenizer
-
+from urlparse import urlparse
 
 SOURCE_TYPE_TEXT = 'text'
 SOURCE_TYPE_URL = 'url'
@@ -45,7 +46,23 @@ class Tokenizer():
         return tokens
 
     def tokenize_url(self, raw):
-        pass
+        SEPARATOR = ' sep '
+
+        url_obj = urlparse(raw)
+        
+        # parse netloc
+        netloc = url_obj.netloc.split('.')[:-2]   # get rid of port numbers, ext and domain name
+
+        # parse path
+        path = url_obj.path.split('/')
+        path = [SEPARATOR.join(re.findall(r'\w+', _, re.I)) for _ in path]
+
+        # parse params
+        # url_obj.params
+        
+        # parse query
+        # url_obj.query
+        return SEPARATOR.join(netloc + path)
    
 
 
