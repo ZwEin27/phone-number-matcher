@@ -53,9 +53,19 @@ import re
 
 # raw = '2th0usand'
 # print re.findall(r'([a-zA-Z]+)', raw, re.I)
+from string import maketrans
+text = "rachel5678683300"
+# text = re.sub(r'(oh|o)', '0', text)
+REG = r'(.*)(\d+[(oils|oh)]+\d+)(.*)'
+if re.match(REG, text):
+    text = re.sub(REG, '\g<1>\t\g<2>\t\g<3>', text, re.I)
+    text = text.split('\t')
 
-text = "5'10\" 323 555 1212,"
-text = re.sub(r'(\$\d+|24/7|\d+\'\d+)', '', text)
+    intab = "oils"
+    outtab = "0115"
+    trantab = maketrans(intab, outtab)
+    text[1] = text[1].translate(trantab, 'h')
+    text = ''.join(text)
 
 # text = re.sub(r'(\$\d+|24/7|\d+\'\d+)', '', text)
 # text = re.sub(r'\$\d+', '', text)

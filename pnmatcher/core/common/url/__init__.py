@@ -1,4 +1,4 @@
-
+import re
 from urlparse import urlparse
 
 class URLHelper():
@@ -8,15 +8,15 @@ class URLHelper():
 
     def clean_url(self, url_string):
         SEPARATOR = ' sep '
-        
+
         url_obj = urlparse(url_string)
+        
         # parse netloc
-        # netloc = url_obj.netloc.split(':')[0]   # get rid of port numbers
-        netloc = url_obj.netloc.split('.')[:-2]            # get rid of port numbers, ext and domain name
+        netloc = url_obj.netloc.split('.')[:-2]   # get rid of port numbers, ext and domain name
 
         # parse path
         path = url_obj.path.split('/')
-        path = [SEPARATOR.join(_.split('-')) for _ in path]
+        path = [SEPARATOR.join(re.findall(r'\w+', _, re.I)) for _ in path]
 
         # parse params
         # url_obj.params

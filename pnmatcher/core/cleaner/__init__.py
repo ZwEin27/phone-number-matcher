@@ -1,6 +1,7 @@
 import re
 import sys
 import os
+from string import maketrans
 
 # sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'vendor'))
 # import en
@@ -11,10 +12,16 @@ class Cleaner():
         pass
 
     def clean_digits(self, raw):
-        raw = re.sub(r"(oh|o)", "0", raw, flags=re.I)
-        # raw = re.sub(r"(\d+(oh|o)|(oh|o)\d+|[ _-](oh|o)[ _-])", "0", raw, flags=re.I)
-        raw = re.sub(r"(i|l)", "1", raw, flags=re.I)
-        raw = re.sub(r"(s)", "5", raw, flags=re.I)
+        REG = r'(.*)(\d+[(oils|oh)]+\d+)(.*)'
+        if re.match(REG, raw):
+            raw = re.sub(REG, '\g<1>\t\g<2>\t\g<3>', raw, re.I)
+            raw = raw.split('\t')
+
+            intab = "oils"
+            outtab = "0115"
+            trantab = maketrans(intab, outtab)
+            raw[1] = raw[1].translate(trantab, 'h')
+            raw = ''.join(raw)
         return raw
 
     # def clean_non_phone_number(self, raw):
@@ -22,9 +29,11 @@ class Cleaner():
     #         if len(nums) <
 
     def clean(self, raw):
-
-        raw = self.clean_digits(raw)
-
+        raw = raw.split('\t')
+        for i in range(len(raw)):
+            raw[i] = self.clean_digits(raw[i])
+        raw = '\t'.join(raw)
+        
         # remove alphbets
         raw = re.sub(r'[a-zA-Z]', ' ', raw)
 
@@ -45,5 +54,7 @@ class Cleaner():
 
 
 
-
+# raw = re.sub(r"(oh|o)", "0", raw, flags=re.I)
+# raw = re.sub(r"(i|l)", "1", raw, flags=re.I)
+# raw = re.sub(r"(s)", "5", raw, flags=re.I)
         
