@@ -1,6 +1,6 @@
 
 import phonenumbers
-from dateutil.parser import parse
+import dateutil
 from phonenumbers.phonenumberutil import NumberParseException
 
 class Validator():
@@ -48,9 +48,11 @@ class Validator():
                 return [raw]
 
     def is_datetime(self, raw):
-        pass
-
-
+        try:
+            if dateutil.parser.parse(raw):
+                return True
+        except ValueError:
+            return False
 
     def validate(self, raw):
         ans = []
