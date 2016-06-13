@@ -1,7 +1,7 @@
 
 import phonenumbers
-import dateutil
 from phonenumbers.phonenumberutil import NumberParseException
+from dateutil.parser import parse
 
 class Validator():
 
@@ -40,7 +40,9 @@ class Validator():
 
             elif e.error_type == NumberParseException.TOO_LONG:
                 # String had more digits than any valid phone number could have
-                return self.validate_long_pn(raw)
+                # return self.validate_long_pn(raw)
+                print raw
+                return []
 
             # print e.error_type, e._msg
         else:
@@ -48,8 +50,10 @@ class Validator():
                 return [raw]
 
     def is_datetime(self, raw):
+        if len(raw) > 12:
+            return False
         try:
-            if dateutil.parser.parse(raw):
+            if parse(raw):
                 return True
         except ValueError:
             return False
@@ -58,8 +62,8 @@ class Validator():
         ans = []
         for nums in raw.split('\t'):
             nums = nums.strip()
-            if is_datetime(nums):
-                continue
+            # if self.is_datetime(nums):
+            #     continue
             valid = self.validate_phone_number(nums)
             if valid:
                 ans.extend(valid)
