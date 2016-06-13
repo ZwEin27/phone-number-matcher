@@ -13,12 +13,12 @@
 #     return False
 
 
-# """ phonenumbers
+""" phonenumbers
 import phonenumbers
 from phonenumbers.phonenumberutil import NumberParseException
 # z = phonenumbers.parse("213234345632344567896269876543", 'US')
 try:
-    z = phonenumbers.parse("9711568833", 'US')
+    z = phonenumbers.parse("9004451864", 'US')
 except NumberParseException, e:
     if e.error_type == NumberParseException.INVALID_COUNTRY_CODE:
         # Invalid country code specified
@@ -46,9 +46,9 @@ else:
     print phonenumbers.is_possible_number(z)
     print phonenumbers.is_valid_number(z)
 
-# """
+"""
 
-""" test re
+# """ test re
 import re
 
 # raw = '2th0usand'
@@ -57,6 +57,7 @@ import re
 text = "5'10\" 323 555 1212,"
 text = re.sub(r'(\$\d+|24/7|\d+\'\d+)', '', text)
 
+# text = re.sub(r'(\$\d+|24/7|\d+\'\d+)', '', text)
 # text = re.sub(r'\$\d+', '', text)
 # text = re.sub(r"(.*)(\w)(.*)","\g<1>\g<2>\g<3>", text).split()
 # text = re.sub(r'[ _-]+(oh|o)[ _-]+', ' 0 ', text)
@@ -66,7 +67,7 @@ text = re.sub(r'(\$\d+|24/7|\d+\'\d+)', '', text)
 # text = re.sub(r"twenty", "20", text, flags=re.I)
 print text
 
-"""
+# """
 
 """
 {"number": "zero", "id": "0"}

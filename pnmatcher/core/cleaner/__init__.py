@@ -12,6 +12,7 @@ class Cleaner():
 
     def clean_digits(self, raw):
         raw = re.sub(r"(oh|o)", "0", raw, flags=re.I)
+        # raw = re.sub(r"(\d+(oh|o)|(oh|o)\d+|[ _-](oh|o)[ _-])", "0", raw, flags=re.I)
         raw = re.sub(r"(i|l)", "1", raw, flags=re.I)
         raw = re.sub(r"(s)", "5", raw, flags=re.I)
         return raw
