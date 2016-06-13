@@ -58,7 +58,7 @@ class Extractor():
                     pn_list = None
         if pn_list:
             phone_number_list.append(' '.join(pn_list))
-        return ' '.join(phone_number_list)
+        return '\t'.join(phone_number_list)
 
 
 

@@ -12,6 +12,7 @@ from pnmatcher.core.preprocessor import Preprocessor
 from pnmatcher.core.tokenizer import Tokenizer
 from pnmatcher.core.extractor import Extractor
 from pnmatcher.core.cleaner import Cleaner
+from pnmatcher.core.validator import Validator
 
 class TestMainMethods(unittest.TestCase):
     def setUp(self):
@@ -19,6 +20,7 @@ class TestMainMethods(unittest.TestCase):
         self.tokenizer = Tokenizer(source_type='text')
         self.extractor = Extractor()
         self.cleaner = Cleaner()
+        self.validator = Validator()
 
     def tearDown(self):
         pass
@@ -33,6 +35,7 @@ class TestMainMethods(unittest.TestCase):
                 content = self.tokenizer.tokenize(content)
                 content = self.extractor.extract(content)
                 content = self.cleaner.clean(content)
+                # content = self.validator.validate(content)
                 if content:
                     output_fh.write(str(content))
                 output_fh.write('\n')

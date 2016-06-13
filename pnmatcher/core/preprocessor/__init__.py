@@ -4,6 +4,9 @@ e.g.
 Available 24/7 *** 214 784 2976 *** 
 24/7 here should be removed
 
+# extra
+call me at *8284323547295836
+
 """
 import faerie
 import os
@@ -103,8 +106,9 @@ class Preprocessor():
         raw = re.sub(r"eighty", "80", raw, flags=re.I)
         raw = re.sub(r"ninety", "90", raw, flags=re.I)
 
+        raw = re.sub(r'[ _-]+(oh|o)[ _-]+', ' 0 ', raw, flags=re.I)
+        raw = re.sub(r'[ _-]+(i|l)[ _-]+', ' 0 ', raw, flags=re.I)
         
-
         return raw
         
         

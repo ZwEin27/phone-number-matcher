@@ -4,9 +4,9 @@ import re
 # raw = '2th0usand'
 # print re.findall(r'([a-zA-Z]+)', raw, re.I)
 
-text = 'rache1567 868 3300'
+text = 'eight hello o 1'
 # text = re.sub(r"(.*)(\w)(.*)","\g<1>\g<2>\g<3>", text).split()
-text = re.sub(r'[a-zA-Z]', '', text)
+text = re.sub(r'[ _-]+(oh|o)[ _-]+', ' 0 ', text)
 # text = re.sub(r"(oh|o)", "0", text, flags=re.I)
 # text = re.sub(r"(.*)(twenty[\\W_]{0,3})(\d)(.*)","\g<1>2\g<3>\g<4>", text).split()
 # text = re.sub(r"twenty[\\W_]{0,3}\d", "2\d", text, flags=re.I)
