@@ -41,6 +41,7 @@ class Preprocessor():
 
     def preprocess(self, raw):
         raw = raw.lower()
+        raw = raw.encode('ascii', 'ignore')
         # raw = re.sub(r'(\$\d+|24/7|\d+\'\d+)', '', raw, flags=re.I)
         raw = re.sub(Preprocessor.all_regex, '', raw, flags=re.I)
         return raw

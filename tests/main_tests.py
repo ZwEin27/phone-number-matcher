@@ -6,11 +6,14 @@ import unittest
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 TEST_DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 
+docs_ = os.path.expanduser(os.path.join(TEST_DATA_DIR, 'docs.jsonl'))
+docs_extraction_ = os.path.expanduser(os.path.join(TEST_DATA_DIR, 'docs_extraction.jsonl'))
 text_ = os.path.expanduser(os.path.join(TEST_DATA_DIR, 'test.txt'))
 url_ = os.path.expanduser(os.path.join(TEST_DATA_DIR, 'url.txt'))
 
 from pnmatcher import PhoneNumberMatcher
-
+import yaml
+from jsoncompare import jsoncompare
 
 class TestMainMethods(unittest.TestCase):
     def setUp(self):
@@ -19,6 +22,41 @@ class TestMainMethods(unittest.TestCase):
 
     def tearDown(self):
         pass
+
+    def test_extractor(self):
+        import re
+        import json
+        input_fh = open(docs_, 'rb')
+        output_fh = open(docs_+'.phm', 'wb')
+        cmp_ = open(docs_extraction_, 'rb')
+
+        for content in input_fh:
+            json_obj = json.loads(content)
+
+            url = json_obj['url']
+            title = json_obj['title']
+            body = json_obj['body']
+
+            url_extractions = self.matcher.match(url, source_type='url')
+            text_extractions = self.matcher.match(' '.join([title, body]), source_type='text')
+            
+            test_extraction = {}
+            test_extraction["url"] = url_extractions
+            test_extraction["text"] = text_extractions.split()
+
+            true_extraction = yaml.safe_load(cmp_.read())
+            # print test_extraction
+            # print true_extraction
+
+            output_fh.write(json.dumps(test_extraction))
+            if not jsoncompare.are_same(test_extraction, true_extraction, True)[0]:
+                output_fh.write(' != ' + json.dumps(true_extraction))
+            output_fh.write('\n')
+
+
+        input_fh.close()
+        output_fh.close()
+        cmp_.close()
 
     def test_text_extractor(self):
         import re
@@ -51,7 +89,8 @@ if __name__ == '__main__':
     def run_main_test():
         suite = unittest.TestSuite()
         # suite.addTest(TestMainMethods("test_text_extractor"))
-        suite.addTest(TestMainMethods("test_url_extractor"))
+        # suite.addTest(TestMainMethods("test_url_extractor"))
+        suite.addTest(TestMainMethods("test_extractor"))
         runner = unittest.TextTestRunner()
         runner.run(suite)
 

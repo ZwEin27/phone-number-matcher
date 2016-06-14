@@ -48,27 +48,36 @@ def run(sc, input_file, output_dir):
             text_data.append(text)
 
         text_data = ' '.join(text_data)
-        text_data = text_data.encode('ascii', 'ignore')
 
         # for test only
-        # phonenumber = None
-        # if 'phonenumber' in extractions and 'results' in extractions['phonenumber']:
-        #     phonenumber = extract_content(extractions['phonenumber']['results'])
+        phonenumber = None
+        if 'phonenumber' in extractions and 'results' in extractions['phonenumber']:
+            phonenumber = extract_content(extractions['phonenumber']['results'])
 
-        return (key, [url, text_data])
+        # in production
+        # return (key, [url, text_data])
+
+        # in test
+        return (key, [url, text_data, phonenumber])
 
     def map_extract_phone_number(data):
-        key, (url, text) = data
+        # in production
+        # key, (url, text) = data
+
+        # in test
+        key, (url, text, phonenumber) = data
+
         matcher = PhoneNumberMatcher()
         url_phone_numbers = matcher.match(url, source_type='url')
         text_phone_numbers = matcher.match(text, source_type='text')
 
-        return (key, [url_phone_numbers.split(), text_phone_numbers.split()])
+        return (key, [url_phone_numbers.split(), text_phone_numbers.split(), phonenumber])
 
     rdd = load_jsonlines(sc, input_file)
-    rdd = rdd.map(map_load_data)#.map(map_extract_phone_number)
+    rdd = rdd.map(map_load_data).map(map_extract_phone_number)
+    rdd.saveAsTextFile(output_dir)
 
-    for line in rdd.collect()[30:31]:
-        print line
+    # for line in rdd.collect()[30:31]:
+    #     print line
 
 
