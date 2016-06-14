@@ -70,8 +70,13 @@ print count
 # """ test re
 import re
 
-text = "26o*435*o72o 2 six 9 eight 3 o 5 five 6 four"
-text = re.sub(r'((?:(?<=[0-9])(oh|o)+)|(?:(oh|o)+(?=[0-9]))|(?:(?<=\s)(oh|o)+(?=\s)))', '0', text, flags=re.I)
+text = "rachel567 hello all868 iil0i llll incall "
+# r'(?:(?:(?<=![a-hj-km-rt-z])[il](?=![a-hj-km-rt-z])))'
+text = re.sub(r'(?:(?:(?<=[^a-hj-km-rt-z])[i]((?=[^a-hj-km-rt-z])|$)))', '1', text, flags=re.I)
+
+# text = re.sub(r'((?:(?<=[0-9])([il]+?))|(?:[il](?=[0-9]))|(?:(?<=[il\s])o(?=[il\s])))', '1', text, flags=re.I)
+
+# len(r'\1')*r'0'
 
 # text = re.sub(r'(?<=[0-9o _-])(oh|o)', '0', text, flags=re.I)
 # raw = '2th0usand'

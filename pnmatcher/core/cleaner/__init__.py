@@ -51,7 +51,7 @@ class Cleaner():
         raw = re.sub(r"eighteen", "18", raw, flags=re.I)
         raw = re.sub(r"nineteen", "19", raw, flags=re.I)
         
-        raw = re.sub(r"zero", "0", raw, flags=re.I)
+        raw = re.sub(r"(zero|oh)", "0", raw, flags=re.I)
         raw = re.sub(r"one", "1", raw, flags=re.I)
         raw = re.sub(r"two", "2", raw, flags=re.I)
         raw = re.sub(r"three", "3", raw, flags=re.I)
@@ -84,9 +84,8 @@ class Cleaner():
         # 26o  435  o72o
         # 2 six 9 eight 3 o 5 five 6 four
         # im at 6twentysix  4ohthree  o6oo call me
-        raw = re.sub(r'((?:(?<=[0-9])(oh|o)+)|(?:(oh|o)+(?=[0-9]))|(?:(?<=\s)(oh|o)+(?=\s)))', '0', raw, flags=re.I)
-        # raw = re.sub(r'(?:[a-z][0-9]+[a-z])', '', raw, flags=re.I)
-        # raw = re.sub(r'[ _-]+(i|l)[ _-]+', ' 1 ', raw, flags=re.I)
+        raw = re.sub(r'(?:(?:(?<=[0-9])(o+?))|(?:o(?=[0-9]))|(?:(?<=[o\s])o(?=[o\s])))', '0', raw, flags=re.I)
+        raw = re.sub(r'(?:(?:(?<=[^a-hj-km-rt-z])[i]((?=[^a-hj-km-rt-z])|$)))', '1', raw, flags=re.I)
         
         return raw
 
@@ -114,8 +113,11 @@ class Cleaner():
         # raw = '\t'.join(raw)
         
         # remove alphbets
-        # raw = re.sub(r'[a-zA-Z]', '', raw)
-        return raw.strip()
+        # raw = re.sub(r'[a-zA-Z]', '.', raw)
+        # raw = re.split(r'[, ]+', raw)
+        # raw = re.findall(r'', raw)
+        return raw
+        # return '\t'.join(raw)
 
  
 
