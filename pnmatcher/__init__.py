@@ -16,7 +16,6 @@
 import sys
 import os
 
-from pnmatcher.core.common.url import URLHelper
 from pnmatcher.core.preprocessor import Preprocessor
 from pnmatcher.core.tokenizer import Tokenizer
 from pnmatcher.core.extractor import Extractor
@@ -28,18 +27,23 @@ sys.path.append(os.path.join(os.path.abspath('.'), 'vendor'))
 
 class PhoneNumberMatcher():
     def __init__(self):
-        self.url_helper = URLHelper()
         self.preprocessor = Preprocessor()
         self.tokenizer = Tokenizer(source_type='text')
         self.extractor = Extractor()
         self.cleaner = Cleaner()
         self.validator = Validator()
 
-    def text_matcher(self, text):
-        self.tokenizer = Tokenizer(source_type='text')
+    def match(self, content, source_type='url'):
+        self.tokenizer.set_source_type(source_type)
+        content = self.preprocessor.preprocess(content)
+        content = self.tokenizer.tokenize(content)
+        content = self.extractor.extract(content)
+        content = self.cleaner.clean(content)
+        content = self.validator.validate(content)
+        return content
 
-    def url_matcher(self, url_string):
-        self.tokenizer = Tokenizer(source_type='url')
+    
+
 
 
 

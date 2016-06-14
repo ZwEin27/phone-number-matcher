@@ -12,43 +12,59 @@
 # except ValueError:
 #     return False
 
+# cclist = ['BD', 'BF', 'BA', 'BB', 'WF', 'BM', 'BO', 'BI', 'BJ', 'BT', 'JM', 'BV', 'BW', 'BR', 'BS', 'JE', 'BY', 'BZ', '', 'RU', 'RW', 'TL', 'RE', 'TJ', 'RO', 'TK', 'GW', 'GU', 'GT', 'GS', 'GR', 'GQ', 'GP', 'JP', 'GY', 'GG', 'GF', 'GE', 'GD', 'GB', 'GN', 'GL', 'GI', 'GH', 'OM', 'TN', 'JO', 'TA', 'HT', 'HK', 'HN', 'HM', 'VE', 'PR', 'PS', 'PW', 'PT', 'KN', 'PY', 'AI', 'PF', 'PG', 'PK', 'PH', 'PN', 'PL', 'PM', 'ZM', 'EH', 'EG', 'ZA', 'IT', 'VN', 'ET', 'SO', 'KY', 'ES', 'ME', 'MG', 'MA', 'MC', 'UZ', 'MM', 'ML', 'MO', 'MN', 'MH', 'MU', 'MW', 'MQ', 'MP', 'MS', 'IM', 'UG', 'MY', 'MX', 'FR', 'SH', 'FK', 'FO', 'NL', 'NA', 'NC', 'NE', 'NF', 'NZ', 'NR', 'NU', 'CK', 'CI', 'CH', 'CN', 'CM', 'CL', 'CC', 'CA', 'CG', 'CD', 'CZ', 'CX', 'CS', 'KG', 'KE', 'KI', 'KM', 'ST', 'SK', 'SN', 'SM', 'SL', 'SC', 'KZ', 'SG', 'SD', 'DO', 'DM', 'DJ', 'VG', 'YE', 'US', 'YT', 'UM', 'LC', 'LA', 'TV', 'TT', 'TR', 'LK', 'LT', 'TF', 'TD', 'TC', 'LY', 'VA', 'AC', 'VC', 'AD', 'AG', 'AF', 'VI', 'IS', 'IR', 'AO', 'AN', 'AQ', 'AS', 'AR', 'AU', 'IO', 'IN', 'TZ', 'AZ', 'UA', 'QA', 'MZ']
 
-""" phonenumbers
+
+# """ phonenumbers
 import phonenumbers
 from phonenumbers.phonenumberutil import NumberParseException
 # z = phonenumbers.parse("213234345632344567896269876543", 'US')
-try:
-    z = phonenumbers.parse("9004451864", 'US')
-except NumberParseException, e:
-    if e.error_type == NumberParseException.INVALID_COUNTRY_CODE:
-        # Invalid country code specified
-        pass
-    elif e.error_type == NumberParseException.NOT_A_NUMBER:
-        # The string passed in had fewer than 3 digits in it.
-        # The number failed to match the regular expression
-        pass
-    elif e.error_type == NumberParseException.TOO_SHORT_AFTER_IDD:
-        # The string started with an international dialing prefix
-        # but after this was removed, it had fewer digits than any
-        # valid phone number (including country code) could have.
-        pass
-    elif e.error_type == NumberParseException.TOO_SHORT_NSN:
-        # After any country code has been stripped, the string
-        # had fewer digits than any valid phone number could have.
-        pass
+pn = "22737343"
+count = 0
+for cc in cclist:
+    try:
+        z = phonenumbers.parse(pn, cc)
+        if phonenumbers.is_possible_number(z) and phonenumbers.is_valid_number(z):
+            count += 1
+            print cc
+    except Exception, e:
+        pass        
+    
+print count
 
-    elif e.error_type == NumberParseException.TOO_LONG:
-        # String had more digits than any valid phone number could have
-        pass
 
-    print e.error_type, e._msg
-else:
-    print phonenumbers.is_possible_number(z)
-    print phonenumbers.is_valid_number(z)
+# try:
+#     z = phonenumbers.parse(pn, 'BG')
+# except NumberParseException, e:
+#     if e.error_type == NumberParseException.INVALID_COUNTRY_CODE:
+#         # Invalid country code specified
+#         pass
+#     elif e.error_type == NumberParseException.NOT_A_NUMBER:
+#         # The string passed in had fewer than 3 digits in it.
+#         # The number failed to match the regular expression
+#         pass
+#     elif e.error_type == NumberParseException.TOO_SHORT_AFTER_IDD:
+#         # The string started with an international dialing prefix
+#         # but after this was removed, it had fewer digits than any
+#         # valid phone number (including country code) could have.
+#         pass
+#     elif e.error_type == NumberParseException.TOO_SHORT_NSN:
+#         # After any country code has been stripped, the string
+#         # had fewer digits than any valid phone number could have.
+#         pass
 
-"""
+#     elif e.error_type == NumberParseException.TOO_LONG:
+#         # String had more digits than any valid phone number could have
+#         pass
 
-# """ test re
+#     print e.error_type, e._msg
+# else:
+#     print phonenumbers.is_possible_number(z)
+#     print phonenumbers.is_valid_number(z)
+
+# """
+
+""" test re
 import re
 
 # raw = '2th0usand'
@@ -77,7 +93,7 @@ if re.match(REG, text):
 # text = re.sub(r"twenty", "20", text, flags=re.I)
 print text
 
-# """
+"""
 
 """
 {"number": "zero", "id": "0"}

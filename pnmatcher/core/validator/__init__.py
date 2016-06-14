@@ -2,6 +2,7 @@
 import phonenumbers
 from phonenumbers.phonenumberutil import NumberParseException
 from dateutil.parser import parse
+from pnmatcher.res import area_code
 
 class Validator():
 
@@ -17,7 +18,7 @@ class Validator():
                 ans.extend(self.validate_phone_number(raw[(i)*10:(i+1)*10], country_code='US'))
         return ans
 
-    def validate_phone_number(self, raw, country_code='US'):
+    def validate_phone_number_with_coutry_code(self, raw, country_code='US'):
         try:
             z = phonenumbers.parse(raw, country_code)
         except NumberParseException, e:
@@ -41,13 +42,22 @@ class Validator():
             elif e.error_type == NumberParseException.TOO_LONG:
                 # String had more digits than any valid phone number could have
                 # return self.validate_long_pn(raw)
-                print raw
                 return []
 
             # print e.error_type, e._msg
         else:
             if phonenumbers.is_possible_number(z) and phonenumbers.is_valid_number(z):
                 return [raw]
+            else:
+                return []
+
+    def validate_phone_number(self, raw):
+        # match all countries if use area_code.get_all_country_iso_two_letter_code()
+        country_code_list = ['US', 'CN', 'IN']
+        for country_code in country_code_list:
+            rtn = self.validate_phone_number_with_coutry_code(raw, country_code=country_code)
+            if rtn:
+                return rtn
 
     def is_datetime(self, raw):
         if len(raw) > 12:
