@@ -37,9 +37,9 @@ class PhoneNumberMatcher():
         self.tokenizer.set_source_type(source_type)
         content = self.preprocessor.preprocess(content)
         content = self.tokenizer.tokenize(content)
-        content = self.extractor.extract(content)
-        content = self.cleaner.clean(content)
-        content = self.validator.validate(content)
+        # content = self.cleaner.clean(content)
+        # content = self.extractor.extract(content)
+        # content = self.validator.validate(content)
         return content
 
     

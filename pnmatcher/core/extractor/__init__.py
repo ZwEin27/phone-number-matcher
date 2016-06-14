@@ -1,6 +1,7 @@
 import re
 import sys
 import os
+import collections
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'vendor'))
 import en
@@ -28,9 +29,9 @@ class Extractor():
         if re.search(r'(zero|one|two|three|four|five|six|seven|eight|nine)', token):
             return True
 
-        suggest_token = en.spelling.correct(token)
-        if en.is_number(suggest_token):
-            return True
+        # suggest_token = en.spelling.correct(token)
+        # if en.is_number(suggest_token):
+        #     return True
         return False
 
     def is_units(self, token):
@@ -41,6 +42,9 @@ class Extractor():
 
     def extract(self, raw):
         def add_pn_list(phone_number_list_, pn_list_):
+            pn_size_arr_string = ''.join([str(len(_)) for _ in pn_list_])
+            results = collections.Counter(pn_size_arr_string)
+            print results, pn_list_
             phone_number_list.append(''.join(pn_list))
             
         phone_number_list = []

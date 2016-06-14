@@ -28,7 +28,7 @@ class TestMainMethods(unittest.TestCase):
                 content = self.matcher.match(content, source_type='text')
                 if content:
                     output_fh.write(str(content))
-                output_fh.write('\n')
+                # output_fh.write('\n')
                 # break
         output_fh.close()
     
