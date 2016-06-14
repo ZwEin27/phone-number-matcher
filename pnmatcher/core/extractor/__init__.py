@@ -25,10 +25,6 @@ class Extractor():
         if re.search(r'\d', token):
             return True
 
-        token = token.lower()
-        if re.search(r'(zero|one|two|three|four|five|six|seven|eight|nine)', token):
-            return True
-
         # suggest_token = en.spelling.correct(token)
         # if en.is_number(suggest_token):
         #     return True
@@ -40,6 +36,16 @@ class Extractor():
             return True
         return False
 
+    # numbers_regex = r"(?:(?<=[ ])[\d]+(?=[ ]))"
+    numbers_regex = r"(?:(?:[ ]?\d{3}[ ]?\d{7}[ ]?)|[\d ]+)"
+    def extract(self, raw):
+        raw = re.findall(Extractor.numbers_regex, raw)
+        raw = [''.join(_.split()) for _ in raw if len(_.strip()) >= 10]
+        
+        return raw
+
+
+    """
     def extract(self, raw):
         def add_pn_list(phone_number_list_, pn_list_):
             pn_size_arr_string = ''.join([str(len(_)) for _ in pn_list_])
@@ -67,6 +73,7 @@ class Extractor():
         if pn_list:
             add_pn_list(phone_number_list, pn_list)
         return '\t'.join(phone_number_list)
+    """
 
 
 
