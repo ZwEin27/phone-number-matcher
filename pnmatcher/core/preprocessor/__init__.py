@@ -29,8 +29,10 @@ class Preprocessor():
     unit_regex = r"(?:\d+[\s\W]+(" + r"|".join(units) + "))"
 
     # datetime_regex = r""    # pass and left for validator
+    
+    # isolate_digits_regex = r"(?:[a-z][\s_-][0-9]{,10}[\s_-][a-z])"
 
-    others_regexes = [r"24/7", r"\d+\'\d+"]
+    others_regexes = [r"24/7", r"\d+\'\d+", r"\d+\%"]
     other_regex = r"(?:" + "|".join(others_regexes) + ")"
 
     all_regexes = [money_regex, unit_regex, other_regex]

@@ -61,7 +61,7 @@ class Cleaner():
         raw = re.sub(r"seven", "7", raw, flags=re.I)
         raw = re.sub(r"eight", "8", raw, flags=re.I)
         raw = re.sub(r"nine", "9", raw, flags=re.I)
-        raw = re.sub(r"ten", "10", raw, flags=re.I)
+        raw = re.sub(r"(?<=[ilo0-9])ten", "10", raw, flags=re.I)
 
         raw = re.sub(r"(.*)(twenty[\\W_]{0,3})(\d)(.*)","\g<1>2\g<3>\g<4>", raw, flags=re.I)
         raw = re.sub(r"(.*)(thirty[\\W_]{0,3})(\d)(.*)","\g<1>3\g<3>\g<4>", raw, flags=re.I)
@@ -81,7 +81,11 @@ class Cleaner():
         raw = re.sub(r"eighty", "80", raw, flags=re.I)
         raw = re.sub(r"ninety", "90", raw, flags=re.I)
 
-        raw = re.sub(r'[ _-]+(oh|o)[ _-]+', ' 0 ', raw, flags=re.I)
+        # 26o  435  o72o
+        # 2 six 9 eight 3 o 5 five 6 four
+        # im at 6twentysix  4ohthree  o6oo call me
+        raw = re.sub(r'((?:(?<=[0-9])(oh|o)+)|(?:(oh|o)+(?=[0-9]))|(?:(?<=\s)(oh|o)+(?=\s)))', '0', raw, flags=re.I)
+        # raw = re.sub(r'(?:[a-z][0-9]+[a-z])', '', raw, flags=re.I)
         # raw = re.sub(r'[ _-]+(i|l)[ _-]+', ' 1 ', raw, flags=re.I)
         
         return raw
@@ -104,14 +108,13 @@ class Cleaner():
         raw = self.prep_misspelled_numeral_words(raw)
         raw = self.prep_replace_numeral_words(raw)
         
-        raw = raw.split('\t')
-        for i in range(len(raw)):
-            raw[i] = self.clean_digits(raw[i])
-        raw = '\t'.join(raw)
+        # raw = raw.split('\t')
+        # for i in range(len(raw)):
+        # raw = self.clean_digits(raw)
+        # raw = '\t'.join(raw)
         
         # remove alphbets
-        raw = re.sub(r'[a-zA-Z]', ' ', raw)
-
+        # raw = re.sub(r'[a-zA-Z]', '', raw)
         return raw.strip()
 
  

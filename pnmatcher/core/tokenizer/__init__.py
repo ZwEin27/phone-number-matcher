@@ -29,10 +29,12 @@ class Tokenizer():
         return raw.translate(string.maketrans("",""), string.punctuation)
 
     def tokenize(self, raw):
+        result = None
         if self.source_type == SOURCE_TYPE_TEXT:
-            return self.tokenize_text(raw)
+            result = self.tokenize_text(raw)
         elif self.source_type == SOURCE_TYPE_URL:
-            return self.tokenize_url(raw)
+            result = self.tokenize_url(raw)
+        return ' '.join(result.split())
 
     def tokenize_text(self, raw):
         t = CrfTokenizer()

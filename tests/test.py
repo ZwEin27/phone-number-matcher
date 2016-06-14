@@ -1,18 +1,4 @@
 
-import re
-
-common_domains = [
-    "gmail",
-    "gee mail",
-    "g mail",
-    "gml",
-    "yahoo",
-    "hotmail"
-]
-common_domains_regex = "(?:" + "|".join(common_domains) + ")"
-string = 'hello@gee mail.com'
-text = re.sub(common_domains_regex, 'gmail', string)
-print text
 
 
 # import datetime
@@ -81,24 +67,28 @@ print count
 
 """
 
-""" test re
+# """ test re
 import re
 
+text = "26o*435*o72o 2 six 9 eight 3 o 5 five 6 four"
+text = re.sub(r'((?:(?<=[0-9])(oh|o)+)|(?:(oh|o)+(?=[0-9]))|(?:(?<=\s)(oh|o)+(?=\s)))', '0', text, flags=re.I)
+
+# text = re.sub(r'(?<=[0-9o _-])(oh|o)', '0', text, flags=re.I)
 # raw = '2th0usand'
 # print re.findall(r'([a-zA-Z]+)', raw, re.I)
-from string import maketrans
-text = "rachel5678683300"
+# from string import maketrans
+# text = "rachel5678683300"
 # text = re.sub(r'(oh|o)', '0', text)
-REG = r'(.*)(\d+[(oils|oh)]+\d+)(.*)'
-if re.match(REG, text):
-    text = re.sub(REG, '\g<1>\t\g<2>\t\g<3>', text, re.I)
-    text = text.split('\t')
+# REG = r'(.*)(\d+[(oils|oh)]+\d+)(.*)'
+# if re.match(REG, text):
+#     text = re.sub(REG, '\g<1>\t\g<2>\t\g<3>', text, re.I)
+#     text = text.split('\t')
 
-    intab = "oils"
-    outtab = "0115"
-    trantab = maketrans(intab, outtab)
-    text[1] = text[1].translate(trantab, 'h')
-    text = ''.join(text)
+#     intab = "oils"
+#     outtab = "0115"
+#     trantab = maketrans(intab, outtab)
+#     text[1] = text[1].translate(trantab, 'h')
+#     text = ''.join(text)
 
 # text = re.sub(r'(\$\d+|24/7|\d+\'\d+)', '', text)
 # text = re.sub(r'\$\d+', '', text)
@@ -110,7 +100,7 @@ if re.match(REG, text):
 # text = re.sub(r"twenty", "20", text, flags=re.I)
 print text
 
-"""
+# """
 
 """
 {"number": "zero", "id": "0"}
