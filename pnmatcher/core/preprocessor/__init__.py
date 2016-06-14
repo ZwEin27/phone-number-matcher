@@ -37,7 +37,7 @@ class Preprocessor():
 
     all_regexes = [money_regex, unit_regex, other_regex]
     all_regex = r"(" + r"|".join(all_regexes) + ")"
-    print "|".join(all_regexes)
+    # print "|".join(all_regexes)
 
     def preprocess(self, raw):
         raw = raw.lower()

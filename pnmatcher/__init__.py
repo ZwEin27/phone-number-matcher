@@ -24,6 +24,7 @@ from pnmatcher.core.validator import Validator
 
 sys.path.append(os.path.join(os.path.abspath('.'), 'vendor'))
 
+# __all__ = [PhoneNumberMatcher]
 
 class PhoneNumberMatcher():
     def __init__(self):
@@ -33,13 +34,13 @@ class PhoneNumberMatcher():
         self.cleaner = Cleaner()
         self.validator = Validator()
 
-    def match(self, content, source_type='url'):
+    def match(self, content, source_type='text'):
         self.tokenizer.set_source_type(source_type)
         content = self.preprocessor.preprocess(content)
         content = self.tokenizer.tokenize(content)
         content = self.cleaner.clean(content)
         content = self.extractor.extract(content)
-        # content = self.validator.validate(content)
+        content = self.validator.validate(content)
         return content
 
     

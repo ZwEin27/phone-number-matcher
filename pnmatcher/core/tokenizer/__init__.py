@@ -26,6 +26,8 @@ class Tokenizer():
         self.source_type = source_type
 
     def remove_punctuation(self, raw):
+        # remove_punctuation_map = dict((ord(char), None) for char in string.punctuation)
+        # return raw.translate(remove_punctuation_map)
         return raw.translate(string.maketrans("",""), string.punctuation)
 
     def tokenize(self, raw):

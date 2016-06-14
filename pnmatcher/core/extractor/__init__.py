@@ -42,7 +42,7 @@ class Extractor():
         raw = re.findall(Extractor.numbers_regex, raw)
         raw = [''.join(_.split()) for _ in raw if len(_.strip()) >= 10]
         
-        return raw
+        return '\t'.join(raw)
 
 
     """
