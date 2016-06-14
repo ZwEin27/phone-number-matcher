@@ -15,14 +15,15 @@
 # except ValueError:
 #     return False
 
-# cclist = ['BD', 'BF', 'BA', 'BB', 'WF', 'BM', 'BO', 'BI', 'BJ', 'BT', 'JM', 'BV', 'BW', 'BR', 'BS', 'JE', 'BY', 'BZ', '', 'RU', 'RW', 'TL', 'RE', 'TJ', 'RO', 'TK', 'GW', 'GU', 'GT', 'GS', 'GR', 'GQ', 'GP', 'JP', 'GY', 'GG', 'GF', 'GE', 'GD', 'GB', 'GN', 'GL', 'GI', 'GH', 'OM', 'TN', 'JO', 'TA', 'HT', 'HK', 'HN', 'HM', 'VE', 'PR', 'PS', 'PW', 'PT', 'KN', 'PY', 'AI', 'PF', 'PG', 'PK', 'PH', 'PN', 'PL', 'PM', 'ZM', 'EH', 'EG', 'ZA', 'IT', 'VN', 'ET', 'SO', 'KY', 'ES', 'ME', 'MG', 'MA', 'MC', 'UZ', 'MM', 'ML', 'MO', 'MN', 'MH', 'MU', 'MW', 'MQ', 'MP', 'MS', 'IM', 'UG', 'MY', 'MX', 'FR', 'SH', 'FK', 'FO', 'NL', 'NA', 'NC', 'NE', 'NF', 'NZ', 'NR', 'NU', 'CK', 'CI', 'CH', 'CN', 'CM', 'CL', 'CC', 'CA', 'CG', 'CD', 'CZ', 'CX', 'CS', 'KG', 'KE', 'KI', 'KM', 'ST', 'SK', 'SN', 'SM', 'SL', 'SC', 'KZ', 'SG', 'SD', 'DO', 'DM', 'DJ', 'VG', 'YE', 'US', 'YT', 'UM', 'LC', 'LA', 'TV', 'TT', 'TR', 'LK', 'LT', 'TF', 'TD', 'TC', 'LY', 'VA', 'AC', 'VC', 'AD', 'AG', 'AF', 'VI', 'IS', 'IR', 'AO', 'AN', 'AQ', 'AS', 'AR', 'AU', 'IO', 'IN', 'TZ', 'AZ', 'UA', 'QA', 'MZ']
+cclist = ['BD', 'BF', 'BA', 'BB', 'WF', 'BM', 'BO', 'BI', 'BJ', 'BT', 'JM', 'BV', 'BW', 'BR', 'BS', 'JE', 'BY', 'BZ', '', 'RU', 'RW', 'TL', 'RE', 'TJ', 'RO', 'TK', 'GW', 'GU', 'GT', 'GS', 'GR', 'GQ', 'GP', 'JP', 'GY', 'GG', 'GF', 'GE', 'GD', 'GB', 'GN', 'GL', 'GI', 'GH', 'OM', 'TN', 'JO', 'TA', 'HT', 'HK', 'HN', 'HM', 'VE', 'PR', 'PS', 'PW', 'PT', 'KN', 'PY', 'AI', 'PF', 'PG', 'PK', 'PH', 'PN', 'PL', 'PM', 'ZM', 'EH', 'EG', 'ZA', 'IT', 'VN', 'ET', 'SO', 'KY', 'ES', 'ME', 'MG', 'MA', 'MC', 'UZ', 'MM', 'ML', 'MO', 'MN', 'MH', 'MU', 'MW', 'MQ', 'MP', 'MS', 'IM', 'UG', 'MY', 'MX', 'FR', 'SH', 'FK', 'FO', 'NL', 'NA', 'NC', 'NE', 'NF', 'NZ', 'NR', 'NU', 'CK', 'CI', 'CH', 'CN', 'CM', 'CL', 'CC', 'CA', 'CG', 'CD', 'CZ', 'CX', 'CS', 'KG', 'KE', 'KI', 'KM', 'ST', 'SK', 'SN', 'SM', 'SL', 'SC', 'KZ', 'SG', 'SD', 'DO', 'DM', 'DJ', 'VG', 'YE', 'US', 'YT', 'UM', 'LC', 'LA', 'TV', 'TT', 'TR', 'LK', 'LT', 'TF', 'TD', 'TC', 'LY', 'VA', 'AC', 'VC', 'AD', 'AG', 'AF', 'VI', 'IS', 'IR', 'AO', 'AN', 'AQ', 'AS', 'AR', 'AU', 'IO', 'IN', 'TZ', 'AZ', 'UA', 'QA', 'MZ']
 
 
-""" phonenumbers
+# """ phonenumbers
 import phonenumbers
 from phonenumbers.phonenumberutil import NumberParseException
 # z = phonenumbers.parse("213234345632344567896269876543", 'US')
-pn = "22737343"
+
+pn = "900445186"
 count = 0
 for cc in cclist:
     try:
@@ -65,14 +66,16 @@ print count
 #     print phonenumbers.is_possible_number(z)
 #     print phonenumbers.is_valid_number(z)
 
-"""
+# """
 
-# """ test re
+""" test re
 import re
 
-text = "rachel567 hello all868 iil0i llll incall "
+text = "0011113423423"
 # r'(?:(?:(?<=![a-hj-km-rt-z])[il](?=![a-hj-km-rt-z])))'
-text = re.sub(r'(?:(?:(?<=[^a-hj-km-rt-z])[i]((?=[^a-hj-km-rt-z])|$)))', '1', text, flags=re.I)
+text = re.sub(r'^0+', '', text, flags=re.I)
+# text = re.sub(r'(?:(?:(?<=[^a-hj-km-rt-z])[i]((?=[^a-hj-km-rt-z])|$)))', '1', text, flags=re.I)
+
 
 # text = re.sub(r'((?:(?<=[0-9])([il]+?))|(?:[il](?=[0-9]))|(?:(?<=[il\s])o(?=[il\s])))', '1', text, flags=re.I)
 
@@ -105,7 +108,7 @@ text = re.sub(r'(?:(?:(?<=[^a-hj-km-rt-z])[i]((?=[^a-hj-km-rt-z])|$)))', '1', te
 # text = re.sub(r"twenty", "20", text, flags=re.I)
 print text
 
-# """
+"""
 
 """
 {"number": "zero", "id": "0"}

@@ -3,6 +3,7 @@ import phonenumbers
 from phonenumbers.phonenumberutil import NumberParseException
 from dateutil.parser import parse
 from pnmatcher.res import area_code
+import re
 
 class Validator():
 
@@ -53,7 +54,7 @@ class Validator():
 
     def validate_phone_number(self, raw):
         # match all countries if use area_code.get_all_country_iso_two_letter_code()
-        country_code_list = ['US', 'CN', 'IN']
+        country_code_list = ['US', 'CN', 'IN', 'UA']
         for country_code in country_code_list:
             rtn = self.validate_phone_number_with_coutry_code(raw, country_code=country_code)
             if rtn:
@@ -72,11 +73,14 @@ class Validator():
         ans = []
         for nums in raw.split('\t'):
             nums = nums.strip()
+            nums = re.sub(r'^0+', '', nums, flags=re.I)
+            print nums
             # if self.is_datetime(nums):
             #     continue
             valid = self.validate_phone_number(nums)
             if valid:
                 ans.extend(valid)
         return ' '.join(ans)
+
 
 

@@ -52,7 +52,7 @@ class Cleaner():
         raw = re.sub(r"nineteen", "19", raw, flags=re.I)
         
         raw = re.sub(r"(zero|oh)", "0", raw, flags=re.I)
-        raw = re.sub(r"one", "1", raw, flags=re.I)
+        raw = re.sub(r"(?<=[0-9])one", "1", raw, flags=re.I)
         raw = re.sub(r"two", "2", raw, flags=re.I)
         raw = re.sub(r"three", "3", raw, flags=re.I)
         raw = re.sub(r"four", "4", raw, flags=re.I)
@@ -106,6 +106,8 @@ class Cleaner():
     def clean(self, raw):
         raw = self.prep_misspelled_numeral_words(raw)
         raw = self.prep_replace_numeral_words(raw)
+        # raw = re.sub(r'^(?<=0)', '1', raw, flags=re.I)
+
         
         # raw = raw.split('\t')
         # for i in range(len(raw)):

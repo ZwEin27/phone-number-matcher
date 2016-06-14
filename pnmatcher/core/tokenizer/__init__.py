@@ -50,7 +50,7 @@ class Tokenizer():
         return tokens
 
     def tokenize_url(self, raw):
-        SEPARATOR = ' sep '
+        SEPARATOR = ' '
 
         url_obj = urlparse(raw)
         
@@ -58,7 +58,9 @@ class Tokenizer():
         netloc = url_obj.netloc.split('.')[:-2]   # get rid of port numbers, ext and domain name
 
         # parse path
-        path = url_obj.path.split('/')
+        path = url_obj.path
+        path = re.sub(r'(?<=[-_])\d{2}(?=[-_/])', '', path)
+        path = path.split('/')
         path = [SEPARATOR.join(re.findall(r'\w+', _, re.I)) for _ in path]
 
         # parse params
@@ -66,7 +68,7 @@ class Tokenizer():
         
         # parse query
         # url_obj.query
-        return SEPARATOR.join(netloc + path)
+        return ' sep '.join(netloc + path)
    
 
 
