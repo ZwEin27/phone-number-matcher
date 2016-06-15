@@ -42,7 +42,7 @@ class TestMainMethods(unittest.TestCase):
             text_extractions = self.matcher.match(' '.join([title, body]), source_type='text')
             
             test_extraction = {}
-            test_extraction["url"] = url_extractions
+            test_extraction["url"] = url_extractions.split()
             test_extraction["text"] = text_extractions.split()
 
             true_extraction = cmp_.readline()

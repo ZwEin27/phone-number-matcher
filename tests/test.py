@@ -71,13 +71,13 @@ print count
 # """ test re
 import re
 
-text = "live escort reviews 803 829 6965 45 monaehot slippery 8038296965 23 Pune Escorts - Pune's Best Female Escorts Service, CAll ROHAN? 09921488 433/ 0888866 5466 - Pune escorts - backpage.com"
+text = "live escort reviews 803 829 6965 45 monaehot slippery 8038296965 23 Pune Escorts - Pune's Best Female Escorts Service, CAll ROHAN? 09921488 433/ 0888866 5466 - Pune escorts - backpage.com pune sep sep femaleescorts sep pune escorts punes best female escorts service call r0an 09921488 433 0888866 5466 sep 18257508"
 # r'(?:(?:(?<=![a-hj-km-rt-z])[il](?=![a-hj-km-rt-z])))'
 
 phone_number_format_regex = [
     r"(?:[ ]?\d{3}[ ]?\d{3}[ ]?\d{4}[ ]?)",
     r"(?:[ ]?\d{3}[ ]?\d{7}[ ]?)",
-    r"(?:[ ]?\d{7, 8}[ ]?\d{3, 4}[ ]?)",
+    r"(?:[ ]?\d{7,8}[ ]?\d{3,4}[ ]?)",
     r"[\d ]+",
 ]
 
