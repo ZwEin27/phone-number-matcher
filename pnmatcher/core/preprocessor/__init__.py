@@ -33,7 +33,8 @@ class Preprocessor():
     # isolate_digits_regex = r"(?:[a-z][\s_-][0-9]{,10}[\s_-][a-z])"
 
     others_regexes = [
-        r"24/7", 
+        r"24/7",
+        r"#\d", 
         r"\d+\'\d+", 
         r"\d+\%"
     ]
