@@ -15,7 +15,8 @@ class Extractor():
         r"(?:[ ]?\d{3}[ ]?\d{3}[ ]?\d{4}[ ]?)",
         r"(?:[ ]?\d{3}[ ]?\d{7}[ ]?)",
         r"(?:[ ]?\d{7,8}[ ]?\d{3,4}[ ]?)",
-        r"[\d ]+",
+        r"(?:[\d ]{20,21})"
+        # r"[\d ]+"
     ]
 
     numbers_regex = r"(?:" + r"|".join(phone_number_format_regex) + r")"
