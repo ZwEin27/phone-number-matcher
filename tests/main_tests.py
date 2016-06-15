@@ -75,7 +75,7 @@ class TestMainMethods(unittest.TestCase):
         output_fh.close()
 
     def test_text_extractor_string(self):
-        content = "Looking for a night that you will remember? Then look no further gentleman I strive to ensure you enjoy your time spent with me. No one will leave without a smile on their face ;). Our time spent together will ALWAYS be SLOW & SENSUAL , you will NEVER feel rushed. Text me . 646/389/39Five Zero.Call 646-389-3950 . I offer video/photo also, ask me on my profile before calling..."
+        content = "MOMOCOCO SPA give you HIGHEST CARE! Tired? Stressed? Simply need to relax? Cute Asian Relaxation! BEST RELAXATION! BEST HOT ASIANS! BEST SERVICE! GUARANTEED! MASSAGES EXCELLENT RELAXING! NO RUSH! MOMOCOCO SPA ~ (click below for Maps Directions) #2 954-652-1555 #1 954-514-7158 MM32149"
         content = self.matcher.match(content, source_type='text')
         print content
                 
@@ -93,7 +93,7 @@ class TestMainMethods(unittest.TestCase):
         output_fh.close()
 
     def test_url_extractor_string(self):
-        content = "http://pune.backpage.com/FemaleEscorts/pune-escorts-punes-best-female-escorts-service-call-rohan-09921488-433-0888866-5466/18257508"
+        content = "http://346-804-3627.escortphonelist.com/incall-and-outcalls-come-check-me-out-4173798.html"
         content = self.matcher.match(content, source_type='url')
         print content
 
@@ -108,11 +108,11 @@ if __name__ == '__main__':
     def run_main_test():
         suite = unittest.TestSuite()
         # suite.addTest(TestMainMethods("test_text_extractor_file"))
-        # suite.addTest(TestMainMethods("test_text_extractor_string"))
+        suite.addTest(TestMainMethods("test_text_extractor_string"))
         # suite.addTest(TestMainMethods("test_url_extractor_file"))
         # suite.addTest(TestMainMethods("test_url_extractor_string"))
         
-        suite.addTest(TestMainMethods("test_extractor"))
+        # suite.addTest(TestMainMethods("test_extractor"))
         runner = unittest.TextTestRunner()
         runner.run(suite)
 

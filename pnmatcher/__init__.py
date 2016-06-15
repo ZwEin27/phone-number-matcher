@@ -40,7 +40,7 @@ class PhoneNumberMatcher():
         content = self.tokenizer.tokenize(content)
         content = self.cleaner.clean(content)
         content = self.extractor.extract(content)
-        content = self.validator.validate(content)
+        # content = self.validator.validate(content)
         return content
 
     

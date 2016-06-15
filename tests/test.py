@@ -71,16 +71,19 @@ print count
 # """ test re
 import re
 
-text = "looking for a night that you will remember then look no further gentleman 1 strive to ensure you enjoy your time spent with me n01 will leave without a smile on their face our time spent together will always be slow sensual you will never feel rushed text me 646 389 395 0 call 646 389 3950 1 offer video photo also ask me on my profile before calling."
+text = "delhi sep sep femaleescorts sep delhi phone 919654432493 contactmr sanny sep 10721141"
 # r'(?:(?:(?<=![a-hj-km-rt-z])[il](?=![a-hj-km-rt-z])))'
 
 phone_number_format_regex = [
-    r"(?:[ ]?\d{3}[ ]?\d{3}[ ]?\d{4}[ ]?)",
-    r"(?:(?:[ ]?\d{2}[ ]?\d{4}[ ]?\d{4}[ ]?)|(?:[ ]?\d{4}[ ]?\d{4}[ ]?\d{2}[ ]?))",
-    r"(?:[ ]?\d{3}[ ]?\d{7}[ ]?)",
-    r"(?:[ ]?\d{7,8}[ ]?\d{3,4}[ ]?)",
+    r"(?:[ ]?\d{8}[ ]\d{3}[ ]?)",
+    r"(?:[ ]?\d{7}[ ]\d{4}[ ]?)",
+    r"(?:[ ]?\d{4}[ ]\d{4}[ ]\d{2}[ ]?)",
+    r"(?:[ ]?\d{3}[ ]\d{7}[ ]?)",
+    r"(?:[ ]?\d{3}[ ]\d{3}[ ]\d{4}[ ]?)",
+    r"(?:[ ]?\d{3}[ ]\d{3}[ ]\d{1}[ ]\d{3}[ ]?)",
+    r"(?:[ ]?\d{2}[ ]\d{4}[ ]\d{4}[ ]?)",
     r"(?:[\d ]{20,21})",
-    r"[\d ]+",
+    r"[\d ]+"
 ]
 
 
@@ -192,13 +195,32 @@ print text
 {"number": "ten", "id": "10"}
 {"number": "ten", "id": "10"}
 
+    r"(?:[ ]?\d{3}[ ]?\d{3}[ ]?\d{4}[ ]?)",
+    r"(?:(?:[ ]?\d{2}[ ]?\d{4}[ ]?\d{4}[ ]?)|(?:[ ]?\d{4}[ ]?\d{4}[ ]?\d{2}[ ]?))",
+    r"(?:[ ]?\d{3}[ ]?\d{7}[ ]?)",
+    r"(?:[ ]?\d{7,8}[ ]?\d{3,4}[ ]?)",
+    r"(?:[\d ]{20,21})",
+    r"[\d ]+",
+
 r"(?:[ ]?\d{8}[ ]?\d{3}[ ]?)",
 r"(?:[ ]?\d{7}[ ]?\d{4}[ ]?)",
 r"(?:[ ]?\d{3}[ ]?\d{3}[ ]?\d{4}[ ]?)",
 r"(?:[ ]?\d{2}[ ]?\d{4}[ ]?\d{4}[ ]?)",
 r"(?:[ ]?\d{4}[ ]?\d{4}[ ]?\d{2}[ ]?)",
 r"(?:[ ]?\d{3}[ ]?\d{7}[ ]?)",
-# r"(?:[ ]?\d{7,8}[ ]?\d{3,4}[ ]?)",
+r"(?:[ ]?\d{7,8}[ ]?\d{3,4}[ ]?)",
 r"(?:[\d ]{20,21})",
+r"[\d ]+"
+
+
+
+r"(?:[ ]?\d{8}[ ]\d{3}[ ]?)",
+r"(?:[ ]?\d{7}[ ]\d{4}[ ]?)",
+r"(?:[ ]?\d{4}[ ]\d{4}[ ]\d{2}[ ]?)",
+r"(?:[ ]?\d{3}[ ]\d{7}[ ]?)",
+r"(?:[ ]?\d{3}[ ]\d{3}[ ]\d{4}[ ]?)",
+r"(?:[ ]?\d{3}[ ]\d{3}[ ]\d{1}[ ]\d{3}[ ]?)",
+r"(?:[ ]?\d{2}[ ]\d{4}[ ]\d{4}[ ]?)",
+r"(?:[\d ]{20,22})",
 r"[\d ]+"
 """
