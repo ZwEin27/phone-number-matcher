@@ -34,7 +34,7 @@ class Preprocessor():
 
     others_regexes = [
         r"24/7", 
-        # r"\d+\'\d+", 
+        r"\d+\'\d+", 
         r"\d+\%"
     ]
     other_regex = r"(?:" + "|".join(others_regexes) + ")"

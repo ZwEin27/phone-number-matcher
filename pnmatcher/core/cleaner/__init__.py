@@ -52,7 +52,7 @@ class Cleaner():
         raw = re.sub(r"nineteen", "19", raw, flags=re.I)
         
         raw = re.sub(r"(zero|oh)", "0", raw, flags=re.I)
-        raw = re.sub(r"(?<=[0-9])one", "1", raw, flags=re.I)
+        raw = re.sub(r"((?<=[0-9])| )one", "1", raw, flags=re.I)
         raw = re.sub(r"two", "2", raw, flags=re.I)
         raw = re.sub(r"three", "3", raw, flags=re.I)
         raw = re.sub(r"four", "4", raw, flags=re.I)

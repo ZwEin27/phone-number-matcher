@@ -75,7 +75,7 @@ class TestMainMethods(unittest.TestCase):
         output_fh.close()
 
     def test_text_extractor_string(self):
-        content = "Live Escort Reviews - 407-818-9534 - BOMBSHELL available for Outcalls - 2'39440,1038 - 27"
+        content = "Looking for a night that you will remember? Then look no further gentleman I strive to ensure you enjoy your time spent with me. No one will leave without a smile on their face ;). Our time spent together will ALWAYS be SLOW & SENSUAL , you will NEVER feel rushed. Text me . 646/389/39Five Zero.Call 646-389-3950 . I offer video/photo also, ask me on my profile before calling..."
         content = self.matcher.match(content, source_type='text')
         print content
                 
@@ -93,12 +93,12 @@ class TestMainMethods(unittest.TestCase):
         output_fh.close()
 
     def test_url_extractor_string(self):
-        content = ""
+        content = "http://pune.backpage.com/FemaleEscorts/pune-escorts-punes-best-female-escorts-service-call-rohan-09921488-433-0888866-5466/18257508"
         content = self.matcher.match(content, source_type='url')
         print content
 
 
-
+        # 09921488 433 0888866 5466
 
     
 

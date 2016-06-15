@@ -71,15 +71,16 @@ print count
 # """ test re
 import re
 
-text = "live escort reviews 803 829 6965 45 monaehot slippery 8038296965 23 Pune Escorts - Pune's Best Female Escorts Service, CAll ROHAN? 09921488 433/ 0888866 5466 - Pune escorts - backpage.com pune sep sep femaleescorts sep pune escorts punes best female escorts service call r0an 09921488 433 0888866 5466 sep 18257508 live escort reviews 305 747 8745 new ebony now 9 5 4 5 4 9 3 3 5 7 22"
+text = "looking for a night that you will remember then look no further gentleman 1 strive to ensure you enjoy your time spent with me n01 will leave without a smile on their face our time spent together will always be slow sensual you will never feel rushed text me 646 389 395 0 call 646 389 3950 1 offer video photo also ask me on my profile before calling."
 # r'(?:(?:(?<=![a-hj-km-rt-z])[il](?=![a-hj-km-rt-z])))'
 
 phone_number_format_regex = [
     r"(?:[ ]?\d{3}[ ]?\d{3}[ ]?\d{4}[ ]?)",
+    r"(?:(?:[ ]?\d{2}[ ]?\d{4}[ ]?\d{4}[ ]?)|(?:[ ]?\d{4}[ ]?\d{4}[ ]?\d{2}[ ]?))",
     r"(?:[ ]?\d{3}[ ]?\d{7}[ ]?)",
     r"(?:[ ]?\d{7,8}[ ]?\d{3,4}[ ]?)",
     r"(?:[\d ]{20,21})",
-    # r"[\d ]+",
+    r"[\d ]+",
 ]
 
 
@@ -190,4 +191,14 @@ print text
 {"number": "ten", "id": "10"}
 {"number": "ten", "id": "10"}
 {"number": "ten", "id": "10"}
+
+r"(?:[ ]?\d{8}[ ]?\d{3}[ ]?)",
+r"(?:[ ]?\d{7}[ ]?\d{4}[ ]?)",
+r"(?:[ ]?\d{3}[ ]?\d{3}[ ]?\d{4}[ ]?)",
+r"(?:[ ]?\d{2}[ ]?\d{4}[ ]?\d{4}[ ]?)",
+r"(?:[ ]?\d{4}[ ]?\d{4}[ ]?\d{2}[ ]?)",
+r"(?:[ ]?\d{3}[ ]?\d{7}[ ]?)",
+# r"(?:[ ]?\d{7,8}[ ]?\d{3,4}[ ]?)",
+r"(?:[\d ]{20,21})",
+r"[\d ]+"
 """
