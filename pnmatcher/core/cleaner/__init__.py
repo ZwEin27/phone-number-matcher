@@ -1,3 +1,14 @@
+# -*- coding: utf-8 -*-
+# @Author: ZwEin
+# @Date:   2016-06-13 23:15:52
+# @Last Modified by:   ZwEin
+# @Last Modified time: 2016-06-15 14:29:52
+
+"""
+clean misspelling number words and replace numeral words
+
+"""
+
 import re
 import sys
 import os
@@ -5,6 +16,7 @@ from string import maketrans
 
 # sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'vendor'))
 # import en
+
 import re
 class Cleaner():
 
@@ -81,45 +93,15 @@ class Cleaner():
         raw = re.sub(r"eighty", "80", raw, flags=re.I)
         raw = re.sub(r"ninety", "90", raw, flags=re.I)
 
-        # 26o  435  o72o
-        # 2 six 9 eight 3 o 5 five 6 four
-        # im at 6twentysix  4ohthree  o6oo call me
         raw = re.sub(r'(?:(?:(?<=[0-9])(o+?))|(?:o(?=[0-9]))|(?:(?<=[o\s])o(?=[o\s])))', '0', raw, flags=re.I)
         raw = re.sub(r'(?:(?:(?<=[^a-hj-km-rt-z])[i]((?=[^a-hj-km-rt-z])|$)))', '1', raw, flags=re.I)
         
         return raw
 
-    def clean_digits(self, raw):
-        REG = r'(.*)(\d+[(oils|oh)]+\d+)(.*)'
-        if re.match(REG, raw):
-            raw = re.sub(REG, '\g<1>\t\g<2>\t\g<3>', raw, re.I)
-            raw = raw.split('\t')
-
-            intab = "oils"
-            outtab = "0115"
-            trantab = maketrans(intab, outtab)
-            raw[1] = raw[1].translate(trantab, 'h')
-            raw = ''.join(raw)
-        return raw
-
-
     def clean(self, raw):
         raw = self.prep_misspelled_numeral_words(raw)
         raw = self.prep_replace_numeral_words(raw)
-        # raw = re.sub(r'^(?<=0)', '1', raw, flags=re.I)
-
-        
-        # raw = raw.split('\t')
-        # for i in range(len(raw)):
-        # raw = self.clean_digits(raw)
-        # raw = '\t'.join(raw)
-        
-        # remove alphbets
-        # raw = re.sub(r'[a-zA-Z]', '.', raw)
-        # raw = re.split(r'[, ]+', raw)
-        # raw = re.findall(r'', raw)
         return raw
-        # return '\t'.join(raw)
 
  
 

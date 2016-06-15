@@ -1,3 +1,14 @@
+# -*- coding: utf-8 -*-
+# @Author: ZwEin
+# @Date:   2016-06-09 13:43:42
+# @Last Modified by:   ZwEin
+# @Last Modified time: 2016-06-15 14:27:25
+
+"""
+tokenize original content formated in 'text' or 'url' separately, and removing punctuations
+
+"""
+
 
 import string
 import re

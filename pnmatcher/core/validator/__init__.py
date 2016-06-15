@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+# @Author: ZwEin
+# @Date:   2016-06-14 16:17:20
+# @Last Modified by:   ZwEin
+# @Last Modified time: 2016-06-15 14:32:03
+
+"""
+ensure phone numbers are valid
+
+"""
 
 import phonenumbers
 from phonenumbers.phonenumberutil import NumberParseException
@@ -10,7 +20,6 @@ class Validator():
     def __init__(self):
         pass
     
-
     def validate_long_pn(self, raw):
         size = len(raw)
         ans = []
@@ -53,7 +62,7 @@ class Validator():
                 return []
 
     def validate_phone_number(self, raw):
-        # match all countries if use area_code.get_all_country_iso_two_letter_code()
+        # match all countries if using area_code.get_all_country_iso_two_letter_code()
         country_code_list = ['US', 'CN', 'IN', 'UA', 'JP']
         for country_code in country_code_list:
             rtn = self.validate_phone_number_with_coutry_code(raw, country_code=country_code)
@@ -75,11 +84,14 @@ class Validator():
             nums = nums.strip()
             nums = re.sub(r'^0+', '', nums, flags=re.I)
 
+            # not necessary
             # if self.is_datetime(nums):
             #     continue
+            
             valid = self.validate_phone_number(nums)
             if valid:
                 ans.extend(valid)
+
         return ' '.join(ans)
 
 

@@ -1,6 +1,5 @@
 import en
 
-
 for i in range(100000):
     en.spelling.correct('th0usand')
 

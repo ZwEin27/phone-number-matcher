@@ -75,7 +75,7 @@ class TestMainMethods(unittest.TestCase):
         output_fh.close()
 
     def test_text_extractor_string(self):
-        content = "MOMOCOCO SPA give you HIGHEST CARE! Tired? Stressed? Simply need to relax? Cute Asian Relaxation! BEST RELAXATION! BEST HOT ASIANS! BEST SERVICE! GUARANTEED! MASSAGES EXCELLENT RELAXING! NO RUSH! MOMOCOCO SPA ~ (click below for Maps Directions) #2 954-652-1555 #1 954-514-7158 MM32149"
+        content = "New n ready baby naughty girl for you tonight602 twotwoeight 4oneninetwo 90hour incall or outcall"
         content = self.matcher.match(content, source_type='text')
         print content
                 
