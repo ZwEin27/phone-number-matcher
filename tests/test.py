@@ -1,6 +1,7 @@
 
 
 
+
 # import datetime
 # def validate(date_text):
 #     try:
@@ -68,7 +69,7 @@ print count
 
 """
 
-# """ test re
+""" test re
 import re
 
 text = "delhi sep sep femaleescorts sep delhi phone 919654432493 contactmr sanny sep 10721141"
@@ -122,7 +123,7 @@ text = re.findall(r"(?:" + r"|".join(phone_number_format_regex) + r")", text, fl
 # text = re.sub(r"twenty", "20", text, flags=re.I)
 print text
 
-# """
+"""
 
 """
 {"number": "zero", "id": "0"}

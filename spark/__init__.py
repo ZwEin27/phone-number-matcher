@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-15 14:34:50
+# @Last Modified time: 2016-06-15 14:39:10
 
 """
 main spark workflow
@@ -87,6 +87,10 @@ def run(sc, input_file, output_dir):
 
     rdd = load_jsonlines(sc, input_file)
     rdd = rdd.map(map_load_data).map(map_extract_phone_number)
+    
+    import shutil
+    if os.path.isdir(output_dir):
+        shutil.rmtree(output_dir)
     rdd.saveAsTextFile(output_dir)
 
     # for line in rdd.collect()[30:31]:

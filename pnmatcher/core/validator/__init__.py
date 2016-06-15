@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-15 14:32:03
+# @Last Modified time: 2016-06-15 14:42:39
 
 """
 ensure phone numbers are valid
@@ -11,7 +11,7 @@ ensure phone numbers are valid
 
 import phonenumbers
 from phonenumbers.phonenumberutil import NumberParseException
-from dateutil.parser import parse
+# from dateutil.parser import parse
 from pnmatcher.res import area_code
 import re
 
