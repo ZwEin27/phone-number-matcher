@@ -24,6 +24,7 @@ class TestMainMethods(unittest.TestCase):
         pass
 
     def test_extractor(self):
+        # {"url": "", "title": "", "body": ""}
         import re
         import json
         input_fh = open(docs_, 'rb')
@@ -44,7 +45,9 @@ class TestMainMethods(unittest.TestCase):
             test_extraction["url"] = url_extractions
             test_extraction["text"] = text_extractions.split()
 
-            true_extraction = yaml.safe_load(cmp_.read())
+            true_extraction = cmp_.readline()
+
+            true_extraction = yaml.safe_load(true_extraction)
             # print test_extraction
             # print true_extraction
 

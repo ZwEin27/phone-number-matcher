@@ -61,14 +61,17 @@ class Tokenizer():
         path = url_obj.path
         path = re.sub(r'(?<=[-_])\d{2}(?=[-_/])', '', path)
         path = path.split('/')
-        path = [SEPARATOR.join(re.findall(r'\w+', _, re.I)) for _ in path]
+
+        content = netloc + path
+
+        content = [SEPARATOR.join(re.findall(r'\w+', _, re.I)) for _ in content]
 
         # parse params
         # url_obj.params
         
         # parse query
         # url_obj.query
-        return ' sep '.join(netloc + path)
+        return ' sep '.join(content)
    
 
 
