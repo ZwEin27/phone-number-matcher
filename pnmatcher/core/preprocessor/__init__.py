@@ -32,7 +32,11 @@ class Preprocessor():
     
     # isolate_digits_regex = r"(?:[a-z][\s_-][0-9]{,10}[\s_-][a-z])"
 
-    others_regexes = [r"24/7", r"\d+\'\d+", r"\d+\%"]
+    others_regexes = [
+        r"24/7", 
+        # r"\d+\'\d+", 
+        r"\d+\%"
+    ]
     other_regex = r"(?:" + "|".join(others_regexes) + ")"
 
     all_regexes = [money_regex, unit_regex, other_regex]
