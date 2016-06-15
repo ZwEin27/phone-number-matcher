@@ -107,12 +107,15 @@ class TestMainMethods(unittest.TestCase):
             if is_correct:
                 correct += 1
             else:
+                json_obj['url_ext_ep'] = url_ext_expect
+                json_obj['text_ext_ep'] = text_ext_expect
+
                 print json.dumps(json_obj, sort_keys=True, indent=4, separators=(',', ': '))
 
             total += 1
         
         print 60*'-'
-        print 'running', total, 'tests in total', missing, 'missing,', error, 'error'
+        print 'pass', correct, 'out of', total, 'tests', missing, 'missing,', error, 'error'
 
         input_fh.close()
         # output_fh.close()
