@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-15 14:42:39
+# @Last Modified time: 2016-06-15 20:32:14
 
 """
 ensure phone numbers are valid
@@ -12,6 +12,7 @@ ensure phone numbers are valid
 import phonenumbers
 from phonenumbers.phonenumberutil import NumberParseException
 # from dateutil.parser import parse
+from datetime import datetime
 from pnmatcher.res import area_code
 import re
 
@@ -63,20 +64,40 @@ class Validator():
 
     def validate_phone_number(self, raw):
         # match all countries if using area_code.get_all_country_iso_two_letter_code()
-        country_code_list = ['US', 'CN', 'IN', 'UA', 'JP']
+        # may include too short phone numbers if use 'DE'
+        country_code_list = ['US', 'CN', 'IN', 'UA', 'JP', 'DE']
         for country_code in country_code_list:
             rtn = self.validate_phone_number_with_coutry_code(raw, country_code=country_code)
             if rtn:
                 return rtn
 
     def is_datetime(self, raw):
-        if len(raw) > 12:
-            return False
-        try:
-            if parse(raw):
+
+        def is_valid_datetime(raw, date_format):
+            try:
+                datetime.strptime(raw, date_format)
                 return True
-        except ValueError:
+            except ValueError:
+                return False
+
+        size = len(raw)
+
+        # %Y%m%d%H%M%S
+        # 4|2:2:2:2:2:2 = 14
+        date_format = ''
+        if size == 14:
+            return is_valid_datetime(raw, '%Y%m%d%H%M%S')
+        elif size == 8:
+            return is_valid_datetime(raw, '%Y%m%d')
+        elif size == 6:
+            return is_valid_datetime(raw, '%Y%m%d') or is_valid_datetime(raw, '%H%M%S')
+        else:
             return False
+        # try:
+        #     if parse(raw):
+        #         return True
+        # except ValueError:
+        #     return False
 
     def validate(self, raw):
         ans = []
@@ -84,9 +105,8 @@ class Validator():
             nums = nums.strip()
             nums = re.sub(r'^0+', '', nums, flags=re.I)
 
-            # not necessary
-            # if self.is_datetime(nums):
-            #     continue
+            if self.is_datetime(nums):
+                continue
             
             valid = self.validate_phone_number(nums)
             if valid:

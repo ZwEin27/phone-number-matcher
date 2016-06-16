@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-09 13:43:42
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-15 14:27:25
+# @Last Modified time: 2016-06-15 20:35:59
 
 """
 tokenize original content formated in 'text' or 'url' separately, and removing punctuations
@@ -70,7 +70,7 @@ class Tokenizer():
 
         # parse path
         path = url_obj.path
-        path = re.sub(r'(?<=[-_])\d{2}(?=[-_/])', '', path)
+        path = re.sub(r'(?<=[-_])\d{2}(?=[_/])', '', path)
         path = path.split('/')
 
         content = netloc + path

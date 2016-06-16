@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-15 14:25:27
+# @Last Modified time: 2016-06-15 20:30:54
 
 """
 preprocess digits that must not belong to phone number
@@ -36,6 +36,13 @@ class Preprocessor():
 
     # datetime_regex = r""    # pass and left for validator
     
+    datetime_regexes = [
+        r"(?:\d{2}[_-]\d{2}[_-]\d{4})",
+        r"(?:\d{4}[_-]\d{2}[_-]\d{2})"
+    ]
+    datetime_regex = r"(?:" + r"|".join(datetime_regexes) + ")"
+
+
     # isolate_digits_regex = r"(?:[a-z][\s_-][0-9]{,10}[\s_-][a-z])"
 
     others_regexes = [
@@ -46,7 +53,7 @@ class Preprocessor():
     ]
     other_regex = r"(?:" + "|".join(others_regexes) + ")"
 
-    all_regexes = [money_regex, unit_regex, other_regex]
+    all_regexes = [money_regex, unit_regex, datetime_regex, other_regex]
     all_regex = r"(" + r"|".join(all_regexes) + ")"
     # print "|".join(all_regexes)
 

@@ -18,13 +18,21 @@
 
 # cclist = ['BD', 'BF', 'BA', 'BB', 'WF', 'BM', 'BO', 'BI', 'BJ', 'BT', 'JM', 'BV', 'BW', 'BR', 'BS', 'JE', 'BY', 'BZ', '', 'RU', 'RW', 'TL', 'RE', 'TJ', 'RO', 'TK', 'GW', 'GU', 'GT', 'GS', 'GR', 'GQ', 'GP', 'JP', 'GY', 'GG', 'GF', 'GE', 'GD', 'GB', 'GN', 'GL', 'GI', 'GH', 'OM', 'TN', 'JO', 'TA', 'HT', 'HK', 'HN', 'HM', 'VE', 'PR', 'PS', 'PW', 'PT', 'KN', 'PY', 'AI', 'PF', 'PG', 'PK', 'PH', 'PN', 'PL', 'PM', 'ZM', 'EH', 'EG', 'ZA', 'IT', 'VN', 'ET', 'SO', 'KY', 'ES', 'ME', 'MG', 'MA', 'MC', 'UZ', 'MM', 'ML', 'MO', 'MN', 'MH', 'MU', 'MW', 'MQ', 'MP', 'MS', 'IM', 'UG', 'MY', 'MX', 'FR', 'SH', 'FK', 'FO', 'NL', 'NA', 'NC', 'NE', 'NF', 'NZ', 'NR', 'NU', 'CK', 'CI', 'CH', 'CN', 'CM', 'CL', 'CC', 'CA', 'CG', 'CD', 'CZ', 'CX', 'CS', 'KG', 'KE', 'KI', 'KM', 'ST', 'SK', 'SN', 'SM', 'SL', 'SC', 'KZ', 'SG', 'SD', 'DO', 'DM', 'DJ', 'VG', 'YE', 'US', 'YT', 'UM', 'LC', 'LA', 'TV', 'TT', 'TR', 'LK', 'LT', 'TF', 'TD', 'TC', 'LY', 'VA', 'AC', 'VC', 'AD', 'AG', 'AF', 'VI', 'IS', 'IR', 'AO', 'AN', 'AQ', 'AS', 'AR', 'AU', 'IO', 'IN', 'TZ', 'AZ', 'UA', 'QA', 'MZ']
 
+"""
+RU
+KZ
+DE
+LU
+"""
 
-""" phonenumbers
+cclist = ['BD', 'BE', 'BF', 'BG', 'BA', 'BB', 'WF', 'BM', 'BN', 'BO', 'BH', 'BI', 'BJ', 'BT', 'JM', 'BV', 'BW', 'WS', 'BR', 'BS', 'JE', 'BY', 'BZ', '', 'RU', 'RW', 'RS', 'TL', 'RE', 'TM', 'TJ', 'RO', 'TK', 'GW', 'GU', 'GT', 'GS', 'GR', 'GQ', 'GP', 'JP', 'GY', 'GG', 'GF', 'GE', 'GD', 'GB', 'GA', 'GN', 'GM', 'GL', 'GI', 'GH', 'OM', 'TN', 'JO', 'TA', 'HR', 'HT', 'HU', 'HK', 'HN', 'HM', 'VE', 'PR', 'PS', 'PW', 'PT', 'KN', 'PY', 'AI', 'PA', 'PF', 'PG', 'PE', 'PK', 'PH', 'PN', 'PL', 'PM', 'ZM', 'EH', 'EE', 'EG', 'ZA', 'EC', 'IT', 'VN', 'SB', 'ET', 'SO', 'ZW', 'KY', 'ES', 'ER', 'ME', 'MD', 'MG', 'MA', 'MC', 'UZ', 'MM', 'ML', 'MO', 'MN', 'MH', 'MK', 'MU', 'MT', 'MW', 'MV', 'MQ', 'MP', 'MS', 'MR', 'IM', 'UG', 'MY', 'MX', 'IL', 'FR', 'AW', 'SH', 'AX', 'SJ', 'FI', 'FJ', 'FK', 'FM', 'FO', 'NI', 'NL', 'NO', 'NA', 'VU', 'NC', 'NE', 'NF', 'NG', 'NZ', 'NP', 'NR', 'NU', 'CK', 'CI', 'CH', 'CO', 'CN', 'CM', 'CL', 'CC', 'CA', 'CG', 'CF', 'CD', 'CZ', 'CY', 'CX', 'CS', 'CR', 'CV', 'CU', 'SZ', 'SY', 'KG', 'KE', 'SR', 'KI', 'KH', 'SV', 'KM', 'ST', 'SK', 'KR', 'SI', 'KP', 'KW', 'SN', 'SM', 'SL', 'SC', 'KZ', 'SA', 'SG', 'SE', 'SD', 'DO', 'DM', 'DJ', 'DK', 'VG', 'DE', 'YE', 'DZ', 'US', 'UY', 'YT', 'UM', 'LB', 'LC', 'LA', 'TV', 'TW', 'TT', 'TR', 'LK', 'LI', 'LV', 'TO', 'LT', 'LU', 'LR', 'LS', 'TH', 'TF', 'TG', 'TD', 'TC', 'LY', 'VA', 'AC', 'VC', 'AE', 'AD', 'AG', 'AF', 'IQ', 'VI', 'IS', 'IR', 'AM', 'AL', 'AO', 'AN', 'AQ', 'AS', 'AR', 'AU', 'AT', 'IO', 'IN', 'TZ', 'AZ', 'IE', 'ID', 'UA', 'QA', 'MZ']
+
+# """ phonenumbers
 import phonenumbers
 from phonenumbers.phonenumberutil import NumberParseException
 # z = phonenumbers.parse("213234345632344567896269876543", 'US')
 
-pn = "499696998"
+pn = "79637220642"
 count = 0
 for cc in cclist:
     try:
@@ -36,6 +44,8 @@ for cc in cclist:
         pass        
     
 print count
+
+# """
 
 
 # try:
@@ -67,7 +77,7 @@ print count
 #     print phonenumbers.is_possible_number(z)
 #     print phonenumbers.is_valid_number(z)
 
-"""
+
 
 """ test re
 import re

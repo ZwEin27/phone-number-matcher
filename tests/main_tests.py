@@ -1,3 +1,4 @@
+
 import sys
 import time
 import os
@@ -26,7 +27,7 @@ class TestMainMethods(unittest.TestCase):
         pass
 
     def test_extractor(self):
-        # {"url": "", "title": "", "body": "", url_ext: [], text_ext: []}
+        # {"url": "", "title": "", "body": "", "url_ext_gt": [], "text_ext_gt": []}
 
         def load_jsonlines(raw):
             json_obj = json.loads(raw)
@@ -133,7 +134,7 @@ class TestMainMethods(unittest.TestCase):
         output_fh.close()
 
     def test_text_extractor_string(self):
-        content = "New n ready baby naughty girl for you tonight602 twotwoeight 4oneninetwo 90hour incall or outcall"
+        content = "I appreciate a date with a modern and intelligent man enjoying the intimacy! My services are inclusive intimate full girlfriend experience best suited to a person who appreciates a beautiful lady who enjoys sharing her body with a gentleman. +79637220642-international or sms +79637220642-international"
         content = self.matcher.match(content, source_type='text')
         print content
                 
@@ -151,7 +152,7 @@ class TestMainMethods(unittest.TestCase):
         output_fh.close()
 
     def test_url_extractor_string(self):
-        content = "http://346-804-3627.escortphonelist.com/incall-and-outcalls-come-check-me-out-4173798.html"
+        content = "http://milano.backpage.com/TranssexualEscorts/yana-shemale-ladyboy-39-3318914838-milan-corso-buenos-aires-11-17-201511-28-2015/3175352"
         content = self.matcher.match(content, source_type='url')
         print content
 
