@@ -134,7 +134,7 @@ class TestMainMethods(unittest.TestCase):
         output_fh.close()
 
     def test_text_extractor_string(self):
-        content = "I appreciate a date with a modern and intelligent man enjoying the intimacy! My services are inclusive intimate full girlfriend experience best suited to a person who appreciates a beautiful lady who enjoys sharing her body with a gentleman. +79637220642-international or sms +79637220642-international"
+        content = "226-926-8063 - Escort ad in London, Ontario | Sland Bootylicous Chacolate Cakecandy 23 23 23 23 23 23"
         content = self.matcher.match(content, source_type='text')
         print content
                 
@@ -152,7 +152,7 @@ class TestMainMethods(unittest.TestCase):
         output_fh.close()
 
     def test_url_extractor_string(self):
-        content = "http://milano.backpage.com/TranssexualEscorts/yana-shemale-ladyboy-39-3318914838-milan-corso-buenos-aires-11-17-201511-28-2015/3175352"
+        content = "http://quito.backpage.com/FemaleEscorts/gargantita-profunda-y-un-exquisito-trato-de-pareja-shirley-0998130640-23-23/3658072"
         content = self.matcher.match(content, source_type='url')
         print content
 

@@ -32,7 +32,8 @@ import phonenumbers
 from phonenumbers.phonenumberutil import NumberParseException
 # z = phonenumbers.parse("213234345632344567896269876543", 'US')
 
-pn = "79637220642"
+
+pn = "393318914838"
 count = 0
 for cc in cclist:
     try:

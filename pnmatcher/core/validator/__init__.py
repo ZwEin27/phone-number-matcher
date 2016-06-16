@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-15 20:32:14
+# @Last Modified time: 2016-06-15 21:07:26
 
 """
 ensure phone numbers are valid
@@ -12,8 +12,8 @@ ensure phone numbers are valid
 import phonenumbers
 from phonenumbers.phonenumberutil import NumberParseException
 # from dateutil.parser import parse
-from datetime import datetime
 from pnmatcher.res import area_code
+from pnmatcher.core.common import datetime
 import re
 
 class Validator():
@@ -65,7 +65,7 @@ class Validator():
     def validate_phone_number(self, raw):
         # match all countries if using area_code.get_all_country_iso_two_letter_code()
         # may include too short phone numbers if use 'DE'
-        country_code_list = ['US', 'CN', 'IN', 'UA', 'JP', 'DE']
+        country_code_list = ['US', 'CN', 'IN', 'UA', 'JP', 'RU', 'IT']
         for country_code in country_code_list:
             rtn = self.validate_phone_number_with_coutry_code(raw, country_code=country_code)
             if rtn:
@@ -73,24 +73,17 @@ class Validator():
 
     def is_datetime(self, raw):
 
-        def is_valid_datetime(raw, date_format):
-            try:
-                datetime.strptime(raw, date_format)
-                return True
-            except ValueError:
-                return False
-
         size = len(raw)
 
         # %Y%m%d%H%M%S
         # 4|2:2:2:2:2:2 = 14
         date_format = ''
         if size == 14:
-            return is_valid_datetime(raw, '%Y%m%d%H%M%S')
+            return datetime.is_valid_datetime(raw, '%Y%m%d%H%M%S')
         elif size == 8:
-            return is_valid_datetime(raw, '%Y%m%d')
+            return datetime.is_valid_datetime(raw, '%Y%m%d')
         elif size == 6:
-            return is_valid_datetime(raw, '%Y%m%d') or is_valid_datetime(raw, '%H%M%S')
+            return datetime.is_valid_datetime(raw, '%Y%m%d') or datetime.is_valid_datetime(raw, '%H%M%S')
         else:
             return False
         # try:
