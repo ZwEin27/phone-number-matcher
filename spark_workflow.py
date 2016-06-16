@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 13:18:53
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-16 12:22:37
+# @Last Modified time: 2016-06-16 12:26:23
 
 """
 main entrance for spark workflow
@@ -10,16 +10,12 @@ main entrance for spark workflow
 """
 
 """
-
 sample script:
 
 spark-submit spark_workflow.py -i /Users/ZwEin/job_works/StudentWork_USC-ISI/projects/phone-number-matcher/tests/data/memex_data --output_dir /Users/ZwEin/job_works/StudentWork_USC-ISI/projects/phone-number-matcher/tests/data/spark_output
 
 """
 
-
-
-# import spark
 import sys
 import os
 import argparse
@@ -46,23 +42,23 @@ def run(sc, input_file, output_dir):
 
     def map_load_data(data):
         key, json_obj = data
+        extractions = json_obj['extractions']
 
+        # load doc id
         doc_id = json_obj['doc_id']
 
+        # load url
         if 'url' in json_obj:
             url = extract_content(json_obj['url'])
 
-        extractions = json_obj['extractions']
-
+        # load and combine title and text content
         text_data = [] 
         if 'title' in extractions and 'results' in extractions['title']:
             title = extract_content(extractions['title']['results'])
             text_data.append(title)
-
         if 'text' in extractions and 'results' in extractions['text']:
             text = extract_content(extractions['text']['results'])
             text_data.append(text)
-
         text_data = ' '.join(text_data)
 
         # for test only
@@ -102,7 +98,6 @@ def run(sc, input_file, output_dir):
         shutil.rmtree(output_dir)
     rdd.saveAsTextFile(output_dir)
 
-
 if __name__ == '__main__':
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument('-i','--input_file', required=True)
@@ -110,7 +105,7 @@ if __name__ == '__main__':
 
     args = arg_parser.parse_args()
 
-    spark_config = SparkConf().setAppName('WEDC')
+    spark_config = SparkConf().setAppName('PhoneNumberMatcher')
     sc = SparkContext(conf=spark_config)
 
     run(sc, args.input_file, args.output_dir)

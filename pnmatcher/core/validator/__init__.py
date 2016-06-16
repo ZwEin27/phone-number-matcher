@@ -2,37 +2,31 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-16 11:19:58
+# @Last Modified time: 2016-06-16 13:09:37
 
 """
 ensure phone numbers are valid
 
 """
-
+import re
 import phonenumbers
 from phonenumbers.phonenumberutil import NumberParseException
-# from dateutil.parser import parse
-# from pnmatcher.res import area_code
 from pnmatcher.core.common import datetime
-import re
+# from pnmatcher.res import area_code
+
 
 class Validator():
 
     def __init__(self):
         pass
-    
-    def validate_long_pn(self, raw):
-        size = len(raw)
-        ans = []
-        if size % 10 == 0:
-            for i in range(size/10):
-                ans.extend(self.validate_phone_number(raw[(i)*10:(i+1)*10], country_code='US'))
-        return ans
 
     def validate_phone_number_with_coutry_code(self, raw, country_code='US'):
         try:
             z = phonenumbers.parse(raw, country_code)
         except NumberParseException, e:
+            pass
+
+            """
             if e.error_type == NumberParseException.INVALID_COUNTRY_CODE:
                 # Invalid country code specified
                 return []
@@ -52,8 +46,8 @@ class Validator():
 
             elif e.error_type == NumberParseException.TOO_LONG:
                 # String had more digits than any valid phone number could have
-                # return self.validate_long_pn(raw)
                 return []
+            """
 
             # print e.error_type, e._msg
         else:
@@ -86,11 +80,6 @@ class Validator():
             return datetime.is_valid_datetime(raw, '%Y%m%d') or datetime.is_valid_datetime(raw, '%H%M%S')
         else:
             return False
-        # try:
-        #     if parse(raw):
-        #         return True
-        # except ValueError:
-        #     return False
 
     def is_all_dup_digits(self, raw):
         for i in range(1, len(raw)/2):

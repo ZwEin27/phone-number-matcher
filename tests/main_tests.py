@@ -134,7 +134,7 @@ class TestMainMethods(unittest.TestCase):
         output_fh.close()
 
     def test_text_extractor_string(self):
-        # content = "Hi, i am lovely german Lady 25 years ald,sexy and very hot! You can call me,phone+49157 8462 7939 and make a Date 24H . It is the perfekt Time for nice relaxing Date. Call me now for booking and geting more Information. Please pay atention that it is NOT Possible to send Messages or WhatsApp!!! Hope to see you soon,KISSES Lara"
+        content = "Hi, i am lovely german Lady 25 years ald,sexy and very hot! You can call me,phone+49157 8462 7939 and make a Date 24H . It is the perfekt Time for nice relaxing Date. Call me now for booking and geting more Information. Please pay atention that it is NOT Possible to send Messages or WhatsApp!!! Hope to see you soon,KISSES Lara"
         content = self.matcher.match(content, source_type='text')
         print content
                 
@@ -169,9 +169,9 @@ if __name__ == '__main__':
         # suite.addTest(TestMainMethods("test_text_extractor_file"))
         # suite.addTest(TestMainMethods("test_text_extractor_string"))
         # suite.addTest(TestMainMethods("test_url_extractor_file"))
-        suite.addTest(TestMainMethods("test_url_extractor_string"))
+        # suite.addTest(TestMainMethods("test_url_extractor_string"))
         
-        # suite.addTest(TestMainMethods("test_extractor"))
+        suite.addTest(TestMainMethods("test_extractor"))
         runner = unittest.TextTestRunner()
         runner.run(suite)
 
