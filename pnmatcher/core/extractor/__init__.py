@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-13 23:15:52
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-16 14:18:56
+# @Last Modified time: 2016-06-16 14:47:35
 
 """
 extract digits that seem good
@@ -14,8 +14,8 @@ import sys
 import os
 import collections
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'vendor'))
-import en
+# sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'vendor'))
+# import en
 
 class Extractor():
 

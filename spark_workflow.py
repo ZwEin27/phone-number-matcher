@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 13:18:53
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-16 12:26:23
+# @Last Modified time: 2016-06-16 15:09:47
 
 """
 main entrance for spark workflow
@@ -15,7 +15,7 @@ sample script:
 spark-submit spark_workflow.py -i /Users/ZwEin/job_works/StudentWork_USC-ISI/projects/phone-number-matcher/tests/data/memex_data --output_dir /Users/ZwEin/job_works/StudentWork_USC-ISI/projects/phone-number-matcher/tests/data/spark_output
 
 """
-
+import json
 import sys
 import os
 import argparse
@@ -67,7 +67,7 @@ def run(sc, input_file, output_dir):
         #     phonenumber = extract_content(extractions['phonenumber']['results'])
 
         # in production
-        return (key, [url, text_data])
+        return (str(key), [url, text_data])
 
         # in test
         # return (key, [url, text_data, phonenumber])
@@ -85,17 +85,18 @@ def run(sc, input_file, output_dir):
 
         result_ht = {}
         result_ht["doc_id"] = key
+        result_ht["url"] = url        
         result_ht["url_phone_numbers"] = url_phone_numbers.split()
         result_ht["text_phone_numbers"] = text_phone_numbers.split()
 
-        return (key, result_ht)
+        return (key, json.dumps(result_ht))
 
     rdd = load_jsonlines(sc, input_file)
     rdd = rdd.map(map_load_data).map(map_extract_phone_number)
     
-    import shutil
-    if os.path.isdir(output_dir):
-        shutil.rmtree(output_dir)
+    # import shutil
+    # if os.path.isdir(output_dir):
+    #     shutil.rmtree(output_dir)
     rdd.saveAsTextFile(output_dir)
 
 if __name__ == '__main__':
