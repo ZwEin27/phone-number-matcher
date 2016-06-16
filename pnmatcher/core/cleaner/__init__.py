@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-13 23:15:52
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-15 14:29:52
+# @Last Modified time: 2016-06-16 11:22:41
 
 """
 clean misspelling number words and replace numeral words
@@ -45,7 +45,7 @@ class Cleaner():
         raw = re.sub(r"f1ve", "five", raw, flags=re.I)
         raw = re.sub(r"n1ne", "nine", raw, flags=re.I)
         raw = re.sub(r"0ne", "one", raw, flags=re.I)
-        raw = re.sub(r"tw0", "two", raw, flags=re.I)
+        raw = re.sub(r"(tw0|to)", "two", raw, flags=re.I)
         raw = re.sub(r"s1x", "six", raw, flags=re.I)
         return raw
 

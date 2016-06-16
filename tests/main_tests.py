@@ -134,7 +134,7 @@ class TestMainMethods(unittest.TestCase):
         output_fh.close()
 
     def test_text_extractor_string(self):
-        content = "Gargantita profunda y un exquisito trato de pareja! ?SHIRLEY? 0998130640 - 23 - 23 - Quito anuncios clasificados de escorts, modelos, edecanes, acompaantes - escorts - backpage.com 2016 06 17 - 21"
+        content = "Hi gentlemen! Im Aaliyah, I'm 20 years old, Italian and Cuban. I am educated, all natural, great body, pretty face and one of a kind personality! A Gentleman's Best Friend & best kept secret?? ? ?NATURAL CURVES & BEAUTY? ? Clean, Safe, Friendly and Always Discreet ? INCALLS ?? ==? Available NOW & 24/7??? ==? 100% Real & independent. I'm a provider who is OPEN-MINDED! Come play with me! Aaliyah ? 6474920245 6474920245 6474920245 6474920245 6474920245"
         content = self.matcher.match(content, source_type='text')
         print content
                 

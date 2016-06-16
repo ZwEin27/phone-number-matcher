@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-15 21:07:26
+# @Last Modified time: 2016-06-16 11:19:58
 
 """
 ensure phone numbers are valid
@@ -12,7 +12,7 @@ ensure phone numbers are valid
 import phonenumbers
 from phonenumbers.phonenumberutil import NumberParseException
 # from dateutil.parser import parse
-from pnmatcher.res import area_code
+# from pnmatcher.res import area_code
 from pnmatcher.core.common import datetime
 import re
 
@@ -65,7 +65,7 @@ class Validator():
     def validate_phone_number(self, raw):
         # match all countries if using area_code.get_all_country_iso_two_letter_code()
         # may include too short phone numbers if use 'DE'
-        country_code_list = ['US', 'CN', 'IN', 'UA', 'JP', 'RU', 'IT']
+        country_code_list = ['US', 'CN', 'IN', 'UA', 'JP', 'RU', 'IT', 'DE', 'CA']
         for country_code in country_code_list:
             rtn = self.validate_phone_number_with_coutry_code(raw, country_code=country_code)
             if rtn:
@@ -92,11 +92,26 @@ class Validator():
         # except ValueError:
         #     return False
 
+    def is_all_dup_digits(self, raw):
+        for i in range(1, len(raw)/2):
+            rtn = re.findall(r"\d{" + str(i) + r"}", raw)
+            if len(raw) % i != 0:
+                continue
+            if all(rtn[0] == rest for rest in rtn):
+                return True
+        return False
+
     def validate(self, raw):
         ans = []
         for nums in raw.split('\t'):
             nums = nums.strip()
             nums = re.sub(r'^0+', '', nums, flags=re.I)
+
+            if len(nums) > 16:
+                continue
+
+            if self.is_all_dup_digits(nums):
+                continue
 
             if self.is_datetime(nums):
                 continue
@@ -106,6 +121,5 @@ class Validator():
                 ans.extend(valid)
 
         return ' '.join(ans)
-
 
 

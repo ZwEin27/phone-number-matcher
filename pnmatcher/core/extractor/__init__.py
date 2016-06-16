@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-13 23:15:52
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-15 14:30:30
+# @Last Modified time: 2016-06-16 11:19:37
 
 """
 extract digits that seem good
@@ -39,5 +39,5 @@ class Extractor():
     def extract(self, raw):
         raw = re.findall(Extractor.numbers_regex, raw)
         raw = [''.join(_.split()) for _ in raw if len(_.strip()) >= 10]
-        
+
         return '\t'.join(raw)
