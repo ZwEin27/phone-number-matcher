@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-16 13:09:37
+# @Last Modified time: 2016-06-16 13:30:53
 
 """
 ensure phone numbers are valid
@@ -59,7 +59,7 @@ class Validator():
     def validate_phone_number(self, raw):
         # match all countries if using area_code.get_all_country_iso_two_letter_code()
         # may include too short phone numbers if use 'DE'
-        country_code_list = ['US', 'CN', 'IN', 'UA', 'JP', 'RU', 'IT', 'DE', 'CA']
+        country_code_list = ['US', 'CN', 'IN', 'UA', 'JP', 'RU', 'IT', 'DE', 'CA', 'TR']
         for country_code in country_code_list:
             rtn = self.validate_phone_number_with_coutry_code(raw, country_code=country_code)
             if rtn:

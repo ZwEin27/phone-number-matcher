@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-13 23:15:52
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-16 13:17:13
+# @Last Modified time: 2016-06-16 13:26:39
 
 """
 clean misspelling number words and replace numeral words
@@ -94,7 +94,7 @@ class Cleaner():
         raw = re.sub(r"ninety", "90", raw, flags=re.I)
 
         raw = re.sub(r'(?:(?:(?<=[0-9])(o+?))|(?:o(?=[0-9]))|(?:(?<=[o\s])o(?=[o\s])))', '0', raw, flags=re.I)
-        raw = re.sub(r'(?:(?:(?<=[^a-hj-km-rt-z])[i]((?=[^a-hj-km-rt-z])|$)))', '1', raw, flags=re.I)
+        raw = re.sub(r'(?:(?:(?<=[^a-hj-km-rt-z])[i]((?=[ils])|$)))', '1', raw, flags=re.I)
         
         return raw
 

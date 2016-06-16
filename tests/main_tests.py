@@ -134,7 +134,7 @@ class TestMainMethods(unittest.TestCase):
         output_fh.close()
 
     def test_text_extractor_string(self):
-        content = "Hi, i am lovely german Lady 25 years ald,sexy and very hot! You can call me,phone+49157 8462 7939 and make a Date 24H . It is the perfekt Time for nice relaxing Date. Call me now for booking and geting more Information. Please pay atention that it is NOT Possible to send Messages or WhatsApp!!! Hope to see you soon,KISSES Lara"
+        content = "I'm very upscale and discreet. All of my services are unrushed and satisfying. I'm available all nite so don't hesitate to contact me. Please contact me when you're ready to be seen. Couples welcomed 7 0 8 - 8 8 0 - 9 2 9 6 708 Eight Eight Zero 9296?? Holly ?? 708 Eight Eight Zero 9296??"
         content = self.matcher.match(content, source_type='text')
         print content
                 

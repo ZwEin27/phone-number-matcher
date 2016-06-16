@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-16 08:32:01
+# @Last Modified time: 2016-06-16 13:25:13
 
 """
 preprocess digits that must not belong to phone number
@@ -39,6 +39,7 @@ class Preprocessor():
 
     others_regexes = [
         r"24/7",
+        # r"(?:(?<=[\s])[iI][`'\s])",
         r"#\d", 
         r"\d+\'\d+", 
         r"\d+\%"

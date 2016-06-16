@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-13 23:15:52
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-16 11:19:37
+# @Last Modified time: 2016-06-16 14:18:56
 
 """
 extract digits that seem good
@@ -23,11 +23,12 @@ class Extractor():
         pass
 
     phone_number_format_regex = [
+        r"(?:" + 10*r"[ ]\d" + r")",
         r"(?:[ ]?\d{10}[ ])",
         r"(?:[ ]?\d{8}[ ]\d{3}[ ]?)",
         r"(?:[ ]?\d{7}[ ]\d{4}[ ]?)",
         r"(?:[ ]?\d{4}[ ]\d{4}[ ]\d{2}[ ]?)",
-        r"(?:[ ]?\d{3}[ ]\d{7}[ ]?)",
+        r"(?:[ ]?\d{3}[ ]\d{7,8}[ ]?)",
         r"(?:[ ]?\d{3}[ ]\d{3}[ ]\d{4}[ ]?)",
         r"(?:[ ]?\d{3}[ ]\d{3}[ ]\d{1}[ ]\d{3}[ ]?)",
         r"(?:[ ]?\d{2}[ ]\d{4}[ ]\d{4}[ ]?)",
