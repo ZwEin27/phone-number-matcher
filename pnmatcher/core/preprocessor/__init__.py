@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-15 21:45:49
+# @Last Modified time: 2016-06-16 08:32:01
 
 """
 preprocess digits that must not belong to phone number
@@ -45,7 +45,7 @@ class Preprocessor():
     ]
     other_regex = r"(?:" + "|".join(others_regexes) + ")"
 
-    all_regexes = [money_regex, unit_regex, other_regex]
+    all_regexes = [unit_regex, other_regex]
     all_regex = r"(" + r"|".join(all_regexes) + ")"
     # print "|".join(all_regexes)
 
@@ -58,6 +58,9 @@ class Preprocessor():
     def prep_datetime(self, raw):
         m = re.findall(Preprocessor.datetime_regex, raw)
         for d in m:
+            # to be optimize
+            # re_digit = re.compile(r"\d+")
+            # dd = ''.join(re_digit.findall(d))
             dd = d.translate(string.maketrans("",""), string.punctuation)
             dd = ''.join(dd.split())
             if datetime.is_valid_datetime(dd, '%Y%m%d') or datetime.is_valid_datetime(dd, '%m%d%Y'):
