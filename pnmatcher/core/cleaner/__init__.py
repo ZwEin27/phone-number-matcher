@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-13 23:15:52
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-16 11:26:20
+# @Last Modified time: 2016-06-16 11:29:53
 
 """
 clean misspelling number words and replace numeral words
@@ -64,8 +64,7 @@ class Cleaner():
         raw = re.sub(r"nineteen", "19", raw, flags=re.I)
         
         raw = re.sub(r"(zero|oh)", "0", raw, flags=re.I)
-        # raw = re.sub(r"((?<=[0-9][a-z])| )one", "1", raw, flags=re.I)
-        raw = re.sub(r"((?<=([0-9]|[a-z]))| )one", "1", raw, flags=re.I)
+        raw = re.sub(r"((?<=([0-9]|[a-z]))| )one(?=[^+])", "1", raw, flags=re.I)
         raw = re.sub(r"two", "2", raw, flags=re.I)
         raw = re.sub(r"three", "3", raw, flags=re.I)
         raw = re.sub(r"four", "4", raw, flags=re.I)

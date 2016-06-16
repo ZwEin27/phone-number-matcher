@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-15 14:39:10
+# @Last Modified time: 2016-06-16 12:10:56
 
 """
 main spark workflow
@@ -62,28 +62,33 @@ def run(sc, input_file, output_dir):
         text_data = ' '.join(text_data)
 
         # for test only
-        phonenumber = None
-        if 'phonenumber' in extractions and 'results' in extractions['phonenumber']:
-            phonenumber = extract_content(extractions['phonenumber']['results'])
+        # phonenumber = None
+        # if 'phonenumber' in extractions and 'results' in extractions['phonenumber']:
+        #     phonenumber = extract_content(extractions['phonenumber']['results'])
 
         # in production
-        # return (key, [url, text_data])
+        return (key, [url, text_data])
 
         # in test
-        return (key, [url, text_data, phonenumber])
+        # return (key, [url, text_data, phonenumber])
 
     def map_extract_phone_number(data):
         # in production
-        # key, (url, text) = data
+        key, (url, text) = data
 
         # in test
-        key, (url, text, phonenumber) = data
+        # key, (url, text, phonenumber) = data
 
         matcher = PhoneNumberMatcher()
         url_phone_numbers = matcher.match(url, source_type='url')
         text_phone_numbers = matcher.match(text, source_type='text')
 
-        return (key, [url_phone_numbers.split(), text_phone_numbers.split(), phonenumber])
+        result_ht = {}
+        result_ht["doc_id"] = key
+        result_ht["url_phone_numbers"] = url_phone_numbers.split()
+        result_ht["text_phone_numbers"] = text_phone_numbers.split()
+
+        return (key, result_ht)
 
     rdd = load_jsonlines(sc, input_file)
     rdd = rdd.map(map_load_data).map(map_extract_phone_number)

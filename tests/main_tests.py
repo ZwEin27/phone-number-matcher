@@ -134,7 +134,7 @@ class TestMainMethods(unittest.TestCase):
         output_fh.close()
 
     def test_text_extractor_string(self):
-        content = "Hi gentlemen! Im Aaliyah, I'm 20 years old, Italian and Cuban. I am educated, all natural, great body, pretty face and one of a kind personality! A Gentleman's Best Friend & best kept secret?? ? ?NATURAL CURVES & BEAUTY? ? Clean, Safe, Friendly and Always Discreet ? INCALLS ?? ==? Available NOW & 24/7??? ==? 100% Real & independent. I'm a provider who is OPEN-MINDED! Come play with me! Aaliyah ? 6474920245 6474920245 6474920245 6474920245 6474920245"
+        # content = "Hi, i am lovely german Lady 25 years ald,sexy and very hot! You can call me,phone+49157 8462 7939 and make a Date 24H . It is the perfekt Time for nice relaxing Date. Call me now for booking and geting more Information. Please pay atention that it is NOT Possible to send Messages or WhatsApp!!! Hope to see you soon,KISSES Lara"
         content = self.matcher.match(content, source_type='text')
         print content
                 
@@ -152,7 +152,7 @@ class TestMainMethods(unittest.TestCase):
         output_fh.close()
 
     def test_url_extractor_string(self):
-        content = "http://quito.backpage.com/FemaleEscorts/gargantita-profunda-y-un-exquisito-trato-de-pareja-shirley-0998130640-23-23/3658072"
+        content = "http://chicago.backpage.com/FemaleEscorts/r-u-t-a-_your-blonde-_-o-b-s-e-s-s-i-o-n-_-23-23-23-23/30688875"
         content = self.matcher.match(content, source_type='url')
         print content
 
@@ -169,9 +169,9 @@ if __name__ == '__main__':
         # suite.addTest(TestMainMethods("test_text_extractor_file"))
         # suite.addTest(TestMainMethods("test_text_extractor_string"))
         # suite.addTest(TestMainMethods("test_url_extractor_file"))
-        # suite.addTest(TestMainMethods("test_url_extractor_string"))
+        suite.addTest(TestMainMethods("test_url_extractor_string"))
         
-        suite.addTest(TestMainMethods("test_extractor"))
+        # suite.addTest(TestMainMethods("test_extractor"))
         runner = unittest.TextTestRunner()
         runner.run(suite)
 
