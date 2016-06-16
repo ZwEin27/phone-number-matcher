@@ -134,7 +134,7 @@ class TestMainMethods(unittest.TestCase):
         output_fh.close()
 
     def test_text_extractor_string(self):
-        content = "226-926-8063 - Escort ad in London, Ontario | Sland Bootylicous Chacolate Cakecandy 23 23 23 23 23 23"
+        content = "Gargantita profunda y un exquisito trato de pareja! ?SHIRLEY? 0998130640 - 23 - 23 - Quito anuncios clasificados de escorts, modelos, edecanes, acompaantes - escorts - backpage.com 2016 06 17 - 21"
         content = self.matcher.match(content, source_type='text')
         print content
                 

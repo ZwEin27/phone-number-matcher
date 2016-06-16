@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-15 21:11:53
+# @Last Modified time: 2016-06-15 21:45:49
 
 """
 preprocess digits that must not belong to phone number
@@ -12,6 +12,7 @@ import os
 import json
 import re
 from pnmatcher.core.common import datetime
+import string
 
 
 class Preprocessor():
@@ -49,15 +50,17 @@ class Preprocessor():
     # print "|".join(all_regexes)
 
     datetime_regexes = [
-        r"(?:\d{2}[_-]\d{2}[_-]\d{4})",
-        r"(?:\d{4}[_-]\d{2}[_-]\d{2})"
+        r"(?:\d{2}[ _-]\d{2}[ _-]\d{4})",
+        r"(?:\d{4}[ _-]\d{2}[ _-]\d{2})"
     ]
     datetime_regex = r"(?:" + r"|".join(datetime_regexes) + ")"
 
     def prep_datetime(self, raw):
         m = re.findall(Preprocessor.datetime_regex, raw)
         for d in m:
-            if datetime.is_valid_datetime(d, '%Y-%m-%d') or datetime.is_valid_datetime(d, '%m-%d-%Y'):
+            dd = d.translate(string.maketrans("",""), string.punctuation)
+            dd = ''.join(dd.split())
+            if datetime.is_valid_datetime(dd, '%Y%m%d') or datetime.is_valid_datetime(dd, '%m%d%Y'):
                 raw = raw.replace(d, "")
         return raw
 
