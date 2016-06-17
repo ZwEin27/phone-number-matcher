@@ -1,7 +1,11 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 13:18:59
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-16 14:44:25
+# @Last Modified time: 2016-06-16 16:06:23
+
+# test
+# --input_file /user/lteng/phone-number-extractor/data/memex_data
+# --output_dir /user/lteng/phone-number-extractor/data/spark_output
 
 /usr/lib/spark/bin/spark-submit \
 --master yarn-client \

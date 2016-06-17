@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 13:18:53
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-16 15:09:47
+# @Last Modified time: 2016-06-17 10:29:34
 
 """
 main entrance for spark workflow
@@ -27,6 +27,10 @@ def load_jsonlines(sc, input, file_format='sequence', data_type='json', separato
     fUtil = FileUtil(sc)
     rdd_strings = fUtil.load_file(input, file_format=file_format, data_type=data_type, separator=separator)
     return rdd_strings
+
+def save_jsonlines(sc, rdd, output_dir, file_format='sequence', data_type='json', separator='\n'):
+    fUtil = FileUtil(sc)
+    rdd_strings = fUtil.save_file(rdd, output_dir, file_format=file_format, data_type=data_type, separator=separator)
 
 def extract_content(raw):
     if not raw:
@@ -92,12 +96,14 @@ def run(sc, input_file, output_dir):
         return (key, json.dumps(result_ht))
 
     rdd = load_jsonlines(sc, input_file)
-    rdd = rdd.map(map_load_data).map(map_extract_phone_number)
+    rdd = rdd.map(map_load_data).map(map_extract_phone_number).values()
     
     # import shutil
     # if os.path.isdir(output_dir):
     #     shutil.rmtree(output_dir)
-    rdd.saveAsTextFile(output_dir)
+    # rdd.saveAsTextFile(output_dir)
+
+    save_jsonlines(sc, rdd, output_dir)
 
 if __name__ == '__main__':
     arg_parser = argparse.ArgumentParser()
