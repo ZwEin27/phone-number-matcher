@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-13 23:15:52
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-16 14:47:35
+# @Last Modified time: 2016-06-17 13:01:17
 
 """
 extract digits that seem good
@@ -37,8 +37,10 @@ class Extractor():
     ]
 
     numbers_regex = r"(?:" + r"|".join(phone_number_format_regex) + r")"
+    re_numbers_regex = re.compile(numbers_regex)
+    
     def extract(self, raw):
-        raw = re.findall(Extractor.numbers_regex, raw)
+        raw = Extractor.re_numbers_regex.findall(raw)
         raw = [''.join(_.split()) for _ in raw if len(_.strip()) >= 10]
 
         return '\t'.join(raw)
