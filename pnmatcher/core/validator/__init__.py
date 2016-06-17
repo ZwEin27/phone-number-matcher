@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-17 13:15:27
+# @Last Modified time: 2016-06-17 14:58:08
 
 """
 ensure phone numbers are valid
@@ -78,20 +78,33 @@ class Validator():
         else:
             return False
 
+    re_num_digits = [
+        None,
+        re.compile(r"\d{1}"),
+        re.compile(r"\d{2}"),
+        re.compile(r"\d{3}"),
+        re.compile(r"\d{4}"),
+        re.compile(r"\d{5}"),
+        re.compile(r"\d{6}")
+    ]
+
     def is_all_dup_digits(self, raw):
         for i in range(1, 6):
-            rtn = re.findall(r"\d{" + str(i) + r"}", raw)
+            rtn = Validator.re_num_digits[i].findall(raw)
             if len(raw) % i != 0:
                 continue
             if all(rtn[0] == rest for rest in rtn):
                 return True
         return False
 
+
+    re_start_zero = re.compile(r'^0+')
+
     def validate(self, raw):
         ans = []
         for nums in raw.split('\t'):
             nums = nums.strip()
-            nums = re.sub(r'^0+', '', nums, flags=re.I)
+            nums = Validator.re_start_zero.sub('', nums)
 
             if len(nums) > 16:
                 continue
