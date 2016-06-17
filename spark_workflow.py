@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 13:18:53
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-17 10:29:34
+# @Last Modified time: 2016-06-17 12:37:51
 
 """
 main entrance for spark workflow
@@ -12,7 +12,15 @@ main entrance for spark workflow
 """
 sample script:
 
-spark-submit spark_workflow.py -i /Users/ZwEin/job_works/StudentWork_USC-ISI/projects/phone-number-matcher/tests/data/memex_data --output_dir /Users/ZwEin/job_works/StudentWork_USC-ISI/projects/phone-number-matcher/tests/data/spark_output
+spark-submit \
+--conf "spark.yarn.executor.memoryOverhead=8192" \
+--conf "spark.rdd.compress=true" \
+--conf "spark.shuffle.compress=true" \
+--driver-memory 6g \
+--executor-memory 6g  --executor-cores 4  --num-executors 20 \
+spark_workflow.py \
+--input_file /Users/ZwEin/job_works/StudentWork_USC-ISI/projects/phone-number-matcher/tests/data/memex_data \
+--output_dir /Users/ZwEin/job_works/StudentWork_USC-ISI/projects/phone-number-matcher/tests/data/spark_output
 
 """
 import json
@@ -25,12 +33,12 @@ from pnmatcher import PhoneNumberMatcher
 
 def load_jsonlines(sc, input, file_format='sequence', data_type='json', separator='\n'):
     fUtil = FileUtil(sc)
-    rdd_strings = fUtil.load_file(input, file_format=file_format, data_type=data_type, separator=separator)
-    return rdd_strings
+    rdd = fUtil.load_file(input, file_format=file_format, data_type=data_type, separator=separator)
+    return rdd
 
 def save_jsonlines(sc, rdd, output_dir, file_format='sequence', data_type='json', separator='\n'):
     fUtil = FileUtil(sc)
-    rdd_strings = fUtil.save_file(rdd, output_dir, file_format=file_format, data_type=data_type, separator=separator)
+    fUtil.save_file(rdd, output_dir, file_format=file_format, data_type=data_type, separator=separator)
 
 def extract_content(raw):
     if not raw:
@@ -93,17 +101,19 @@ def run(sc, input_file, output_dir):
         result_ht["url_phone_numbers"] = url_phone_numbers.split()
         result_ht["text_phone_numbers"] = text_phone_numbers.split()
 
-        return (key, json.dumps(result_ht))
+        # return (key, json.dumps(result_ht))
+        return (key, result_ht)
 
     rdd = load_jsonlines(sc, input_file)
-    rdd = rdd.map(map_load_data).map(map_extract_phone_number).values()
-    
+    rdd = rdd.map(map_load_data).map(map_extract_phone_number)
+    # print rdd.collect()
+
     # import shutil
     # if os.path.isdir(output_dir):
     #     shutil.rmtree(output_dir)
     # rdd.saveAsTextFile(output_dir)
 
-    save_jsonlines(sc, rdd, output_dir)
+    save_jsonlines(sc, rdd, output_dir, file_format='sequence', data_type='json')
 
 if __name__ == '__main__':
     arg_parser = argparse.ArgumentParser()

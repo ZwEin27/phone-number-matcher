@@ -172,6 +172,7 @@ if __name__ == '__main__':
         # suite.addTest(TestMainMethods("test_url_extractor_string"))
         
         suite.addTest(TestMainMethods("test_extractor"))
+        # 3.5s
         runner = unittest.TextTestRunner()
         runner.run(suite)
 
