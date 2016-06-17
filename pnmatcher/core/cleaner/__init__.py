@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-13 23:15:52
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-16 13:26:39
+# @Last Modified time: 2016-06-17 14:46:10
 
 """
 clean misspelling number words and replace numeral words
@@ -14,88 +14,98 @@ import sys
 import os
 from string import maketrans
 
-# sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'vendor'))
-# import en
-
-import re
 class Cleaner():
 
-    def __init__(self):
-        pass
-
     def prep_misspelled_numeral_words(self, raw):
-        raw = re.sub(r"th0usand", "thousand", raw, flags=re.I)
-        raw = re.sub(r"th1rteen", "thirteen", raw, flags=re.I)
-        raw = re.sub(r"f0urteen", "fourteen", raw, flags=re.I)
-        raw = re.sub(r"e1ghteen", "eighteen", raw, flags=re.I)
-        raw = re.sub(r"n1neteen", "nineteen", raw, flags=re.I)
-        raw = re.sub(r"f1fteen", "fifteen", raw, flags=re.I)
-        raw = re.sub(r"s1xteen", "sixteen", raw, flags=re.I)
-        raw = re.sub(r"th1rty", "thirty", raw, flags=re.I)
-        raw = re.sub(r"e1ghty", "eighty", raw, flags=re.I)
-        raw = re.sub(r"n1nety", "ninety", raw, flags=re.I)
-        raw = re.sub(r"fourty", "forty", raw, flags=re.I)
-        raw = re.sub(r"f0urty", "forty", raw, flags=re.I)
-        raw = re.sub(r"e1ght", "eight", raw, flags=re.I)
-        raw = re.sub(r"f0rty", "forty", raw, flags=re.I)
-        raw = re.sub(r"f1fty", "fifty", raw, flags=re.I)
-        raw = re.sub(r"s1xty", "sixty", raw, flags=re.I)
-        raw = re.sub(r"zer0", "zero", raw, flags=re.I)
-        raw = re.sub(r"(f0ur|for)", "four", raw, flags=re.I)
-        raw = re.sub(r"f1ve", "five", raw, flags=re.I)
-        raw = re.sub(r"n1ne", "nine", raw, flags=re.I)
-        raw = re.sub(r"0ne", "one", raw, flags=re.I)
-        raw = re.sub(r"(tw0|to)", "two", raw, flags=re.I)
-        raw = re.sub(r"s1x", "six", raw, flags=re.I)
+        misspelling_dict = {
+            "th0usand": "thousand",
+            "th1rteen": "thirteen",
+            "f0urteen": "fourteen",
+            "e1ghteen": "eighteen",
+            "n1neteen": "nineteen",
+            "f1fteen": "fifteen",
+            "s1xteen": "sixteen",
+            "th1rty": "thirty",
+            "e1ghty": "eighty",
+            "n1nety": "ninety",
+            "fourty": "forty",
+            "f0urty": "forty",
+            "e1ght": "eight",
+            "f0rty": "forty",
+            "f1fty": "fifty",
+            "s1xty": "sixty",
+            "zer0": "zero",
+            "for": "four",
+            "f0ur": "four",
+            "f1ve": "five",
+            "n1ne": "nine",
+            "0ne": "one",
+            "tw0": "two",
+            "to": "two",
+            "s1x": "six"
+        }
+
+        for key in misspelling_dict.keys():
+            raw = raw.replace(key, misspelling_dict[key])
         return raw
 
+    numbers = ['zero', 'one', 'two', 'three', 'four', 'five', 'siz', 'seven', 'eight', 'nine']
+
+    re_ten = re.compile(r"(?<=[ilo0-9])ten")
+    re_one = re.compile(r'(?:((?<=([0-9yneorxt]))| )one|(?:(?<=[ils])[i]((?=[ils])|$)))')
+    re_zero = re.compile(r'(?:zero|oh|(?:(?<=[0-9])(o+?))|(?:o(?=[0-9]))|(?:(?<=[o\s])o(?=[o\s])))')
+    re_twenty_x = re.compile(r"(two|twenty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
+    re_thirty_x = re.compile(r"(three|thirty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
+    re_forty_x = re.compile(r"(four|forty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
+    re_fifty_x = re.compile(r"(five|fifty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
+    re_sixty_x = re.compile(r"(six|sixty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
+    re_seventy_x = re.compile(r"(seven|seventy[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
+    re_eighty_x = re.compile(r"(eight|eighty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
+    re_ninety_x = re.compile(r"(nine|ninety[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
+
     def prep_replace_numeral_words(self, raw):
-        raw = re.sub(r"hundred", "00", raw, flags=re.I)
-        raw = re.sub(r"thousand", "000", raw, flags=re.I)
+        raw = raw.replace("hundred", "00")
+        raw = raw.replace("thousand", "000")
 
-        raw = re.sub(r"eleven", "11", raw, flags=re.I)
-        raw = re.sub(r"twelve", "12", raw, flags=re.I)
-        raw = re.sub(r"thirteen", "13", raw, flags=re.I)
-        raw = re.sub(r"fourteen", "14", raw, flags=re.I)
-        raw = re.sub(r"fifteen", "15", raw, flags=re.I)
-        raw = re.sub(r"sixteen", "16", raw, flags=re.I)
-        raw = re.sub(r"seventeen", "17", raw, flags=re.I)
-        raw = re.sub(r"eighteen", "18", raw, flags=re.I)
-        raw = re.sub(r"nineteen", "19", raw, flags=re.I)
-        
-        raw = re.sub(r"(zero|oh)", "0", raw, flags=re.I)
-        raw = re.sub(r"((?<=([0-9yneorxt]))| )one", "1", raw, flags=re.I)
-        raw = re.sub(r"two", "2", raw, flags=re.I)
-        raw = re.sub(r"three", "3", raw, flags=re.I)
-        raw = re.sub(r"four", "4", raw, flags=re.I)
-        raw = re.sub(r"five", "5", raw, flags=re.I)
-        raw = re.sub(r"six", "6", raw, flags=re.I)
-        raw = re.sub(r"seven", "7", raw, flags=re.I)
-        raw = re.sub(r"eight", "8", raw, flags=re.I)
-        raw = re.sub(r"nine", "9", raw, flags=re.I)
-        raw = re.sub(r"(?<=[ilo0-9])ten", "10", raw, flags=re.I)
+        raw = raw.replace("eleven", "11")
+        raw = raw.replace("twelve", "12")
+        raw = raw.replace("thirteen", "13")
+        raw = raw.replace("fourteen", "14")
+        raw = raw.replace("fifteen", "15")
+        raw = raw.replace("sixteen", "16")
+        raw = raw.replace("seventeen", "17")
+        raw = raw.replace("eighteen", "18")
+        raw = raw.replace("nineteen", "19")
 
-        raw = re.sub(r"(.*)(twenty[\\W_]{0,3})(\d)(.*)","\g<1>2\g<3>\g<4>", raw, flags=re.I)
-        raw = re.sub(r"(.*)(thirty[\\W_]{0,3})(\d)(.*)","\g<1>3\g<3>\g<4>", raw, flags=re.I)
-        raw = re.sub(r"(.*)(forty[\\W_]{0,3})(\d)(.*)","\g<1>4\g<3>\g<4>", raw, flags=re.I)
-        raw = re.sub(r"(.*)(fifty[\\W_]{0,3})(\d)(.*)","\g<1>5\g<3>\g<4>", raw, flags=re.I)
-        raw = re.sub(r"(.*)(sixty[\\W_]{0,3})(\d)(.*)","\g<1>6\g<3>\g<4>", raw, flags=re.I)
-        raw = re.sub(r"(.*)(seventy[\\W_]{0,3})(\d)(.*)","\g<1>7\g<3>\g<4>", raw, flags=re.I)
-        raw = re.sub(r"(.*)(eighty[\\W_]{0,3})(\d)(.*)","\g<1>8\g<3>\g<4>", raw, flags=re.I)
-        raw = re.sub(r"(.*)(ninety[\\W_]{0,3})(\d)(.*)","\g<1>9\g<3>\g<4>", raw, flags=re.I)
+        # raw = raw.replace("two", "2")
+        # raw = raw.replace("three", "3")
+        # raw = raw.replace("four", "4")
+        # raw = raw.replace("five", "5")
+        # raw = raw.replace("six", "6")
+        # raw = raw.replace("seven", "7")
+        # raw = raw.replace("eight", "8")
+        # raw = raw.replace("nine", "9")
 
-        raw = re.sub(r"twenty", "20", raw, flags=re.I)
-        raw = re.sub(r"thirty", "30", raw, flags=re.I)
-        raw = re.sub(r"forty", "40", raw, flags=re.I)
-        raw = re.sub(r"fifty", "50", raw, flags=re.I)
-        raw = re.sub(r"sixty", "60", raw, flags=re.I)
-        raw = re.sub(r"seventy", "70", raw, flags=re.I)
-        raw = re.sub(r"eighty", "80", raw, flags=re.I)
-        raw = re.sub(r"ninety", "90", raw, flags=re.I)
+        raw = Cleaner.re_ten.sub("10", raw)
+        raw = Cleaner.re_one.sub("1", raw)
+        raw = Cleaner.re_zero.sub("0", raw)
+        raw = Cleaner.re_twenty_x.sub("2", raw)
+        raw = Cleaner.re_thirty_x.sub("3", raw)
+        raw = Cleaner.re_forty_x.sub("4", raw)
+        raw = Cleaner.re_fifty_x.sub("5", raw)
+        raw = Cleaner.re_sixty_x.sub("6", raw)
+        raw = Cleaner.re_seventy_x.sub("7", raw)
+        raw = Cleaner.re_eighty_x.sub("8", raw)
+        raw = Cleaner.re_ninety_x.sub("9", raw)
 
-        raw = re.sub(r'(?:(?:(?<=[0-9])(o+?))|(?:o(?=[0-9]))|(?:(?<=[o\s])o(?=[o\s])))', '0', raw, flags=re.I)
-        raw = re.sub(r'(?:(?:(?<=[^a-hj-km-rt-z])[i]((?=[ils])|$)))', '1', raw, flags=re.I)
-        
+        raw = raw.replace("twenty", "20")
+        raw = raw.replace("thirty", "30")
+        raw = raw.replace("forty", "40")
+        raw = raw.replace("fifty", "50")
+        raw = raw.replace("sixty", "60")
+        raw = raw.replace("seventy", "70")
+        raw = raw.replace("eighty", "80")
+        raw = raw.replace("ninety", "90")
         return raw
 
     def clean(self, raw):

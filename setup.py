@@ -3,7 +3,7 @@ from setuptools import Extension,find_packages
 from os import path
 
 setup(
-    name = 'phone-number-matcher',
+    name = 'pnmatcher',
     version = '0.0.1',
     description = 'match phone numbers in url and text',
     author = 'Lingzhe Teng',

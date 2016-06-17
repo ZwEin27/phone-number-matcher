@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-16 13:30:53
+# @Last Modified time: 2016-06-17 13:15:27
 
 """
 ensure phone numbers are valid
@@ -13,7 +13,6 @@ import phonenumbers
 from phonenumbers.phonenumberutil import NumberParseException
 from pnmatcher.core.common import datetime
 # from pnmatcher.res import area_code
-
 
 class Validator():
 
@@ -69,8 +68,6 @@ class Validator():
 
         size = len(raw)
 
-        # %Y%m%d%H%M%S
-        # 4|2:2:2:2:2:2 = 14
         date_format = ''
         if size == 14:
             return datetime.is_valid_datetime(raw, '%Y%m%d%H%M%S')
@@ -82,7 +79,7 @@ class Validator():
             return False
 
     def is_all_dup_digits(self, raw):
-        for i in range(1, len(raw)/2):
+        for i in range(1, 6):
             rtn = re.findall(r"\d{" + str(i) + r"}", raw)
             if len(raw) % i != 0:
                 continue

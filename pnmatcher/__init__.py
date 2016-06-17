@@ -4,7 +4,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-13 23:15:52
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-16 14:19:07
+# @Last Modified time: 2016-06-17 14:46:29
 
 """
 main file for phone number matcher
@@ -37,7 +37,7 @@ class PhoneNumberMatcher():
         content = self.cleaner.clean(content)
         content = self.extractor.extract(content)
         content = self.validator.validate(content)
-        return content
+        return content.split()
 
     
 

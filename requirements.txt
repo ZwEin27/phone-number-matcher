@@ -1,0 +1,5 @@
+digSparkUtil==1.0.23
+nose2==0.6.4
+phonenumbers==7.4.2
+six==1.10.0
+wsgiref==0.1.2
