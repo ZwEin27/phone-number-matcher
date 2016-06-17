@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-16 13:25:13
+# @Last Modified time: 2016-06-17 12:55:59
 
 """
 preprocess digits that must not belong to phone number
@@ -17,14 +17,25 @@ import string
 
 class Preprocessor():
 
-    """
-    remove money digits
+    datetime_regexes = [
+        r"(?:\d{2}[ _-]\d{2}[ _-]\d{4})",
+        r"(?:\d{4}[ _-]\d{2}[ _-]\d{2})"
+    ]
+    datetime_regex = r"(?:" + r"|".join(datetime_regexes) + ")"
 
-    samples:
-        $200tel3365551212
-        $276 3235551212
-    """
-    money_regex = r"(?:\$\d+[a-z\s]+)"
+    re_datetime_regex = re.compile(datetime_regex)
+    re_digits_regex = re.compile(r"\d+")
+
+    def prep_datetime(self, raw):
+        m = Preprocessor.re_datetime_regex.findall(raw)
+        for d in m:
+            dd = ''.join(Preprocessor.re_digits_regex.findall(d))
+            if datetime.is_valid_datetime(dd, '%Y%m%d') or datetime.is_valid_datetime(dd, '%m%d%Y'):
+                raw = raw.replace(d, "")
+        return raw
+
+    # money_regex = r"(?:\$\d+[a-z\s]+)"
+    # isolate_digits_regex = r"(?:[a-z][\s_-][0-9]{,10}[\s_-][a-z])"
 
     """
     remove digits before unit
@@ -35,11 +46,8 @@ class Preprocessor():
     units = ['lbs', 'kg']
     unit_regex = r"(?:\d+[\s\W]+(" + r"|".join(units) + "))"
 
-    # isolate_digits_regex = r"(?:[a-z][\s_-][0-9]{,10}[\s_-][a-z])"
-
     others_regexes = [
         r"24/7",
-        # r"(?:(?<=[\s])[iI][`'\s])",
         r"#\d", 
         r"\d+\'\d+", 
         r"\d+\%"
@@ -48,35 +56,13 @@ class Preprocessor():
 
     all_regexes = [unit_regex, other_regex]
     all_regex = r"(" + r"|".join(all_regexes) + ")"
-    # print "|".join(all_regexes)
-
-    datetime_regexes = [
-        r"(?:\d{2}[ _-]\d{2}[ _-]\d{4})",
-        r"(?:\d{4}[ _-]\d{2}[ _-]\d{2})"
-    ]
-    datetime_regex = r"(?:" + r"|".join(datetime_regexes) + ")"
-
-    def prep_datetime(self, raw):
-        m = re.findall(Preprocessor.datetime_regex, raw)
-        for d in m:
-            # to be optimize
-            # re_digit = re.compile(r"\d+")
-            # dd = ''.join(re_digit.findall(d))
-            dd = d.translate(string.maketrans("",""), string.punctuation)
-            dd = ''.join(dd.split())
-            if datetime.is_valid_datetime(dd, '%Y%m%d') or datetime.is_valid_datetime(dd, '%m%d%Y'):
-                raw = raw.replace(d, "")
-        return raw
+    re_all_regex = re.compile(all_regex)
 
     def preprocess(self, raw):
         raw = raw.lower()
         raw = raw.encode('ascii', 'ignore')
         raw = self.prep_datetime(raw)
-        # raw = re.sub(r'(\$\d+|24/7|\d+\'\d+)', '', raw, flags=re.I)
-        raw = re.sub(Preprocessor.all_regex, '', raw, flags=re.I)
-
-        
-
+        raw = Preprocessor.re_all_regex.sub('', raw) # , flags=re.I
         return raw
 
 
