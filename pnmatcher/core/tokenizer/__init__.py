@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-09 13:43:42
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-15 20:35:59
+# @Last Modified time: 2016-06-17 12:59:57
 
 """
 tokenize original content formated in 'text' or 'url' separately, and removing punctuations
@@ -21,6 +21,9 @@ SOURCE_TYPE_URL = 'url'
 
 class Tokenizer():
 
+    re_2_digts_only_in_url_regex = re.compile(r'(?<=[-_])\d{2}(?=[_/])')
+    re_all_alphabet_in_url_regex = re.compile(r'\w+')
+
     def __init__(self, source_type='text'):
         self.set_source_type(source_type)
         self.source_type = source_type      # text or url
@@ -37,8 +40,6 @@ class Tokenizer():
         self.source_type = source_type
 
     def remove_punctuation(self, raw):
-        # remove_punctuation_map = dict((ord(char), None) for char in string.punctuation)
-        # return raw.translate(remove_punctuation_map)
         return raw.translate(string.maketrans("",""), string.punctuation)
 
     def tokenize(self, raw):
@@ -70,12 +71,12 @@ class Tokenizer():
 
         # parse path
         path = url_obj.path
-        path = re.sub(r'(?<=[-_])\d{2}(?=[_/])', '', path)
+        path = Tokenizer.re_2_digts_only_in_url_regex.sub('', path)
         path = path.split('/')
 
         content = netloc + path
 
-        content = [SEPARATOR.join(re.findall(r'\w+', _, re.I)) for _ in content]
+        content = [SEPARATOR.join(Tokenizer.re_all_alphabet_in_url_regex.findall(_)) for _ in content]
 
         # parse params
         # url_obj.params
