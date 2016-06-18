@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 13:18:53
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-17 12:37:51
+# @Last Modified time: 2016-06-17 15:15:49
 
 """
 main entrance for spark workflow
@@ -31,12 +31,12 @@ from pyspark import SparkContext, SparkConf, SparkFiles
 from digSparkUtil.fileUtil import FileUtil
 from pnmatcher import PhoneNumberMatcher
 
-def load_jsonlines(sc, input, file_format='sequence', data_type='json', separator='\n'):
+def load_jsonlines(sc, input, file_format='sequence', data_type='json', separator='\t'):
     fUtil = FileUtil(sc)
     rdd = fUtil.load_file(input, file_format=file_format, data_type=data_type, separator=separator)
     return rdd
 
-def save_jsonlines(sc, rdd, output_dir, file_format='sequence', data_type='json', separator='\n'):
+def save_jsonlines(sc, rdd, output_dir, file_format='sequence', data_type='json', separator='\t'):
     fUtil = FileUtil(sc)
     fUtil.save_file(rdd, output_dir, file_format=file_format, data_type=data_type, separator=separator)
 
@@ -98,8 +98,8 @@ def run(sc, input_file, output_dir):
         result_ht = {}
         result_ht["doc_id"] = key
         result_ht["url"] = url        
-        result_ht["url_phone_numbers"] = url_phone_numbers.split()
-        result_ht["text_phone_numbers"] = text_phone_numbers.split()
+        result_ht["url_phone_numbers"] = url_phone_numbers
+        result_ht["text_phone_numbers"] = text_phone_numbers
 
         # return (key, json.dumps(result_ht))
         return (key, result_ht)
@@ -113,6 +113,7 @@ def run(sc, input_file, output_dir):
     #     shutil.rmtree(output_dir)
     # rdd.saveAsTextFile(output_dir)
 
+    # save_jsonlines(sc, rdd, output_dir, file_format='text', data_type='json')
     save_jsonlines(sc, rdd, output_dir, file_format='sequence', data_type='json')
 
 if __name__ == '__main__':
