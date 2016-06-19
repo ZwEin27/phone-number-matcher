@@ -142,7 +142,7 @@ class TestMainMethods(unittest.TestCase):
         output_fh.close()
 
     def test_url_extractor_string(self):
-        content = "http://chicago.backpage.com/FemaleEscorts/r-u-t-a-_your-blonde-_-o-b-s-e-s-s-i-o-n-_-23-23-23-23/30688875"
+        content = "http://2134529851.backpage.com/FemaleEscorts/r-u-t-a-_your-blonde-_-o-b-s-e-s-s-i-o-n-_-23-23-23-23/30688875"
         content = self.matcher.match(content, source_type='url')
         print content
     
@@ -153,7 +153,7 @@ if __name__ == '__main__':
     def run_main_test():
         suite = unittest.TestSuite()
         # suite.addTest(TestMainMethods("test_text_extractor_file"))
-        # suite.addTest(TestMainMethods("test_text_extractor_string"))
+        suite.addTest(TestMainMethods("test_text_extractor_string"))
         # suite.addTest(TestMainMethods("test_url_extractor_file"))
         # suite.addTest(TestMainMethods("test_url_extractor_string"))
         
