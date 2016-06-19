@@ -4,7 +4,7 @@ from os import path
 
 setup(
     name = 'pnmatcher',
-    version = '0.0.1',
+    version = '0.1.0',
     description = 'match phone numbers in url and text',
     author = 'Lingzhe Teng',
     author_email = 'zwein27@gmail.com',
