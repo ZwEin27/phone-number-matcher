@@ -43,11 +43,23 @@ use pnmatcher for text
     # print text_phone_numbers
     # ['4802671904']
 
+## Spark Usage
+
+1. upload following four files into your spark environment
+
+- spark_workflow.sh
+- spark_workflow.py
+- spark_dependencies/python_main.zip
+- spark_dependencies/python_lib.zip
+
+2. run `spark_workflow.sh` for spark workflow
+
+
 ## Project Layout
 
-- The **pnmatcher** directory holds the python code.
-- The **spark_dependencies** directory contains two zip files that are used for spark workflow.
-- The **tests** holds test scripts to evaluate the program.
+- The `pnmatcher` directory holds the python code.
+- The `spark_dependencies` directory contains two zip files that are used for spark workflow.
+- The `tests` holds test scripts to evaluate the program.
 
 ## Credit
 
