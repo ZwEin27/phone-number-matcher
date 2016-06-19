@@ -38,7 +38,7 @@ use pnmatcher for text
 
     text_string = "Sexy new girl in town searching for a great date wiff u Naughty fresh girl here searching 4 a great date wiff you Sweet new girl in town seeking for a good date with u for80 2sixseven one9zerofor 90hr incall or out call"
 
-    text_phone_numbers = matcher.match(content, source_type='text')
+    text_phone_numbers = matcher.match(text_string, source_type='text')
 
     # print text_phone_numbers
     # ['4802671904']
