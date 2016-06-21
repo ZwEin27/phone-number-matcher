@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-13 23:15:52
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-17 14:46:10
+# @Last Modified time: 2016-06-21 14:03:56
 
 """
 clean misspelling number words and replace numeral words
@@ -51,9 +51,6 @@ class Cleaner():
 
     numbers = ['zero', 'one', 'two', 'three', 'four', 'five', 'siz', 'seven', 'eight', 'nine']
 
-    re_ten = re.compile(r"(?<=[ilo0-9])ten")
-    re_one = re.compile(r'(?:((?<=([0-9yneorxt]))| )one|(?:(?<=[ils])[i]((?=[ils])|$)))')
-    re_zero = re.compile(r'(?:zero|oh|(?:(?<=[0-9])(o+?))|(?:o(?=[0-9]))|(?:(?<=[o\s])o(?=[o\s])))')
     re_twenty_x = re.compile(r"(two|twenty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
     re_thirty_x = re.compile(r"(three|thirty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
     re_forty_x = re.compile(r"(four|forty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
@@ -62,6 +59,10 @@ class Cleaner():
     re_seventy_x = re.compile(r"(seven|seventy[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
     re_eighty_x = re.compile(r"(eight|eighty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
     re_ninety_x = re.compile(r"(nine|ninety[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
+
+    re_ten = re.compile(r"(?<=[ilo0-9])ten")
+    re_one = re.compile(r'(?:((?<=([0-9yneorxt]))| )one|(?:(?<=[ils])[i]((?=[ils])|$)))')
+    re_zero = re.compile(r'(?:zero|oh|(?:(?<=[0-9])(o+?))|(?:o(?=[0-9]))|(?:(?<=[o\s])o(?=[o\s])))')
 
     def prep_replace_numeral_words(self, raw):
         raw = raw.replace("hundred", "00")
@@ -77,18 +78,6 @@ class Cleaner():
         raw = raw.replace("eighteen", "18")
         raw = raw.replace("nineteen", "19")
 
-        # raw = raw.replace("two", "2")
-        # raw = raw.replace("three", "3")
-        # raw = raw.replace("four", "4")
-        # raw = raw.replace("five", "5")
-        # raw = raw.replace("six", "6")
-        # raw = raw.replace("seven", "7")
-        # raw = raw.replace("eight", "8")
-        # raw = raw.replace("nine", "9")
-
-        raw = Cleaner.re_ten.sub("10", raw)
-        raw = Cleaner.re_one.sub("1", raw)
-        raw = Cleaner.re_zero.sub("0", raw)
         raw = Cleaner.re_twenty_x.sub("2", raw)
         raw = Cleaner.re_thirty_x.sub("3", raw)
         raw = Cleaner.re_forty_x.sub("4", raw)
@@ -97,6 +86,10 @@ class Cleaner():
         raw = Cleaner.re_seventy_x.sub("7", raw)
         raw = Cleaner.re_eighty_x.sub("8", raw)
         raw = Cleaner.re_ninety_x.sub("9", raw)
+
+        raw = Cleaner.re_ten.sub("10", raw)
+        raw = Cleaner.re_one.sub("1", raw)
+        raw = Cleaner.re_zero.sub("0", raw)
 
         raw = raw.replace("twenty", "20")
         raw = raw.replace("thirty", "30")

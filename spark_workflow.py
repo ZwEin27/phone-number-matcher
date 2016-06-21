@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 13:18:53
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-19 15:25:04
+# @Last Modified time: 2016-06-21 14:19:28
 
 """
 main entrance for spark workflow
@@ -104,15 +104,23 @@ def run(sc, input_file, output_dir):
         # return (key, json.dumps(result_ht))
         return (key, result_ht)
 
+    def map_extraction_frequence(data):
+        key, json_obj = data
+        url = json_obj['url']
+        url_phone_numbers = json_obj['url_phone_numbers']
+        text_phone_numbers = json_obj['text_phone_numbers']
+        phone_numbers = url_phone_numbers + text_phone_numbers
+        for phone_number in phone_numbers:
+            yield (phone_number, url)
+
     rdd = load_jsonlines(sc, input_file)
     rdd = rdd.map(map_load_data).map(map_extract_phone_number)
-    # print rdd.collect()
+    
+    # test purpose
+    # rdd = rdd.flatMap(map_extraction_frequence).distinct()
+    rdd = rdd.flatMap(map_extraction_frequence).reduceByKey(lambda v1,v2:v1+v2)
 
-    # import shutil
-    # if os.path.isdir(output_dir):
-    #     shutil.rmtree(output_dir)
     # rdd.saveAsTextFile(output_dir)
-
     # save_jsonlines(sc, rdd, output_dir, file_format='text', data_type='json')
     save_jsonlines(sc, rdd, output_dir, file_format='sequence', data_type='json')
 

@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-21 13:32:25
+# @Last Modified time: 2016-06-21 14:15:28
 
 """
 preprocess digits that must not belong to phone number
@@ -34,7 +34,7 @@ class Preprocessor():
                 raw = raw.replace(d, "")
         return raw
 
-    # money_regex = r"(?:\$\d+[a-z\s]+)"
+    money_regex = r"(?:(?<=[a-z\W_ ])\$\d+(?=[\W_ ]))"
     # isolate_digits_regex = r"(?:[a-z][\s_-][0-9]{,10}[\s_-][a-z])"
 
     """
@@ -55,7 +55,7 @@ class Preprocessor():
     ]
     other_regex = r"(?:" + "|".join(others_regexes) + ")"
 
-    all_regexes = [unit_regex, other_regex]
+    all_regexes = [money_regex, unit_regex, other_regex]
     all_regex = r"(" + r"|".join(all_regexes) + ")"
     re_all_regex = re.compile(all_regex)
 

@@ -124,7 +124,7 @@ class TestMainMethods(unittest.TestCase):
         output_fh.close()
 
     def test_text_extractor_string(self):
-        content = "Sexy new girl in town searching for a great date wiff u Naughty fresh girl here searching 4 a great date wiff you Sweet new girl in town seeking for a good date with u for80 2sixseven one9zerofor 90hr incall or out call 10000-40000"
+        content = "Hey Fellas. Selena is BACK from NEW YORK, and BACK in business Back feelin BRAND NEW. Im feelin myself now like never before, come see me and look no more come play with me relax and have some ADULT ONE ON ONE fun.Call me while im STILL AVAILABLE Quick Visit(15min)-$80 Half Hour(30min)-$100 Full Hour-$150 Party package.(2hr)-$300 5.0.2.nine.9.6.three.4.4.two NO BLACK MEN Outcalls My prices are FIRM and so is my time. SERIOUS INQUIRES ONLY.Call 230-029-9632 . See my menu of services on my profile BEFORE CALLING"
         content = self.matcher.match(content, source_type='text')
         print content
                 
