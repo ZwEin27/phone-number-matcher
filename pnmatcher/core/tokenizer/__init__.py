@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-09 13:43:42
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-17 12:59:57
+# @Last Modified time: 2016-06-21 12:26:59
 
 """
 tokenize original content formated in 'text' or 'url' separately, and removing punctuations
@@ -13,7 +13,8 @@ tokenize original content formated in 'text' or 'url' separately, and removing p
 import string
 import re
 
-from pnmatcher.vendor.crf.crf_tokenizer import CrfTokenizer
+from crf_tokenizer import CrfTokenizer
+# from pnmatcher.vendor.crf.crf_tokenizer import CrfTokenizer
 from urlparse import urlparse
 
 SOURCE_TYPE_TEXT = 'text'
