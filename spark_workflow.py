@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 13:18:53
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-21 14:19:28
+# @Last Modified time: 2016-06-22 11:44:29
 
 """
 main entrance for spark workflow
@@ -10,6 +10,11 @@ main entrance for spark workflow
 """
 
 """
+--input_file /user/worker/hbase-dump-2015-10-01-2015-12-01-aman/hbase
+--output_dir /user/worker/hbase-dump-2015-10-01-2015-12-01-aman/extracted_phones
+
+--output_dir /user/lteng/phone-number-extractor/data/spark_output_text_distinct
+
 sample script:
 
 spark-submit \
@@ -111,14 +116,15 @@ def run(sc, input_file, output_dir):
         text_phone_numbers = json_obj['text_phone_numbers']
         phone_numbers = url_phone_numbers + text_phone_numbers
         for phone_number in phone_numbers:
-            yield (phone_number, url)
+            # yield (str(phone_number)+'___'+url, 1)
+            yield (phone_number, 1)
 
     rdd = load_jsonlines(sc, input_file)
     rdd = rdd.map(map_load_data).map(map_extract_phone_number)
     
     # test purpose
     # rdd = rdd.flatMap(map_extraction_frequence).distinct()
-    rdd = rdd.flatMap(map_extraction_frequence).reduceByKey(lambda v1,v2:v1+v2)
+    # rdd = rdd.flatMap(map_extraction_frequence).reduceByKey(lambda v1,v2:v1+v2).sortBy(lambda a: a[1], False)
 
     # rdd.saveAsTextFile(output_dir)
     # save_jsonlines(sc, rdd, output_dir, file_format='text', data_type='json')

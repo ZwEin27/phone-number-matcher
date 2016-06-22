@@ -102,7 +102,7 @@ class TestMainMethods(unittest.TestCase):
                 json_obj['url_ext_ep'] = url_ext_expect
                 json_obj['text_ext_ep'] = text_ext_expect
 
-                # print json.dumps(json_obj, sort_keys=True, indent=4, separators=(',', ': '))
+                print json.dumps(json_obj, sort_keys=True, indent=4, separators=(',', ': '))
 
             total += 1
         
@@ -124,11 +124,10 @@ class TestMainMethods(unittest.TestCase):
         output_fh.close()
 
     def test_text_extractor_string(self):
-        content = "Hey Fellas. Selena is BACK from NEW YORK, and BACK in business Back feelin BRAND NEW. Im feelin myself now like never before, come see me and look no more come play with me relax and have some ADULT ONE ON ONE fun.Call me while im STILL AVAILABLE Quick Visit(15min)-$80 Half Hour(30min)-$100 Full Hour-$150 Party package.(2hr)-$300 5.0.2.nine.9.6.three.4.4.two NO BLACK MEN Outcalls My prices are FIRM and so is my time. SERIOUS INQUIRES ONLY.Call 230-029-9632 . See my menu of services on my profile BEFORE CALLING"
+        content = "Sweet new chick in town searching 4 a good date wiff uNaughty new chick in town searching for a good date with usix02 two28 4192 80hr in call or outcallDuo dream come true available 145hr 2night.Call 602-228-4192 ."
         content = self.matcher.match(content, source_type='text')
         print content
                 
-
     def test_url_extractor_file(self):
 
         output_fh = open(url_+'.phm', 'wb')
@@ -142,7 +141,7 @@ class TestMainMethods(unittest.TestCase):
         output_fh.close()
 
     def test_url_extractor_string(self):
-        content = "http://2134529851.backpage.com/FemaleEscorts/r-u-t-a-_your-blonde-_-o-b-s-e-s-s-i-o-n-_-23-23-23-23/30688875"
+        content = "http://liveescortreviews.com/ad/philadelphia/602-228-4192/1/310054"
         content = self.matcher.match(content, source_type='url')
         print content
     

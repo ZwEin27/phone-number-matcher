@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-21 14:15:28
+# @Last Modified time: 2016-06-21 15:17:31
 
 """
 preprocess digits that must not belong to phone number
@@ -50,7 +50,8 @@ class Preprocessor():
         r"24/7",
         r"#\d", 
         r"\d+\'\d+", 
-        r"\d{5}[\W_ ]\d{5}", 
+        r"(?<=[\W_ ])\d{5}[\W_ ]{1,}\d{5}(?=[\W_ ])", 
+        r"- {1,}\d+$", 
         r"\d+\%"
     ]
     other_regex = r"(?:" + "|".join(others_regexes) + ")"
