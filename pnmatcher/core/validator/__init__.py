@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-17 14:58:08
+# @Last Modified time: 2016-06-22 14:59:01
 
 """
 ensure phone numbers are valid
@@ -12,6 +12,7 @@ import re
 import phonenumbers
 from phonenumbers.phonenumberutil import NumberParseException
 from pnmatcher.core.common import datetime
+from difflib import SequenceMatcher
 # from pnmatcher.res import area_code
 
 class Validator():
@@ -100,6 +101,21 @@ class Validator():
 
     re_start_zero = re.compile(r'^0+')
 
+    def suggest_most_overlap(self, extracted_phone_list):
+        def similar(a, b):
+            return SequenceMatcher(None, a, b).ratio()
+        potential_invalid, potential_valid = [], []
+        for pn in extracted_phone_list:
+            if len(pn) == 10:
+                potential_valid.append(pn)
+            else:
+                potential_invalid.append(pn)
+        ans = list(potential_valid)
+        for pi in potential_invalid:
+            if not any(similar(pi, pv) > .7 for pv in potential_valid):
+                ans.append(pi)
+        return ans
+
     def validate(self, raw):
         ans = []
         for nums in raw.split('\t'):
@@ -118,6 +134,9 @@ class Validator():
             valid = self.validate_phone_number(nums)
             if valid:
                 ans.extend(valid)
+
+        ans = list(set(ans))
+        ans = self.suggest_most_overlap(ans)
 
         return ' '.join(ans)
 
