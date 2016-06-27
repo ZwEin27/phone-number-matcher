@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-21 15:17:31
+# @Last Modified time: 2016-06-23 16:13:10
 
 """
 preprocess digits that must not belong to phone number
@@ -34,7 +34,7 @@ class Preprocessor():
                 raw = raw.replace(d, "")
         return raw
 
-    money_regex = r"(?:(?<=[a-z\W_ ])\$\d+(?=[\W_ ]))"
+    money_regex = r"(?:(?<=[\D])\$\d+(?=[\W_]))"
     # isolate_digits_regex = r"(?:[a-z][\s_-][0-9]{,10}[\s_-][a-z])"
 
     """
@@ -43,14 +43,15 @@ class Preprocessor():
     samples:
         I'm 5'6\" 140 lbs.
     """
-    units = ['lbs', 'kg']
-    unit_regex = r"(?:\d+[\s\W]+(" + r"|".join(units) + "))"
+    units = ['lbs', 'kg', 'hour', 'hr', 'hh']
+    unit_regex = r"(?:\d+[\s\W]*(" + r"|".join(units) + "))"
 
     others_regexes = [
         r"24/7",
-        r"#\d", 
+        r"#\d+", 
+
         r"\d+\'\d+", 
-        r"(?<=[\W_ ])\d{5}[\W_ ]{1,}\d{5}(?=[\W_ ])", 
+        r"(?<=[\W_])\d{5}[\W_]{1,}\d{5}(?=[\W_])", 
         r"- {1,}\d+$", 
         r"\d+\%"
     ]
@@ -64,7 +65,7 @@ class Preprocessor():
         raw = raw.lower()
         raw = raw.encode('ascii', 'ignore')
         raw = self.prep_datetime(raw)
-        raw = Preprocessor.re_all_regex.sub('', raw) # , flags=re.I
+        raw = Preprocessor.re_all_regex.sub('', raw)
         return raw
 
 

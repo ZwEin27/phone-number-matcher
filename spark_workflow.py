@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 13:18:53
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-22 14:59:11
+# @Last Modified time: 2016-06-25 18:52:07
 
 """
 main entrance for spark workflow
@@ -56,7 +56,7 @@ def extract_content(raw):
     if isinstance(raw, basestring):
         content.append(raw)
     else:
-        content = raw
+        content = [_ for _ in raw if _ != None]
     return ' '.join(content)
 
 def run(sc, input_file, output_dir):
@@ -66,20 +66,30 @@ def run(sc, input_file, output_dir):
         extractions = json_obj['extractions']
 
         # load doc id
-        doc_id = json_obj['doc_id']
+        if 'doc_id' in json_obj:
+            doc_id = json_obj['doc_id']
 
         # load url
+        url = ""
         if 'url' in json_obj:
-            url = extract_content(json_obj['url'])
+            content = json_obj['url']
+            if content:
+                url = extract_content(content)
 
         # load and combine title and text content
         text_data = [] 
+        title = ""
         if 'title' in extractions and 'results' in extractions['title']:
-            title = extract_content(extractions['title']['results'])
-            text_data.append(title)
+            content = extractions['title']['results']
+            if content:
+                title = extract_content(content)
+                text_data.append(title)
+        text = ""
         if 'text' in extractions and 'results' in extractions['text']:
-            text = extract_content(extractions['text']['results'])
-            text_data.append(text)
+            content = extractions['text']['results']
+            if content:
+                text = extract_content(content)
+                text_data.append(text)
         text_data = ' '.join(text_data)
 
         # for test only

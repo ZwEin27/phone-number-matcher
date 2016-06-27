@@ -12,5 +12,5 @@ setup(
     download_url = 'https://github.com/ZwEin27/phone-number-matcher/tarball/0.1.1',
     packages = find_packages(),
     keywords = ['phone_number', 'extractor'],
-    install_requires=['phonenumbers']
+    install_requires=['phonenumbers', 'digSparkUtil']
 )

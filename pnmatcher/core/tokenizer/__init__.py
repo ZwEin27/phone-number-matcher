@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-09 13:43:42
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-21 12:51:55
+# @Last Modified time: 2016-06-24 11:08:21
 
 """
 tokenize original content formated in 'text' or 'url' separately, and removing punctuations
@@ -27,7 +27,6 @@ class Tokenizer():
 
     def __init__(self, source_type='text'):
         self.set_source_type(source_type)
-        self.source_type = source_type      # text or url
 
     def set_source_type(self, source_type):
         """ 
