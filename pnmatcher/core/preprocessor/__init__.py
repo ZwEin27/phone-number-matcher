@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-23 16:13:10
+# @Last Modified time: 2016-07-07 15:34:37
 
 """
 preprocess digits that must not belong to phone number
@@ -49,7 +49,6 @@ class Preprocessor():
     others_regexes = [
         r"24/7",
         r"#\d+", 
-
         r"\d+\'\d+", 
         r"(?<=[\W_])\d{5}[\W_]{1,}\d{5}(?=[\W_])", 
         r"- {1,}\d+$", 
@@ -71,7 +70,8 @@ class Preprocessor():
 
 if __name__ == '__main__':
     samples = ['$200tel3365551212', 
-                '$276 3235551212',]
+                '$276 3235551212',
+                '07807-254599']
 
     preprocessor = Preprocessor()
     for sample in samples:

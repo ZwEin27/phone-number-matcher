@@ -124,7 +124,8 @@ class TestMainMethods(unittest.TestCase):
         output_fh.close()
 
     def test_text_extractor_string(self):
-        content = "Sweet new chick in town searching 4 a good date wiff uNaughty new chick in town searching for a good date with usix02 two28 4192 80hr in call or outcallDuo dream come true available 145hr 2night.Call 10000-40000"
+        # content = "Sweet new chick in town searching 4 a good date wiff uNaughty new chick in town searching for a good date with usix02 two28 4192 80hr in call or outcallDuo dream come true available 145hr 2night.Call 10000-40000"
+        content = '07807 254599  asd 07807-254599 ad 10000-40000 '
         content = self.matcher.match(content, source_type='text')
         print content
                 
@@ -156,7 +157,7 @@ if __name__ == '__main__':
         # suite.addTest(TestMainMethods("test_url_extractor_file"))
         # suite.addTest(TestMainMethods("test_url_extractor_string"))
         
-        suite.addTest(TestMainMethods("test_extractor"))
+        # suite.addTest(TestMainMethods("test_extractor"))
 
         runner = unittest.TextTestRunner()
         runner.run(suite)
