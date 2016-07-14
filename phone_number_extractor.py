@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-21 12:36:47
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-21 13:32:45
+# @Last Modified time: 2016-07-14 17:38:42
 
 
 import sys
@@ -41,23 +41,33 @@ class Preprocessor():
         m = Preprocessor.re_datetime_regex.findall(raw)
         for d in m:
             dd = ''.join(Preprocessor.re_digits_regex.findall(d))
-            if is_valid_datetime(dd, '%Y%m%d') or is_valid_datetime(dd, '%m%d%Y'):
+            if datetime.is_valid_datetime(dd, '%Y%m%d') or datetime.is_valid_datetime(dd, '%m%d%Y'):
                 raw = raw.replace(d, "")
         return raw
 
-    units = ['lbs', 'kg']
-    unit_regex = r"(?:\d+[\s\W]+(" + r"|".join(units) + "))"
+    money_regex = r"(?:(?<=[\D])\$\d+(?=[\W_]))"
+    # isolate_digits_regex = r"(?:[a-z][\s_-][0-9]{,10}[\s_-][a-z])"
+
+    """
+    remove digits before unit
+
+    samples:
+        I'm 5'6\" 140 lbs.
+    """
+    units = ['lbs', 'kg', 'hour', 'hr', 'hh']
+    unit_regex = r"(?:\d+[\s\W]*(" + r"|".join(units) + "))"
 
     others_regexes = [
         r"24/7",
-        r"#\d", 
+        r"#\d+", 
         r"\d+\'\d+", 
-        r"\d{5}[\W_ ]\d{5}",
+        r"(?<=[\W_])\d{5}[\W_]{1,}\d{5}(?=[\W_])", 
+        r"- {1,}\d+$", 
         r"\d+\%"
     ]
     other_regex = r"(?:" + "|".join(others_regexes) + ")"
 
-    all_regexes = [unit_regex, other_regex]
+    all_regexes = [money_regex, unit_regex, other_regex]
     all_regex = r"(" + r"|".join(all_regexes) + ")"
     re_all_regex = re.compile(all_regex)
 
@@ -65,7 +75,7 @@ class Preprocessor():
         raw = raw.lower()
         raw = raw.encode('ascii', 'ignore')
         raw = self.prep_datetime(raw)
-        raw = Preprocessor.re_all_regex.sub('', raw) # , flags=re.I
+        raw = Preprocessor.re_all_regex.sub('', raw)
         return raw
 
 
@@ -80,9 +90,12 @@ class Tokenizer():
 
     def __init__(self, source_type='text'):
         self.set_source_type(source_type)
-        self.source_type = source_type      # text or url
 
     def set_source_type(self, source_type):
+        """ 
+        'text' or 'url'
+
+        """
         st = source_type.lower()
         if source_type.lower() not in [SOURCE_TYPE_TEXT, SOURCE_TYPE_URL] :
             raise Exception(source_type + ' is not a source type, which should be "text" or "url"')
@@ -128,6 +141,11 @@ class Tokenizer():
 
         content = [SEPARATOR.join(Tokenizer.re_all_alphabet_in_url_regex.findall(_)) for _ in content]
 
+        # parse params
+        # url_obj.params
+        
+        # parse query
+        # url_obj.query
         return ' sep '.join(content)
 
 
@@ -158,6 +176,7 @@ class Cleaner():
             "f1ve": "five",
             "n1ne": "nine",
             "0ne": "one",
+            "too": "two",
             "tw0": "two",
             "to": "two",
             "s1x": "six"
@@ -169,9 +188,6 @@ class Cleaner():
 
     numbers = ['zero', 'one', 'two', 'three', 'four', 'five', 'siz', 'seven', 'eight', 'nine']
 
-    re_ten = re.compile(r"(?<=[ilo0-9])ten")
-    re_one = re.compile(r'(?:((?<=([0-9yneorxt]))| )one|(?:(?<=[ils])[i]((?=[ils])|$)))')
-    re_zero = re.compile(r'(?:zero|oh|(?:(?<=[0-9])(o+?))|(?:o(?=[0-9]))|(?:(?<=[o\s])o(?=[o\s])))')
     re_twenty_x = re.compile(r"(two|twenty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
     re_thirty_x = re.compile(r"(three|thirty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
     re_forty_x = re.compile(r"(four|forty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
@@ -180,6 +196,10 @@ class Cleaner():
     re_seventy_x = re.compile(r"(seven|seventy[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
     re_eighty_x = re.compile(r"(eight|eighty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
     re_ninety_x = re.compile(r"(nine|ninety[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
+
+    re_ten = re.compile(r"(?<=[ilo0-9])ten")
+    re_one = re.compile(r'(?:(?<=([0-9yneorxt]| ))one|(?:(?<=[ils])[i]((?=[ils])|$)))')
+    re_zero = re.compile(r'(?:zero|oh|(?:(?<=[0-9])(o+?))|(?:o(?=[0-9]))|(?:(?<=[o\s])o(?=[o\s])))')
 
     def prep_replace_numeral_words(self, raw):
         raw = raw.replace("hundred", "00")
@@ -195,9 +215,6 @@ class Cleaner():
         raw = raw.replace("eighteen", "18")
         raw = raw.replace("nineteen", "19")
 
-        raw = Cleaner.re_ten.sub("10", raw)
-        raw = Cleaner.re_one.sub("1", raw)
-        raw = Cleaner.re_zero.sub("0", raw)
         raw = Cleaner.re_twenty_x.sub("2", raw)
         raw = Cleaner.re_thirty_x.sub("3", raw)
         raw = Cleaner.re_forty_x.sub("4", raw)
@@ -206,6 +223,10 @@ class Cleaner():
         raw = Cleaner.re_seventy_x.sub("7", raw)
         raw = Cleaner.re_eighty_x.sub("8", raw)
         raw = Cleaner.re_ninety_x.sub("9", raw)
+
+        raw = Cleaner.re_ten.sub("10", raw)
+        raw = Cleaner.re_one.sub("1", raw)
+        raw = Cleaner.re_zero.sub("0", raw)
 
         raw = raw.replace("twenty", "20")
         raw = raw.replace("thirty", "30")
@@ -224,37 +245,96 @@ class Cleaner():
 
 class Extractor():
 
+    def __init__(self):
+        pass
+
+    prefix = r'(?:(?<=[\A\b\sa-zA-Z])|^)'
+    # prefix = r'\b'
+    # prefix = r'[ ]?'
+    postfix = r'(?:(?=[\Z\b\sa-zA-Z])|$)'
+    # postfix = r'\b'
+    # postfix = r'[ ]?'
+
     phone_number_format_regex = [
-        r"(?:" + 10*r"[ ]\d" + r")",
-        r"(?:[ ]?\d{10}[ ])",
-        r"(?:[ ]?\d{8}[ ]\d{3}[ ]?)",
-        r"(?:[ ]?\d{7}[ ]\d{4}[ ]?)",
-        r"(?:[ ]?\d{4}[ ]\d{4}[ ]\d{2}[ ]?)",
-        r"(?:[ ]?\d{3}[ ]\d{7,8}[ ]?)",
-        r"(?:[ ]?\d{3}[ ]\d{3}[ ]\d{4}[ ]?)",
-        r"(?:[ ]?\d{3}[ ]\d{3}[ ]\d{1}[ ]\d{3}[ ]?)",
-        r"(?:[ ]?\d{2}[ ]\d{4}[ ]\d{4}[ ]?)",
-        r"(?:[\d ]{20,22})",
-        r"[\d ]+"
+        r'(?:'+prefix+r"\d{10,12}"+postfix+r')',
+        r'(?:'+prefix+r"\d{8}[ ]\d{3}"+postfix+r')',
+        r'(?:'+prefix+r"\d{7}[ ]\d{4}"+postfix+r')',
+        r'(?:'+prefix+r"\d{5}[ ]\d{6}"+postfix+r')',
+        r'(?:'+prefix+r"\d{5}[ ]\d{4}[ ]\d{4}"+postfix+r')',
+        r'(?:'+prefix+r"\d{5}[ ]\d{4}[ ]\d{2}[ ]\d{2}"+postfix+r')',
+        r'(?:'+prefix+r"\d{4}[ ]\d{4}[ ]\d{2}"+postfix+r')',
+        r'(?:'+prefix+r"\d{4}[ ]\d{2}[ ]\d{2}[ ]\d{2}[ ]\d{2}"+postfix+r')',
+        r'(?:'+prefix+r"\d{4}[ ]\d{3}[ ]\d{3}"+postfix+r')',
+        r'(?:'+prefix+r"\d{3}[ ]\d{7,8}"+postfix+r')',
+        r'(?:'+prefix+r"\d{3}[ ]\d{4}[ ]\d{4}"+postfix+r')',
+        r'(?:'+prefix+r"\d{3}[ ]\d{4}[ ]\d{3}"+postfix+r')',
+        r'(?:'+prefix+r"\d{3}[ ]\d{3}[ ]\d{4}"+postfix+r')',
+        r'(?:'+prefix+r"\d{3}[ ]\d{3}[ ]\d{3}[ ]\d{1}"+postfix+r')',
+        r'(?:'+prefix+r"\d{3}[ ]\d{3}[ ]\d{2}[ ]\d{1}[ ]\d{1}"+postfix+r')',
+        r'(?:'+prefix+r"\d{3}[ ]\d{3}[ ]\d{1}[ ]\d{3}"+postfix+r')',
+        r'(?:'+prefix+r"\d{3}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{4}"+postfix+r')',
+        r'(?:'+prefix+r"\d{2}[ ]\d{8,10}"+postfix+r')',
+        r'(?:'+prefix+r"\d{2}[ ]\d{4}[ ]\d{4}"+postfix+r')',
+        r'(?:'+prefix+r"\d{2}[ ]\d{1}[ ]\d{8}[ ]\d{1}"+postfix+r')',
+        r'(?:'+prefix+r"\d{1}[ ]\d{3}[ ]\d{3}[ ]\d{3}"+postfix+r')',
+        r'(?:'+prefix+r"\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}"+postfix+r')',
+        r'(?:'+prefix+r"\d{1}[ ]\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}"+postfix+r')',
+        r'(?:'+prefix+r"\d{1}[ ]\d{1}[ ]\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}"+postfix+r')',
+        r'(?:'+prefix+r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}"+postfix+r')',
+        r'(?:'+prefix+r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}"+postfix+r')',
+        r'(?:'+prefix+r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}"+postfix+r')',
+        r'(?:'+prefix+r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{2}[ ]\d{1}[ ]\d{1}"+postfix+r')',
+        r'(?:'+prefix+r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{2}[ ]\d{1}"+postfix+r')',
+        r'(?:'+prefix+r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{2}"+postfix+r')',
+        r'(?:'+prefix+r"\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}"+postfix+r')'
     ]
 
+    # numbers_regex = r"(?:" + r"|".join(phone_number_format_regex) + r")"
     numbers_regex = r"(?:" + r"|".join(phone_number_format_regex) + r")"
     re_numbers_regex = re.compile(numbers_regex)
+    # print numbers_regex
     
     def extract(self, raw):
         raw = Extractor.re_numbers_regex.findall(raw)
         raw = [''.join(_.split()) for _ in raw if len(_.strip()) >= 10]
-
         return '\t'.join(raw)
 
 
 class Validator():
+
+    def __init__(self):
+        pass
 
     def validate_phone_number_with_coutry_code(self, raw, country_code='US'):
         try:
             z = phonenumbers.parse(raw, country_code)
         except NumberParseException, e:
             pass
+
+            """
+            if e.error_type == NumberParseException.INVALID_COUNTRY_CODE:
+                # Invalid country code specified
+                return []
+            elif e.error_type == NumberParseException.NOT_A_NUMBER:
+                # The string passed in had fewer than 3 digits in it.
+                # The number failed to match the regular expression
+                return []
+            elif e.error_type == NumberParseException.TOO_SHORT_AFTER_IDD:
+                # The string started with an international dialing prefix
+                # but after this was removed, it had fewer digits than any
+                # valid phone number (including country code) could have.
+                return []
+            elif e.error_type == NumberParseException.TOO_SHORT_NSN:
+                # After any country code has been stripped, the string
+                # had fewer digits than any valid phone number could have.
+                return []
+
+            elif e.error_type == NumberParseException.TOO_LONG:
+                # String had more digits than any valid phone number could have
+                return []
+            """
+
+            # print e.error_type, e._msg
         else:
             if phonenumbers.is_possible_number(z) and phonenumbers.is_valid_number(z):
                 return [raw]
@@ -276,11 +356,11 @@ class Validator():
 
         date_format = ''
         if size == 14:
-            return is_valid_datetime(raw, '%Y%m%d%H%M%S')
+            return datetime.is_valid_datetime(raw, '%Y%m%d%H%M%S')
         elif size == 8:
-            return is_valid_datetime(raw, '%Y%m%d')
+            return datetime.is_valid_datetime(raw, '%Y%m%d')
         elif size == 6:
-            return is_valid_datetime(raw, '%Y%m%d') or is_valid_datetime(raw, '%H%M%S')
+            return datetime.is_valid_datetime(raw, '%Y%m%d') or datetime.is_valid_datetime(raw, '%H%M%S')
         else:
             return False
 
@@ -306,6 +386,21 @@ class Validator():
 
     re_start_zero = re.compile(r'^0+')
 
+    def suggest_most_overlap(self, extracted_phone_list):
+        def similar(a, b):
+            return SequenceMatcher(None, a, b).ratio()
+        potential_invalid, potential_valid = [], []
+        for pn in extracted_phone_list:
+            if len(pn) == 10:
+                potential_valid.append(pn)
+            else:
+                potential_invalid.append(pn)
+        ans = list(potential_valid)
+        for pi in potential_invalid:
+            if not any(similar(pi, pv) > .7 for pv in potential_valid):
+                ans.append(pi)
+        return ans
+
     def validate(self, raw):
         ans = []
         for nums in raw.split('\t'):
@@ -325,7 +420,11 @@ class Validator():
             if valid:
                 ans.extend(valid)
 
+        ans = list(set(ans))
+        ans = self.suggest_most_overlap(ans)
+
         return ' '.join(ans)
+
 
 class PhoneNumberExtractor():
     def __init__(self):

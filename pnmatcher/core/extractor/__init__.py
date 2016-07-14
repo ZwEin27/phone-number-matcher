@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-13 23:15:52
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-13 18:32:56
+# @Last Modified time: 2016-07-14 10:22:02
 
 """
 extract digits that seem good
@@ -26,8 +26,10 @@ class Extractor():
 
     prefix = r'(?:(?<=[\A\b\sa-zA-Z])|^)'
     # prefix = r'\b'
+    # prefix = r'[ ]?'
     postfix = r'(?:(?=[\Z\b\sa-zA-Z])|$)'
     # postfix = r'\b'
+    # postfix = r'[ ]?'
 
     phone_number_format_regex = [
         r'(?:'+prefix+r"\d{10,12}"+postfix+r')',
