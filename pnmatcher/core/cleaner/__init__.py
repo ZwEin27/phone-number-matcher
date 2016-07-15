@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-13 23:15:52
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-06-22 14:04:08
+# @Last Modified time: 2016-07-15 10:28:58
 
 """
 clean misspelling number words and replace numeral words
@@ -105,6 +105,7 @@ class Cleaner():
     def clean(self, raw):
         raw = self.prep_misspelled_numeral_words(raw)
         raw = self.prep_replace_numeral_words(raw)
+        # print raw
         return raw
 
  

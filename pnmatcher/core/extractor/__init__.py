@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-13 23:15:52
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-14 10:22:02
+# @Last Modified time: 2016-07-15 10:33:27
 
 """
 extract digits that seem good
@@ -33,8 +33,10 @@ class Extractor():
 
     phone_number_format_regex = [
         r'(?:'+prefix+r"\d{10,12}"+postfix+r')',
-        r'(?:'+prefix+r"\d{8}[ ]\d{3}"+postfix+r')',
-        r'(?:'+prefix+r"\d{7}[ ]\d{4}"+postfix+r')',
+        r'(?:'+prefix+r"\d{9,10}"+postfix+r')',
+        r'(?:'+prefix+r"\d{8}[ ]\d{3,4}"+postfix+r')',
+        r'(?:'+prefix+r"\d{7}[ ]\d{3,4}"+postfix+r')',
+        r'(?:'+prefix+r"\d{6}[ ]\d{4}"+postfix+r')',
         r'(?:'+prefix+r"\d{5}[ ]\d{6}"+postfix+r')',
         r'(?:'+prefix+r"\d{5}[ ]\d{4}[ ]\d{4}"+postfix+r')',
         r'(?:'+prefix+r"\d{5}[ ]\d{4}[ ]\d{2}[ ]\d{2}"+postfix+r')',
@@ -49,9 +51,9 @@ class Extractor():
         r'(?:'+prefix+r"\d{3}[ ]\d{3}[ ]\d{2}[ ]\d{1}[ ]\d{1}"+postfix+r')',
         r'(?:'+prefix+r"\d{3}[ ]\d{3}[ ]\d{1}[ ]\d{3}"+postfix+r')',
         r'(?:'+prefix+r"\d{3}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{4}"+postfix+r')',
-        r'(?:'+prefix+r"\d{2}[ ]\d{8,10}"+postfix+r')',
         r'(?:'+prefix+r"\d{2}[ ]\d{4}[ ]\d{4}"+postfix+r')',
-        r'(?:'+prefix+r"\d{2}[ ]\d{1}[ ]\d{8}[ ]\d{1}"+postfix+r')',
+        r'(?:'+prefix+r"\d{2}[ ]\d{8}"+postfix+r')',
+        r'(?:'+prefix+r"\d{1}[ ]\d{8}[ ]\d{1}"+postfix+r')',    # \d{2}[ ] ...
         r'(?:'+prefix+r"\d{1}[ ]\d{3}[ ]\d{3}[ ]\d{3}"+postfix+r')',
         r'(?:'+prefix+r"\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}"+postfix+r')',
         r'(?:'+prefix+r"\d{1}[ ]\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}"+postfix+r')',
