@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-21 12:36:47
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-14 17:38:42
+# @Last Modified time: 2016-07-15 17:33:29
 
 
 import sys
@@ -17,6 +17,7 @@ from crf_tokenizer import CrfTokenizer
 from urlparse import urlparse
 from string import maketrans
 from phonenumbers.phonenumberutil import NumberParseException
+from difflib import SequenceMatcher
 
 
 def is_valid_datetime(raw, date_format):
@@ -27,6 +28,12 @@ def is_valid_datetime(raw, date_format):
         return False
 
 class Preprocessor():
+
+    reg_simple_format = [
+        r'(?:(?<=[ \A\b-\.\?])\d{3}[ \?\.-]\d{3}[ \?\.-]\d{4}(?=[ \Z\b-\.\?]))'
+    ]
+    re_simple_format = re.compile(r'(?:'+r'|'.join(reg_simple_format)+r')')
+
 
     datetime_regexes = [
         r"(?:\d{2}[ _-]\d{2}[ _-]\d{4})",
@@ -41,7 +48,7 @@ class Preprocessor():
         m = Preprocessor.re_datetime_regex.findall(raw)
         for d in m:
             dd = ''.join(Preprocessor.re_digits_regex.findall(d))
-            if datetime.is_valid_datetime(dd, '%Y%m%d') or datetime.is_valid_datetime(dd, '%m%d%Y'):
+            if is_valid_datetime(dd, '%Y%m%d') or is_valid_datetime(dd, '%m%d%Y'):
                 raw = raw.replace(d, "")
         return raw
 
@@ -76,6 +83,8 @@ class Preprocessor():
         raw = raw.encode('ascii', 'ignore')
         raw = self.prep_datetime(raw)
         raw = Preprocessor.re_all_regex.sub('', raw)
+        raw = Preprocessor.re_simple_format.sub('pnwrapper \g<0> pnwrapper', raw)
+        # print raw
         return raw
 
 
@@ -147,6 +156,7 @@ class Tokenizer():
         # parse query
         # url_obj.query
         return ' sep '.join(content)
+   
 
 
 
@@ -241,6 +251,7 @@ class Cleaner():
     def clean(self, raw):
         raw = self.prep_misspelled_numeral_words(raw)
         raw = self.prep_replace_numeral_words(raw)
+        # print raw
         return raw
 
 class Extractor():
@@ -257,8 +268,10 @@ class Extractor():
 
     phone_number_format_regex = [
         r'(?:'+prefix+r"\d{10,12}"+postfix+r')',
-        r'(?:'+prefix+r"\d{8}[ ]\d{3}"+postfix+r')',
-        r'(?:'+prefix+r"\d{7}[ ]\d{4}"+postfix+r')',
+        r'(?:'+prefix+r"\d{9,10}"+postfix+r')',
+        r'(?:'+prefix+r"\d{8}[ ]\d{3,4}"+postfix+r')',
+        r'(?:'+prefix+r"\d{7}[ ]\d{3,4}"+postfix+r')',
+        r'(?:'+prefix+r"\d{6}[ ]\d{4}"+postfix+r')',
         r'(?:'+prefix+r"\d{5}[ ]\d{6}"+postfix+r')',
         r'(?:'+prefix+r"\d{5}[ ]\d{4}[ ]\d{4}"+postfix+r')',
         r'(?:'+prefix+r"\d{5}[ ]\d{4}[ ]\d{2}[ ]\d{2}"+postfix+r')',
@@ -273,9 +286,9 @@ class Extractor():
         r'(?:'+prefix+r"\d{3}[ ]\d{3}[ ]\d{2}[ ]\d{1}[ ]\d{1}"+postfix+r')',
         r'(?:'+prefix+r"\d{3}[ ]\d{3}[ ]\d{1}[ ]\d{3}"+postfix+r')',
         r'(?:'+prefix+r"\d{3}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{4}"+postfix+r')',
-        r'(?:'+prefix+r"\d{2}[ ]\d{8,10}"+postfix+r')',
         r'(?:'+prefix+r"\d{2}[ ]\d{4}[ ]\d{4}"+postfix+r')',
-        r'(?:'+prefix+r"\d{2}[ ]\d{1}[ ]\d{8}[ ]\d{1}"+postfix+r')',
+        r'(?:'+prefix+r"\d{2}[ ]\d{8}"+postfix+r')',
+        r'(?:'+prefix+r"\d{1}[ ]\d{8}[ ]\d{1}"+postfix+r')',    # \d{2}[ ] ...
         r'(?:'+prefix+r"\d{1}[ ]\d{3}[ ]\d{3}[ ]\d{3}"+postfix+r')',
         r'(?:'+prefix+r"\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}"+postfix+r')',
         r'(?:'+prefix+r"\d{1}[ ]\d{2}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}[ ]\d{1}"+postfix+r')',
@@ -302,8 +315,7 @@ class Extractor():
 
 class Validator():
 
-    def __init__(self):
-        pass
+    re_zero = re.compile(r'0{3,}')
 
     def validate_phone_number_with_coutry_code(self, raw, country_code='US'):
         try:
@@ -356,11 +368,11 @@ class Validator():
 
         date_format = ''
         if size == 14:
-            return datetime.is_valid_datetime(raw, '%Y%m%d%H%M%S')
+            return is_valid_datetime(raw, '%Y%m%d%H%M%S')
         elif size == 8:
-            return datetime.is_valid_datetime(raw, '%Y%m%d')
+            return is_valid_datetime(raw, '%Y%m%d')
         elif size == 6:
-            return datetime.is_valid_datetime(raw, '%Y%m%d') or datetime.is_valid_datetime(raw, '%H%M%S')
+            return is_valid_datetime(raw, '%Y%m%d') or is_valid_datetime(raw, '%H%M%S')
         else:
             return False
 
@@ -410,6 +422,9 @@ class Validator():
             if len(nums) > 16:
                 continue
 
+            if len(Validator.re_zero.findall(nums)):
+                continue
+
             if self.is_all_dup_digits(nums):
                 continue
 
@@ -425,23 +440,74 @@ class Validator():
 
         return ' '.join(ans)
 
+class Normalizer():
+    # try extracting from this one live escort reviews pnwrapper 754 307 7279 pnwrapper 49 91 3524432077 you won t be disappointedangel
+
+    re_digits = re.compile(r'(?:(?<=[ \s\b\Aa-zA-Z])[\d ]+(?=[ \s\b\Za-zA-Z]))')
+
+    def normalize(self, cleaned_output, uncleaned_output, output_format='list'):
+        # print [_.strip() for _ in Normalizer.re_digits.findall(tokenized_content) if _.strip() != '']
+        
+        if output_format == 'obfuscation':
+            output = []
+            for co in cleaned_output.split():
+                phonenum = {}
+                phonenum['telephone'] = co
+                if co in uncleaned_output:
+                    phonenum['obfuscation'] = 'False'
+                else:
+                    phonenum['obfuscation'] = 'True'
+                output.append(phonenum)
+            return output
+        else:
+            return cleaned_output
+
 
 class PhoneNumberExtractor():
-    def __init__(self):
+
+    PN_OUTPUT_FORMAT_LIST = 'list'
+    PN_OUTPUT_FORMAT_OBFUSCATION = 'obfuscation'
+
+    def __init__(self, _output_format='list'):
         self.preprocessor = Preprocessor()
         self.tokenizer = Tokenizer(source_type='text')
         self.extractor = Extractor()
         self.cleaner = Cleaner()
         self.validator = Validator()
+        self.normalizer = Normalizer()
+        self.set_output_format(_output_format)
 
+    def set_output_format(self, _output_format):
+        # 1. list, 2. obfuscation
+        if _output_format not in [PhoneNumberExtractor.PN_OUTPUT_FORMAT_LIST, PhoneNumberExtractor.PN_OUTPUT_FORMAT_OBFUSCATION]:
+            raise Exception('output_format should be "list" or "obfuscation"')
+        self.output_format = _output_format
+
+    def do_process(self, content, source_type='text', do_preprocess=True, do_tokenize=True, do_clean=True, do_extract=True, do_validate=True):
+        if do_preprocess:
+            content = self.preprocessor.preprocess(content)
+
+        if do_tokenize:
+            self.tokenizer.set_source_type(source_type)
+            content = self.tokenizer.tokenize(content)
+
+        if do_clean: 
+            content = self.cleaner.clean(content)
+
+        if do_extract:
+            content = self.extractor.extract(content)
+
+        if do_validate:
+            content = self.validator.validate(content)
+
+        return content
+
+        
     def match(self, content, source_type='text'):
-        self.tokenizer.set_source_type(source_type)
-        content = self.preprocessor.preprocess(content)
-        content = self.tokenizer.tokenize(content)
-        content = self.cleaner.clean(content)
-        content = self.extractor.extract(content)
-        content = self.validator.validate(content)
-        return content.split()
+        cleaned_ans = self.do_process(content, source_type=source_type)
+        uncleaned_ans = self.do_process(content, source_type=source_type, do_clean=False)
+        return self.normalizer.normalize(cleaned_ans, uncleaned_ans, output_format=self.output_format)
+
 
 
 if __name__ == '__main__':
