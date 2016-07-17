@@ -126,11 +126,12 @@ class TestMainMethods(unittest.TestCase):
     def test_text_extractor_string(self):
         # content = "Sweet new chick in town searching 4 a good date wiff uNaughty new chick in town searching for a good date with usix02 two28 4192 80hr in call or outcallDuo dream come true available 145hr 2night.Call 10000-40000"
         # content = '07807 254599  asd 07807-254599 ad 10000-40000 '
-        # content = 'Try extracting from this one: Live Escort Reviews - 754-307-7279 - 49.99 3524432077 You WON\'T be DISAPPOINTEDANGEL!! - 30'
+        # content = 'Try exxtracting from this one: Live Escort Reviews - 754-307-7279 - 49.99 3524432077 You WON\'T be DISAPPOINTEDANGEL!! - 30'
         # content = 'How about Ad: Live Escort Reviews - 780-442-3705 - ????Naughty Maria*Maria so sweet so Nice????3hrs/$500 or 8hrs/1000 - 587.712.8963 - 28'
         # content = '??? 4? First Time in HI?COMING 22, 25, ????808-462-8138 ????100% Real Pics ???'
         # content = 'Pune Escorts - Pune\'s Best Female Escorts Service, CAll ROHAN? 09921488 433/ 0888866 5466 - Pune escorts - backpage.com'
-        content = 'Try extracting from this one: Live Escort Reviews - 754-3two7-7279 - 49.91 3524432077 You WON\'T be DISAPPOINTEDANGEL!! - 30'
+        # content = 'Try extracting from this one: Live Escort Reviews - 754-3two7-7279 - 49.91 3524432077 You WON\'T be DISAPPOINTEDANGEL!! - 30'
+        content = 'Here is an example of an international number: Student Escort In Dubai | +971501948716, Hey handsome,'
         content = self.matcher.match(content, source_type='text')
         print content
                 

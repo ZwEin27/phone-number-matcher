@@ -4,7 +4,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-13 23:15:52
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-15 12:13:14
+# @Last Modified time: 2016-07-15 17:21:44
 
 """
 main file for phone number matcher
@@ -28,7 +28,7 @@ class PhoneNumberMatcher():
     PN_OUTPUT_FORMAT_LIST = 'list'
     PN_OUTPUT_FORMAT_OBFUSCATION = 'obfuscation'
 
-    def __init__(self, _output_format='obfuscation'):
+    def __init__(self, _output_format='list'):
         self.preprocessor = Preprocessor()
         self.tokenizer = Tokenizer(source_type='text')
         self.extractor = Extractor()
@@ -66,9 +66,6 @@ class PhoneNumberMatcher():
     def match(self, content, source_type='text'):
         cleaned_ans = self.do_process(content, source_type=source_type)
         uncleaned_ans = self.do_process(content, source_type=source_type, do_clean=False)
-
-        print uncleaned_ans
-
         return self.normalizer.normalize(cleaned_ans, uncleaned_ans, output_format=self.output_format)
 
 

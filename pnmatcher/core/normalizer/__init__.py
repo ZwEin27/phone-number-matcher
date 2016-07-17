@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-07-15 11:22:42
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-15 12:13:57
+# @Last Modified time: 2016-07-16 09:38:29
 
 import re
 import sys
@@ -28,7 +28,7 @@ class Normalizer():
                 output.append(phonenum)
             return output
         else:
-            return cleaned_output
+            return cleaned_output.split()
 
 
 
