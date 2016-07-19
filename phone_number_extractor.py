@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-21 12:36:47
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-15 17:33:29
+# @Last Modified time: 2016-07-19 13:55:32
 
 
 import sys
@@ -267,7 +267,7 @@ class Extractor():
     # postfix = r'[ ]?'
 
     phone_number_format_regex = [
-        r'(?:'+prefix+r"\d{10,12}"+postfix+r')',
+        r'(?:'+prefix+r"\d{10,13}"+postfix+r')',
         r'(?:'+prefix+r"\d{9,10}"+postfix+r')',
         r'(?:'+prefix+r"\d{8}[ ]\d{3,4}"+postfix+r')',
         r'(?:'+prefix+r"\d{7}[ ]\d{3,4}"+postfix+r')',

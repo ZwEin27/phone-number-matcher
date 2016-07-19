@@ -131,7 +131,8 @@ class TestMainMethods(unittest.TestCase):
         # content = '??? 4? First Time in HI?COMING 22, 25, ????808-462-8138 ????100% Real Pics ???'
         # content = 'Pune Escorts - Pune\'s Best Female Escorts Service, CAll ROHAN? 09921488 433/ 0888866 5466 - Pune escorts - backpage.com'
         # content = 'Try extracting from this one: Live Escort Reviews - 754-3two7-7279 - 49.91 3524432077 You WON\'T be DISAPPOINTEDANGEL!! - 30'
-        content = 'Here is an example of an international number: Student Escort In Dubai | +971501948716, Hey handsome,'
+        # content = 'Here is an example of an international number: Student Escort In Dubai | +971501948716, Hey handsome,'
+        content = 'Please call me at +9715562644120 fast reservation)'
         content = self.matcher.match(content, source_type='text')
         print content
                 
