@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-15 10:35:14
+# @Last Modified time: 2016-07-22 09:37:39
 
 """
 preprocess digits that must not belong to phone number
@@ -16,6 +16,8 @@ import string
 
 
 class Preprocessor():
+
+    re_prep = re.compile(r'[\(\)]')
 
     reg_simple_format = [
         r'(?:(?<=[ \A\b-\.\?])\d{3}[ \?\.-]\d{3}[ \?\.-]\d{4}(?=[ \Z\b-\.\?]))'
@@ -70,6 +72,7 @@ class Preprocessor():
         raw = raw.lower()
         raw = raw.encode('ascii', 'ignore')
         raw = self.prep_datetime(raw)
+        raw = Preprocessor.re_prep.sub(' ', raw)
         raw = Preprocessor.re_all_regex.sub('', raw)
         raw = Preprocessor.re_simple_format.sub('pnwrapper \g<0> pnwrapper', raw)
         # print raw
