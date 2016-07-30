@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-13 23:15:52
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-19 13:54:43
+# @Last Modified time: 2016-07-28 13:04:55
 
 """
 extract digits that seem good
@@ -39,6 +39,7 @@ class Extractor():
         r'(?:'+prefix+r"\d{6}[ ]\d{4}"+postfix+r')',
         r'(?:'+prefix+r"\d{5}[ ]\d{6}"+postfix+r')',
         r'(?:'+prefix+r"\d{5}[ ]\d{4}[ ]\d{4}"+postfix+r')',
+        r'(?:'+prefix+r"\d{5}[ ]\d{4}"+postfix+r')',
         r'(?:'+prefix+r"\d{5}[ ]\d{4}[ ]\d{2}[ ]\d{2}"+postfix+r')',
         r'(?:'+prefix+r"\d{4}[ ]\d{4}[ ]\d{2}"+postfix+r')',
         r'(?:'+prefix+r"\d{4}[ ]\d{2}[ ]\d{2}[ ]\d{2}[ ]\d{2}"+postfix+r')',

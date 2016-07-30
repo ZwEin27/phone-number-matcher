@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-21 12:36:47
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-22 09:41:01
+# @Last Modified time: 2016-07-28 13:16:18
 
 
 import sys
@@ -87,7 +87,6 @@ class Preprocessor():
         raw = Preprocessor.re_prep.sub(' ', raw)
         raw = Preprocessor.re_all_regex.sub('', raw)
         raw = Preprocessor.re_simple_format.sub('pnwrapper \g<0> pnwrapper', raw)
-        # print raw
         return raw
 
 
@@ -277,6 +276,7 @@ class Extractor():
         r'(?:'+prefix+r"\d{6}[ ]\d{4}"+postfix+r')',
         r'(?:'+prefix+r"\d{5}[ ]\d{6}"+postfix+r')',
         r'(?:'+prefix+r"\d{5}[ ]\d{4}[ ]\d{4}"+postfix+r')',
+        r'(?:'+prefix+r"\d{5}[ ]\d{4}"+postfix+r')',
         r'(?:'+prefix+r"\d{5}[ ]\d{4}[ ]\d{2}[ ]\d{2}"+postfix+r')',
         r'(?:'+prefix+r"\d{4}[ ]\d{4}[ ]\d{2}"+postfix+r')',
         r'(?:'+prefix+r"\d{4}[ ]\d{2}[ ]\d{2}[ ]\d{2}[ ]\d{2}"+postfix+r')',
@@ -463,7 +463,7 @@ class Normalizer():
                 output.append(phonenum)
             return output
         else:
-            return cleaned_output
+            return cleaned_output.split()
 
 
 class PhoneNumberExtractor():
@@ -500,8 +500,8 @@ class PhoneNumberExtractor():
         if do_extract:
             content = self.extractor.extract(content)
 
-        if do_validate:
-            content = self.validator.validate(content)
+        # if do_validate:
+        #     content = self.validator.validate(content)
 
         return content
 
@@ -524,7 +524,8 @@ if __name__ == '__main__':
     url_phone_numbers = extractor.match(url_string, source_type='url')
     print url_phone_numbers
 
-    text_string = "Sexy new girl in town searching for a great date wiff u Naughty fresh girl here searching 4 a great date wiff you Sweet new girl in town seeking for a good date with u for80 2sixseven one9zerofor 90hr incall or out call"
+    # text_string = "Sexy new girl in town searching for a great date wiff u Naughty fresh girl here searching 4 a great date wiff you Sweet new girl in town seeking for a good date with u for80 2sixseven one9zerofor 90hr incall or out call"
+    text_string ="Acompanhante Liliana Mulata (11) 99106-6691 SP / 11991066691 / m88nFAgDMf - Brasil Dating Site"
     text_phone_numbers = extractor.match(text_string, source_type='text')
     print text_phone_numbers
 
