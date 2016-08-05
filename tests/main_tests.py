@@ -134,7 +134,7 @@ class TestMainMethods(unittest.TestCase):
         # content = 'Here is an example of an international number: Student Escort In Dubai | +971501948716, Hey handsome,'
         # content = 'Please call me at +9715562644120 fast reservation)'
         # content = ' at 1(609) 851-2030 SOPHIA. '
-        content = 'Acompanhante Liliana Mulata (11) 99106-6691 SP / 11991066691 / m88nFAgDMf - Brasil Dating Site'
+        content = '859 229 8600'
         content = self.matcher.match(content, source_type='text')
         print content
                 
