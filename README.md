@@ -66,6 +66,7 @@ use pnmatcher for text
 ### Library
 - [python-phonenumbers](https://github.com/daviddrysdale/python-phonenumbers)
 - [dig-sparkutil](https://github.com/usc-isi-i2/dig-sparkutil)
+- [CrfTokenizer](https://github.com/usc-isi-i2/dig-crf/blob/master/src/applyCrf/crf_tokenizer.py)
 
 ### Resource
 - [Country List](http://www.andrewpatton.com/countrylist.html)
