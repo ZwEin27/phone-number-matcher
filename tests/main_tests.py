@@ -134,7 +134,8 @@ class TestMainMethods(unittest.TestCase):
         # content = 'Here is an example of an international number: Student Escort In Dubai | +971501948716, Hey handsome,'
         # content = 'Please call me at +9715562644120 fast reservation)'
         # content = ' at 1(609) 851-2030 SOPHIA. '
-        content = 'deyi linda y sexy llamame papi 7864865tengo una amiguita servicio a parejas. - Miami escorts - backpage.com'
+        # content = 'deyi linda y sexy llamame papi 7864865044tengo una amiguita servicio a parejas. - Miami escorts - backpage.com'
+        content = 'deyi 7864865044tengo - 7twenty8ten3388 - backpage.com'
         content = self.matcher.match(content, source_type='text')
         print content
                 
@@ -163,11 +164,11 @@ if __name__ == '__main__':
     def run_main_test():
         suite = unittest.TestSuite()
         # suite.addTest(TestMainMethods("test_text_extractor_file"))
-        # suite.addTest(TestMainMethods("test_text_extractor_string"))
+        suite.addTest(TestMainMethods("test_text_extractor_string"))
         # suite.addTest(TestMainMethods("test_url_extractor_file"))
         # suite.addTest(TestMainMethods("test_url_extractor_string"))
         
-        suite.addTest(TestMainMethods("test_extractor"))
+        # suite.addTest(TestMainMethods("test_extractor"))
 
         runner = unittest.TextTestRunner()
         runner.run(suite)

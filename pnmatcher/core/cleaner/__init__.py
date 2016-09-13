@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-13 23:15:52
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-09-12 22:27:03
+# @Last Modified time: 2016-09-13 00:36:45
 
 """
 clean misspelling number words and replace numeral words
@@ -61,8 +61,9 @@ class Cleaner():
     re_eighty_x = re.compile(r"(eight|eighty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
     re_ninety_x = re.compile(r"(nine|ninety[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
 
-    re_ten = re.compile(r"(?<=[ilo0-9])ten(?=[ ilo0-9\.\t\(\),\:\-\+\!])")
-    # re_ten = re.compile(r"(?<=[ilo0-9])ten")
+    # re_ten = re.compile(r"(?<=[ilo0-9])ten(?=[ ilo0-9\.\t\(\),\:\-\+\!])")
+    # re_ten = re.compile(r"(?<=[ilo0-9])ten\b")
+    re_ten = re.compile(r"(?<=[ilo0-9])ten(?=[ \b0-9])")
     re_one = re.compile(r'(?:(?<=([0-9yneorxt]| ))one|(?:(?<=[ils])[i]((?=[ils])|$)))')
     re_zero = re.compile(r'(?:zero|oh|(?:(?<=[0-9])(o+?))|(?:o(?=[0-9]))|(?:(?<=[o\s])o(?=[o\s])))')
 

@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-21 12:36:47
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-09-12 22:19:16
+# @Last Modified time: 2016-09-13 14:07:51
 
 
 import sys
@@ -209,8 +209,7 @@ class Cleaner():
     re_eighty_x = re.compile(r"(eight|eighty[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
     re_ninety_x = re.compile(r"(nine|ninety[\W_]+(?=(\d|" + r"|".join(numbers) + ")))")
 
-    # re_ten = re.compile(r"(?<=[ilo0-9])ten(?=[ ilo0-9\.\t\(\),\:\-\+\!])")
-    re_ten = re.compile(r"(?<=[ilo0-9])ten\b")
+    re_ten = re.compile(r"(?<=[ilo0-9])ten(?=[ \b0-9])")
     re_one = re.compile(r'(?:(?<=([0-9yneorxt]| ))one|(?:(?<=[ils])[i]((?=[ils])|$)))')
     re_zero = re.compile(r'(?:zero|oh|(?:(?<=[0-9])(o+?))|(?:o(?=[0-9]))|(?:(?<=[o\s])o(?=[o\s])))')
 
