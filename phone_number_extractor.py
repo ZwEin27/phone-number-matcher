@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-21 12:36:47
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-09-13 14:07:51
+# @Last Modified time: 2016-09-19 20:34:35
 
 
 import sys
@@ -520,7 +520,7 @@ if __name__ == '__main__':
     from phone_number_extractor import PhoneNumberExtractor
     extractor = PhoneNumberExtractor()
 
-    url_string = "http://2134529851.backpage.com/FemaleEscorts/r-u-t-a-_your-blonde-_-o-b-s-e-s-s-i-o-n-_-23-23-23-23/30688875"
+    url_string = "http://costarica.backpage.com/BodyRubs/somos-una-choco-latosa-tentacin-llmanos-7185737671857376/2894113"
     url_phone_numbers = extractor.match(url_string, source_type='url')
     print url_phone_numbers
 
