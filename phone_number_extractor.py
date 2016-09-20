@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-21 12:36:47
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-09-19 20:43:47
+# @Last Modified time: 2016-09-19 20:58:02
 
 
 import sys
@@ -412,7 +412,7 @@ class Validator():
                 potential_invalid.append(pn)
         ans = list(potential_valid)
         for pi in potential_invalid:
-            if not any(similar(pi, pv) > .7 for pv in potential_valid):
+            if any(similar(pi, pv) < .3 for pv in potential_valid):
                 ans.append(pi)
         return ans
 
@@ -526,7 +526,8 @@ if __name__ == '__main__':
     url_phone_numbers = extractor.match(url_string, source_type='url')
     print url_phone_numbers
 
-    text_string = "Sexy new girl in town searching for a great date wiff u Naughty fresh girl here searching 4 a great date wiff you Sweet new girl in town seeking for a good date with u for80 2sixseven one9zerofor 90hr incall or out call"
+    # text_string = "Sexy new girl in town searching for a great date wiff u Naughty fresh girl here searching 4 a great date wiff you Sweet new girl in town seeking for a good date with u for80 2sixseven one9zerofor 90hr incall or out call"
+    text_string = "test 71857376 test 71857376718 test 71857376719 718573767185 71837376718 71981090718 718573767198 719810907185 71857376150 1171857376"
     text_phone_numbers = extractor.match(text_string, source_type='text')
     print text_phone_numbers
 
