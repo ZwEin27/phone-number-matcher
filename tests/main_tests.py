@@ -164,9 +164,9 @@ if __name__ == '__main__':
     def run_main_test():
         suite = unittest.TestSuite()
         # suite.addTest(TestMainMethods("test_text_extractor_file"))
-        # suite.addTest(TestMainMethods("test_text_extractor_string"))
+        suite.addTest(TestMainMethods("test_text_extractor_string"))
         # suite.addTest(TestMainMethods("test_url_extractor_file"))
-        suite.addTest(TestMainMethods("test_url_extractor_string"))
+        # suite.addTest(TestMainMethods("test_url_extractor_string"))
         
         # suite.addTest(TestMainMethods("test_extractor"))
 

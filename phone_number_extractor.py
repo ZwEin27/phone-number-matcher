@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-21 12:36:47
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-09-19 20:34:35
+# @Last Modified time: 2016-09-19 20:43:47
 
 
 import sys
@@ -433,10 +433,12 @@ class Validator():
 
             if self.is_datetime(nums):
                 continue
+
+            ans += [nums]
             
-            valid = self.validate_phone_number(nums)
-            if valid:
-                ans.extend(valid)
+            # valid = self.validate_phone_number(nums)
+            # if valid:
+            #     ans.extend(valid)
 
         ans = list(set(ans))
         ans = self.suggest_most_overlap(ans)
@@ -520,7 +522,7 @@ if __name__ == '__main__':
     from phone_number_extractor import PhoneNumberExtractor
     extractor = PhoneNumberExtractor()
 
-    url_string = "http://costarica.backpage.com/BodyRubs/somos-una-choco-latosa-tentacin-llmanos-7185737671857376/2894113"
+    url_string = "http://costarica.backpage.com/BodyRubs/domingo-caribeo-ertico-con-kennia-71857376-71857376/2897781"
     url_phone_numbers = extractor.match(url_string, source_type='url')
     print url_phone_numbers
 

@@ -2,7 +2,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-14 16:17:20
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-07-15 11:12:30
+# @Last Modified time: 2016-09-19 20:43:12
 
 """
 ensure phone numbers are valid
@@ -132,10 +132,12 @@ class Validator():
 
             if self.is_datetime(nums):
                 continue
+
+            ans += [nums]
             
-            valid = self.validate_phone_number(nums)
-            if valid:
-                ans.extend(valid)
+            # valid = self.validate_phone_number(nums)
+            # if valid:
+            #     ans.extend(valid)
 
         ans = list(set(ans))
         ans = self.suggest_most_overlap(ans)

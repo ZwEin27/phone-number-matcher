@@ -4,7 +4,7 @@
 # @Author: ZwEin
 # @Date:   2016-06-13 23:15:52
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-09-19 20:33:47
+# @Last Modified time: 2016-09-19 20:43:18
 
 """
 main file for phone number matcher
@@ -54,11 +54,11 @@ class PhoneNumberMatcher():
         if do_clean: 
             content = self.cleaner.clean(content)
 
-        # if do_extract:
-        #     content = self.extractor.extract(content)
+        if do_extract:
+            content = self.extractor.extract(content)
 
-        # if do_validate:
-        #     content = self.validator.validate(content)
+        if do_validate:
+            content = self.validator.validate(content)
 
         return content
 
