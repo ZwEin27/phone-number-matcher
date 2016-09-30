@@ -2,13 +2,16 @@
 # @Author: ZwEin
 # @Date:   2016-06-21 12:36:47
 # @Last Modified by:   ZwEin
-# @Last Modified time: 2016-09-29 21:28:45
+# @Last Modified time: 2016-09-29 21:54:12
 
 
-import sys
+
 import os
-import json
 import re
+import sys
+import json
+import copy
+import types
 import string
 import collections
 import phonenumbers
@@ -55,14 +58,7 @@ class Preprocessor():
         return raw
 
     money_regex = r"(?:(?<=[\D])\$\d+(?=[\W_]))"
-    # isolate_digits_regex = r"(?:[a-z][\s_-][0-9]{,10}[\s_-][a-z])"
 
-    """
-    remove digits before unit
-
-    samples:
-        I'm 5'6\" 140 lbs.
-    """
     units = ['lbs', 'kg', 'hour', 'hr', 'hh']
     unit_regex = r"(?:\d+[\s\W]*(" + r"|".join(units) + "))"
 
@@ -256,7 +252,7 @@ class Cleaner():
         # print raw
         return raw
 
-class Extractor():
+class ZEExtractor():
 
     def __init__(self):
         pass
@@ -311,7 +307,7 @@ class Extractor():
     # print numbers_regex
     
     def extract(self, raw):
-        raw = Extractor.re_numbers_regex.findall(raw)
+        raw = ZEExtractor.re_numbers_regex.findall(raw)
         raw = [''.join(_.split()) for _ in raw if len(_.strip()) >= 10]
         return '\t'.join(raw)
 
@@ -468,7 +464,7 @@ class Normalizer():
             return cleaned_output.split()
 
 
-class PhoneNumberExtractor():
+class PhoneNumberExtractor(object):
 
     PN_OUTPUT_FORMAT_LIST = 'list'
     PN_OUTPUT_FORMAT_OBFUSCATION = 'obfuscation'
@@ -476,7 +472,7 @@ class PhoneNumberExtractor():
     def __init__(self, _output_format='list'):
         self.preprocessor = Preprocessor()
         self.tokenizer = Tokenizer(source_type='text')
-        self.extractor = Extractor()
+        self.extractor = ZEExtractor()
         self.cleaner = Cleaner()
         self.validator = Validator()
         self.normalizer = Normalizer()
@@ -513,13 +509,148 @@ class PhoneNumberExtractor():
         uncleaned_ans = self.do_process(content, source_type=source_type, do_clean=False)
         return self.normalizer.normalize(cleaned_ans, uncleaned_ans, output_format=self.output_format)
 
+########################################################################
+# URLExtractor
+########################################################################
+
+import esm
+import idna
+import tldextract
+
+re_dot = re.compile(r'(?:\s+?dot\s+?)', re.IGNORECASE)
+reg_url_charactor = '[a-z0-9-.]'
+re_url_charactor = re.compile(reg_url_charactor, re.IGNORECASE)
+re_pretld = re.compile(reg_url_charactor+'+?$', re.IGNORECASE)
+re_posttld = re.compile(':?[0-9]*[/[!#$&-;=?a-z_]+]?', re.IGNORECASE)
+
+class URLExtractor(object):
+
+    def __init_tld_index():
+        tldindex = esm.Index()
+        tlds = (tldextract.TLDExtract()._get_tld_extractor().tlds)
+        ldindex = esm.Index()
+        for tld in tlds:
+            tldindex.enter('.' + tld.encode('idna'))
+        tldindex.fix()
+        return tldindex
+    
+    tldindex = __init_tld_index()
+
+    @staticmethod
+    def preprocess(text):
+
+        def clean(text):
+            text = re_dot.sub('.', text)
+            return text
+
+        text = clean(text)
+        return text
+
+    @staticmethod
+    def query(text):
+        ans = []
+        exts = URLExtractor.tldindex.query(text)
+        for ext in exts:
+            pretld, posttld = None, None
+            url = ''
+            tld = ext[1]
+            startpt, endpt = ext[0][0], ext[0][1]
+            if len(text) > endpt:
+                nextcharacter = text[endpt]
+                if re_url_charactor.match(nextcharacter):
+                    continue
+                posttld = re_posttld.match(text[endpt:])
+            pretld = re_pretld.search(text[:startpt])
+            if pretld:
+                url = pretld.group(0)
+                startpt -= len(pretld.group(0))
+            url += tld
+            if posttld:
+                url += posttld.group(0)     
+                endpt += len(posttld.group(0))
+            url = url.rstrip(',.') 
+            ans.append(url)
+        ans = list(set([_ for _ in ans if _]))
+        return ans
+
+    @staticmethod
+    def extract(text):
+        text = text.encode('ascii', 'ignore')
+        text= URLExtractor.preprocess(text)
+        ans = URLExtractor.query(text)
+        return ans
+
+# in production
+# from digExtractor.extractor import Extractor
+
+# in test
+class Extractor:
+
+    def extract(doc):
+        raise NotImplementedError( "Need to implement extract function" )
+
+    # should create a new dictionary each time
+    def get_metadata():
+        raise NotImplementedError( "Need to implement get_metadata function" )
+
+    def set_metadata():
+        raise NotImplementedError( "Need to implement set_metadata function" )
+
+    def get_renamed_input_fields(self):
+        raise NotImplementedError( "Need to implement get_renamed_input_fields function" )
+
+    def set_renamed_input_fields(self, renamed_input_fields):
+        if not (isinstance(renamed_input_fields, basestring) or isinstance(renamed_input_fields, types.ListType)):
+            raise ValueError("renamed_input_fields must be a string or a list")
+        self.renamed_input_fields = renamed_input_fields
+        return self 
+
+class PhoneExtractor(Extractor):
+
+    def __init__(self):
+        self.renamed_input_fields = ''  # ? renamed_input_fields
+
+    def extract(self, doc):
+        urls = URLExtractor.extract(doc)
+        extractor = PhoneNumberExtractor()
+
+        extracts = []
+        for url in urls:
+            extracts += extractor.match(url, source_type='url')
+            doc = doc.replace(url, '')
+        
+        extracts += extractor.match(doc, source_type='text')
+        return extracts
+
+    def get_metadata(self):
+        return copy.copy(self.metadata)
+
+    def set_metadata(self, metadata):
+        self.metadata = metadata
+        return self
+
+    def get_renamed_input_fields(self):
+        return self.renamed_input_fields
+
+    def set_renamed_input_fields(self, renamed_input_fields):
+        if not (isinstance(renamed_input_fields, basestring) or isinstance(renamed_input_fields, types.ListType)):
+            raise ValueError("renamed_input_fields must be a string or a list")
+        self.renamed_input_fields = renamed_input_fields
+        return self 
+
 
 
 if __name__ == '__main__':
 
+    doc = "71857376 71857376718 test 71857376719 718573767185 71837376718 71981090718 718573767198 719810907185 71857376150 1171857376 http://costarica.backpage.com/BodyRubs/hoy-cerramos-a-las-11-71857376/2909373 Sexy new girl in town searching for a great date wiff u Naughty fresh girl here searching 4 a great date wiff you Sweet new girl in town seeking for a good date with u for80 2sixseven one9zerofor 90hr incall or out call"
+
+    pe = PhoneExtractor()
+    print pe.extract(doc)
+
+    """
     # Samples
     
-    from phone_number_extractor import PhoneNumberExtractor
+    # from phone_number_extractor import PhoneNumberExtractor
     extractor = PhoneNumberExtractor()
 
     url_string = "http://costarica.backpage.com/BodyRubs/hoy-cerramos-a-las-11-71857376/2909373"
@@ -530,5 +661,5 @@ if __name__ == '__main__':
     text_string = "71857376 71857376718 test 71857376719 718573767185 71837376718 71981090718 718573767198 719810907185 71857376150 1171857376"
     text_phone_numbers = extractor.match(text_string, source_type='text')
     print text_phone_numbers
-
+    """
 
