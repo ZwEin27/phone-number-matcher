@@ -1,6 +1,6 @@
 # phone-number-matcher
 
-A python tool to extract phone number from url or text 
+A python2 tool to extract phone number from url or text 
 
 ## About
 
